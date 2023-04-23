@@ -1,0 +1,18 @@
+[tool]
+[tool.pdm]
+
+[project]
+name = "traffcap"
+version = "0.1.0"
+description = "A RequestBin like application using FastAPI"
+authors = [
+    {name = "Chris Read", email = "centurix@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
