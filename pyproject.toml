@@ -1,5 +1,17 @@
 [tool]
 [tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=7.3.1",
+    "ruff>=0.0.262",
+    "mypy>=1.2.0",
+]
+[tool.pdm.scripts]
+lint = "ruff ."
+test = "pytest ."
+
+[tool.ruff]
+line-length=120
 
 [project]
 name = "traffcap"
@@ -8,7 +20,15 @@ description = "A RequestBin like application using FastAPI"
 authors = [
     {name = "Chris Read", email = "centurix@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "fastapi>=0.95.1",
+    "uvicorn[standard]>=0.21.1",
+    "gunicorn>=20.1.0",
+    "pydantic-jsonapi>=0.11.0",
+    "sqlalchemy>=2.0.10",
+    "alembic>=1.10.3",
+    "websockets>=11.0.2",
+]
 requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "MIT"}

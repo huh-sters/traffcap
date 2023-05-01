@@ -1,0 +1,16 @@
+GET {{host}}/r/123abc
+###
+POST {{host}}/r/123abc
+###
+PUT {{host}}/r/123abc
+###
+PATCH {{host}}/r/123abc
+###
+DELETE {{host}}/r/123abc
+###
+OPTIONS {{host}}/r/123abc
+###
+HEAD {{host}}/r/123abc
+###
+TRACE {{host}}/r/123abc
+###

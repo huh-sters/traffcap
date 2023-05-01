@@ -1,0 +1,8 @@
+GET {{host}}/endpoints
+###
+GET {{host}}/endpoints/e2ca9ca1846c4c62998aae1bc62df0eb
+###
+POST {{host}}/endpoints
+###
+DELETE {{host}}/endpoints/e2ca9ca1846c4c62998aae1bc62df0eb
+###
