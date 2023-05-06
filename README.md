@@ -1,3 +1,5 @@
+[Dall-E Generated Logo](https://github.com/huh-sters/traffcap/blob/master/spa/src/assets/traffcap_logo.png?raw=true)
+
 # traffcap
 
 A RequestBin like application using FastAPI.
@@ -22,3 +24,5 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * Allow Redis/RabbitMQ to talk between Gunicorn managed processes and clusters of servers behind load balancers
 * Allow CORS configuration
 * Allow multiple database types (SQLite, MySQL, Postres)
+
+
