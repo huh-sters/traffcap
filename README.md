@@ -59,13 +59,13 @@ From the repository root, issue the following command to start the server:
 
 You'll get a bunch of messages and the server will be up and running. Now, you can visit:
 
-(The frontend SPA)[http://localhost:8000] (Watch the port number here, it may be different to the one you have, but 8000 is probably right, it'll say the port number in the terminal messages)
+[The frontend SPA](http://localhost:8000) (Watch the port number here, it may be different to the one you have, but 8000 is probably right, it'll say the port number in the terminal messages)
 
 That's it!
 
 ## What Does It Run?
 
-When you invoke `pdm run server`, it starts (Gunicorn)[https://gunicorn.org/] with 4 (Uvicorn)[https://www.uvicorn.org/] workers.
+When you invoke `pdm run server`, it starts [Gunicorn](https://gunicorn.org/) with 4 [Uvicorn](https://www.uvicorn.org/) workers.
 
 It then binds everything to `0.0.0.0` on port `8000`
 
