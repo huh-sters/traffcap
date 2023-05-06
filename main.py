@@ -42,7 +42,7 @@ def main():
     """
     Add our routes to the application
     """
-    assets_dir = Path("spa", "dist", "assets")
+    assets_dir = Path("spa", "dist", "spa", "assets")
 
     # Static mount for SPA assets, with root files exposed elsewhere
     app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="spa")

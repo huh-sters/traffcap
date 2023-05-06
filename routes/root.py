@@ -6,7 +6,7 @@ Files in the root directory
 """
 
 root_router = APIRouter(include_in_schema=False)
-DIST = Path("spa", "dist")
+DIST = Path("spa", "dist", "spa")
 
 
 @root_router.get("/")
