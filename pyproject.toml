@@ -9,6 +9,7 @@ dev = [
 [tool.pdm.scripts]
 lint = "ruff ."
 test = "pytest ."
+server = "gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
 
 [tool.ruff]
 line-length=120
