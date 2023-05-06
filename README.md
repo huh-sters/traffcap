@@ -147,3 +147,31 @@ If you wanted to, you can add the default Python interpreter in VSCode by adding
 ```
 
 This will make all terminal sessions in VSCode start in that virtual environment and the debugger will use this version as well.
+
+# Concepts
+
+## Endpoints
+
+These are the URL's that are used by your application to talk to Traffcap. They are in the format of a short prefix followed by a longer identifier, like this:
+
+`/r/123abcdefg890`
+
+So say your server is hosted at a specific address like `https://fipo.co` then the webhook URL would be:
+
+`https://fipo.co/r/123abcdefg890`
+
+Now, by default, the prefix for the URL's is `r`, but this can be changed to something else if you like in the configuration. The part after the prefix is known as the *endpoint code*.
+
+When your application calls this URL by any HTTP verb, like GET or POST, Traffcap will record everything about the interation and then send back a response of some kind.
+
+### Endpoint Code Matching
+
+By default, Traffcap will accept any endpoint code and store the interaction. Doesn't matter how long or short the code is, it'll record the data.
+
+You can tell Traffcap to interact in specific ways by specifying a match to certain endpoint codes.
+
+For example, if you see an endpoint code that starts with `123...` you can respond to the request with a JSON API payload with specific values that your application might need to proceed.
+
+These matches are performed using [Regular Expressions](https://www.regular-expressions.info/) in the endpoint matching section.
+
+You could match an endpoint code exactly, or just parts of the endpoint.
