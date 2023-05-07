@@ -3,21 +3,21 @@
 
 # Quasar core related directories
 .quasar
-/spa/dist
+/src/traffcap/spa/dist
 
 # Cordova related directories and files
-/spa/src-cordova/node_modules
-/spa/src-cordova/platforms
-/spa/src-cordova/plugins
-/spa/src-cordova/www
+/src/traffcap/spa/src-cordova/node_modules
+/src/traffcap/spa/src-cordova/platforms
+/src/traffcap/spa/src-cordova/plugins
+/src/traffcap/spa/src-cordova/www
 
 # Capacitor related directories and files
-/spa/src-capacitor/www
-/spa/src-capacitor/node_modules
+/src/traffcap/spa/src-capacitor/www
+/src/traffcap/spa/src-capacitor/node_modules
 
 # BEX related directories and files
-/spa/src-bex/www
-/spa/src-bex/js/core
+/src/traffcap/spa/src-bex/www
+/src/traffcap/spa/src-bex/js/core
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
