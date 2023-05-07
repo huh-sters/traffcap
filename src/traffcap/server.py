@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-import os
 from pathlib import Path
 import click
-from typing import Any
-from gunicorn.app.base import BaseApplication
+import logging
+from traffcap.core import (
+    banner,
+    log_setup,
+    StandaloneApplication
+)
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -46,6 +49,9 @@ def main():
     """
     Add our routes to the application
     """
+    log_setup()
+    logging.info("Starting TRAFFCAP...")
+    banner()
     assets_dir = Path(str(Path(__file__).parent), "spa", "dist", "spa", "assets")
 
     # Static mount for SPA assets, with root files exposed elsewhere
@@ -63,27 +69,6 @@ def main():
 """
 Direct CLI support
 """
-
-
-# Class for running FastAPI from within Python itself
-class StandaloneApplication(BaseApplication):
-    def __init__(self, app, options=None):
-        self.options = options or {}
-        self.application = app
-        super().__init__()
-
-    def load_config(self) -> None:
-        config = {
-            key: value for key, value in self.options.items()
-            if key in self.cfg.settings and value is not None
-        }
-        for key, value in config.items():
-            self.cfg.set(key.lower(), value)
-
-    def load(self) -> Any:
-        return self.application
-
-
 @click.command()
 @click.option(
     "--workers",
@@ -121,5 +106,5 @@ def cli(workers: int, bind: str, port: str) -> None:
     StandaloneApplication(app, options).run()
 
 
-if __name__ in ["__main__", "server"]:
+if __name__ in ["__main__", "server", "traffcap.server"]:
     main()

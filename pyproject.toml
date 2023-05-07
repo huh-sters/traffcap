@@ -9,7 +9,8 @@ dev = [
 [tool.pdm.scripts]
 lint = "ruff src"
 test = "pytest src"
-server = "gunicorn src.traffcap.server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:9669"
+server.cmd = "gunicorn traffcap.server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:9669"
+server.env = { "PYTHONPATH" = "src" }
 
 [tool.ruff]
 line-length=120
