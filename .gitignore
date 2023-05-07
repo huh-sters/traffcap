@@ -4,6 +4,7 @@
 # Quasar core related directories
 .quasar
 /src/traffcap/spa/dist
+/src/traffcap/spa/node_modules
 
 # Cordova related directories and files
 /src/traffcap/spa/src-cordova/node_modules
