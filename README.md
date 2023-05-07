@@ -59,7 +59,7 @@ From the repository root, issue the following command to start the server:
 
 You'll get a bunch of messages and the server will be up and running. Now, you can visit:
 
-[The frontend SPA](http://localhost:8000) (Watch the port number here, it may be different to the one you have, but 8000 is probably right, it'll say the port number in the terminal messages)
+[The frontend SPA](http://localhost:9669) (Watch the port number here, it may be different to the one you have, but 9669 is probably right, it'll say the port number in the terminal messages)
 
 That's it!
 
@@ -67,15 +67,15 @@ That's it!
 
 When you invoke `pdm run server`, it starts [Gunicorn](https://gunicorn.org/) with 4 [Uvicorn](https://www.uvicorn.org/) workers.
 
-It then binds everything to `0.0.0.0` on port `8000`
+It then binds everything to `0.0.0.0` on port `9669`
 
 The command it runs is:
 
-`gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000`
+`gunicorn server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:9669`
 
 You can change the number of Uvicorn workers here if you like. If you don't want to run lots of different processes, you can use Uvicorn directly:
 
-`uvicorn main:app --host 0.0.0.0 --port 8000`
+`uvicorn server:app --host 0.0.0.0 --port 9669`
 
 This will run a single Uvicorn worker bound to the same network interface and port number.
 
@@ -93,13 +93,13 @@ You can setup a launch configuration with the following:
             "request": "launch",
             "module": "gunicorn",
             "args": [
-                "main:app",
+                "server:app",
                 "--workers",
                 "4",
                 "--worker-class",
                 "uvicorn.workers.UvicornWorker",
                 "--bind",
-                "0.0.0.0:8000"
+                "0.0.0.0:9669"
             ]
         },
         {
@@ -108,7 +108,7 @@ You can setup a launch configuration with the following:
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "main:app"
+                "server:app"
             ],
             "jinja": true
         }
