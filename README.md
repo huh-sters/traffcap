@@ -1,4 +1,6 @@
-![Dall-E Generated Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/traffcap_logo.png?raw=true)
+![Dall-E Generated Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/images/traffcap_logo.png?raw=true)
+
+
 
 # traffcap
 
