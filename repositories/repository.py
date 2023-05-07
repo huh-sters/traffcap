@@ -10,7 +10,7 @@ class Repository:
 
     @classmethod
     @contextmanager
-    def session(cls) -> Generator[Session]:
+    def session(cls):
         cls.engine = create_engine("sqlite:///test.db", echo=True)
         yield Session(cls.engine)
 
