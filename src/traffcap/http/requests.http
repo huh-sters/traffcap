@@ -1,4 +1,11 @@
-GET {{host}}/r/123abc
+GET {{host}}/r/123abc?a=1&b=2&c=3
+Set-Cookie: cookie1=1234
+Content-Type: application/json
+
+{
+    "test": "test"
+}
+
 ###
 POST {{host}}/r/123abc
 ###

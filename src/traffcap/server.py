@@ -100,6 +100,8 @@ def cli(workers: int, bind: str, port: str) -> None:
         "worker_class": "uvicorn.workers.UvicornWorker",
         "workers": workers,
     }
+    # Upgrade
+
     # Attach our routes
     main()
     # Run the application

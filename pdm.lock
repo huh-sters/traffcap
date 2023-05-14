@@ -2,6 +2,15 @@
 # It is not intended for manual editing.
 
 [[package]]
+name = "aiosqlite"
+version = "0.19.0"
+requires_python = ">=3.7"
+summary = "asyncio bridge to the standard sqlite3 module"
+dependencies = [
+    "typing-extensions>=4.0; python_version < \"3.8\"",
+]
+
+[[package]]
 name = "alembic"
 version = "1.10.4"
 requires_python = ">=3.7"
@@ -328,9 +337,13 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 [metadata]
 lock_version = "4.2"
 groups = ["default", "dev"]
-content_hash = "sha256:f9bcd69edb5c397723e2ea94cc8a6de373f1642e6b65a698f29579ce851e97d3"
+content_hash = "sha256:5c5e78546d24a99debff187877c1f02542e98a589636b888d0f05ef3dcda50cc"
 
 [metadata.files]
+"aiosqlite 0.19.0" = [
+    {url = "https://files.pythonhosted.org/packages/ea/51/060efa10a814145acd4e42c6e5ed540b8714cad52ca026c5930e7c473049/aiosqlite-0.19.0.tar.gz", hash = "sha256:95ee77b91c8d2808bd08a59fbebf66270e9090c3d92ffbf260dc0db0b979577d"},
+    {url = "https://files.pythonhosted.org/packages/ef/4f/22d2edd4cd2a84e179f8c43806cb29cf03a344d2f27a7c6d5afef43bbe7e/aiosqlite-0.19.0-py3-none-any.whl", hash = "sha256:edba222e03453e094a3ce605db1b970c4b3376264e56f32e2a4959f948d66a96"},
+]
 "alembic 1.10.4" = [
     {url = "https://files.pythonhosted.org/packages/14/b3/e471678c278e5f9beb9cb9b6acc2cfbb5628545d9795a9e05627f87c7e7c/alembic-1.10.4.tar.gz", hash = "sha256:295b54bbb92c4008ab6a7dcd1e227e668416d6f84b98b3c4446a2bc6214a556b"},
     {url = "https://files.pythonhosted.org/packages/83/64/3d091f50da38aca0774e30053db2bd3483ba6358674a60d82fd6dd6248b6/alembic-1.10.4-py3-none-any.whl", hash = "sha256:43942c3d4bf2620c466b91c0f4fca136fe51ae972394a0cc8b90810d664e4f5c"},
