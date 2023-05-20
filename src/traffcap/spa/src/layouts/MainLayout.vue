@@ -31,7 +31,7 @@
   </q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from 'vue'
 import LeftMenu from 'src/components/LeftMenu.vue'
 
