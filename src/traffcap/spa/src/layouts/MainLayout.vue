@@ -12,7 +12,7 @@
       </q-toolbar>
     </q-header>
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      Drawer stuff goes here
+      <LeftMenu />
     </q-drawer>
     <q-page-container>
       <router-view />
@@ -33,8 +33,12 @@
 
 <script>
 import { ref } from 'vue'
+import LeftMenu from 'src/components/LeftMenu.vue'
 
 export default {
+  components: {
+    LeftMenu
+  },
   setup () {
     const leftDrawerOpen = ref(false)
 
