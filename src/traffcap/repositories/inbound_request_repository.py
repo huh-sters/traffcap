@@ -1,7 +1,5 @@
 from .repository import Repository
 from fastapi import Request
-import json
-from fastapi.encoders import jsonable_encoder
 from traffcap.dto import InboundRequestCreate
 
 

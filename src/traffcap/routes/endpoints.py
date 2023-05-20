@@ -12,11 +12,11 @@ _, EndpointResponseList = JsonApiModel("endpoint", Endpoint, list_response=True)
 
 
 @endpoint_router.get("/")
-async def endpoint_get() -> EndpointResponseList:
+async def endpoint_get() -> EndpointResponseList:  # type: ignore
     """
     Return a list of registered endpoints
     """
-    endpoints = EndpointRepository.get_all_endpoints()
+    endpoints = await EndpointRepository.get_all_endpoints()
 
     return EndpointResponseList(
         data=[
@@ -28,11 +28,11 @@ async def endpoint_get() -> EndpointResponseList:
 
 
 @endpoint_router.get("/{endpoint_code}")
-async def endpoint_code_get(endpoint_code: str) -> EndpointResponse:
+async def endpoint_code_get(endpoint_code: str) -> EndpointResponse:  # type: ignore
     """
     Return a single registered endpoint
     """
-    endpoint = EndpointRepository.get_endpoint_by_code(endpoint_code)
+    endpoint = await EndpointRepository.get_endpoint_by_code(endpoint_code)
     if not endpoint:
         raise HTTPException(404, detail="Endpoint not found")
 
@@ -45,11 +45,11 @@ async def endpoint_code_get(endpoint_code: str) -> EndpointResponse:
 
 
 @endpoint_router.post("/")
-async def endpoint_create() -> EndpointResponse:
+async def endpoint_create() -> EndpointResponse:  # type: ignore
     """
     Create a new endpoint
     """
-    endpoint = EndpointRepository.create_endpoint()
+    endpoint = await EndpointRepository.create_endpoint()
 
     return EndpointResponse(
         data=EndpointResponse.resource_object(
@@ -60,15 +60,15 @@ async def endpoint_create() -> EndpointResponse:
 
 
 @endpoint_router.delete("/{endpoint_code}")
-async def endpoint_code_delete(endpoint_code: str) -> EndpointResponse:
+async def endpoint_code_delete(endpoint_code: str) -> EndpointResponse:  # type: ignore
     """
     Delete an existing endpoint
     """
-    endpoint = EndpointRepository.get_endpoint_by_code(endpoint_code)
+    endpoint = await EndpointRepository.get_endpoint_by_code(endpoint_code)
     if not endpoint:
         raise HTTPException(404, detail="Endpoint not found")
 
-    EndpointRepository.delete_by_code(endpoint_code)
+    await EndpointRepository.delete_by_code(endpoint_code)
 
     return EndpointResponse(
         data=EndpointResponse.resource_object(

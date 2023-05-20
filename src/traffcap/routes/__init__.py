@@ -1,5 +1,3 @@
-from pathlib import Path
-from fastapi import APIRouter
 from .endpoints import endpoint_router
 from .requests import requests_router
 from .root import root_router

@@ -1,12 +1,8 @@
-from collections.abc import Generator
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker
 )
-from sqlalchemy.orm import Session
-from contextlib import contextmanager
 from traffcap.model import Base
-import asyncio
 
 
 class Repository:

@@ -10,8 +10,11 @@ class EndpointRepository(Repository):
     @classmethod
     async def add_endpoint(cls, endpoint: EndpointCreate) -> Endpoint:
         async with cls.session() as session:
-            session.add(Endpoint(**endpoint.dict()))
+            new_endpoint = Endpoint(**endpoint.dict())
+            session.add(new_endpoint)
             session.commit()
+
+            return new_endpoint
 
     @classmethod
     async def get_endpoint_by_id(cls, endpoint_id: int) -> Endpoint:
@@ -37,7 +40,7 @@ class EndpointRepository(Repository):
             session.add(Endpoint(code=new_code))
             session.commit()
 
-        return cls.get_endpoint_by_code(new_code)
+        return await cls.get_endpoint_by_code(new_code)
 
     @classmethod
     async def delete_by_code(cls, endpoint_code: str) -> None:

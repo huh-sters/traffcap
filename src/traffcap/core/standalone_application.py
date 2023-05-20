@@ -1,4 +1,3 @@
-from typing import Any
 from gunicorn.app.base import BaseApplication
 from fastapi import FastAPI
 

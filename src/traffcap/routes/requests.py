@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
-import json
 from traffcap.config import settings
-from starlette.datastructures import Headers, QueryParams
 from traffcap.repositories import InboundRequestRepository
 """
 Files in the root directory
