@@ -14,6 +14,7 @@ from traffcap.routes import api_routers
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
 from fastapi.responses import JSONResponse
+from traffcap.repositories import Repository
 """
 Application bootstrap
 """
@@ -50,8 +51,14 @@ def main():
     Add our routes to the application
     """
     log_setup()
+
     logging.info("Starting TRAFFCAP...")
+
     banner()
+
+    Repository.create_connection()
+    Repository.migrate_up()
+
     assets_dir = Path(str(Path(__file__).parent), "spa", "dist", "spa", "assets")
 
     # Static mount for SPA assets, with root files exposed elsewhere

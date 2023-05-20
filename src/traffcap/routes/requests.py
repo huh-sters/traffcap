@@ -51,7 +51,6 @@ async def requests_get(endpoint_code: str, request: Request) -> JSONResponse:
 
     # At this stage we have the raw aspects of the request as strings
     # Store them...
-    await InboundRequestRepository.upgrade()
     await InboundRequestRepository.store_request(endpoint_code, request)
 
     return JSONResponse({

@@ -20,8 +20,3 @@ def log_setup() -> None:
     access_logger.setLevel(logging.INFO)
     access_handler = logging.StreamHandler(sys.stdout)
     access_logger.addHandler(access_handler)
-
-    # error_logger = logging.getLogger("gunicorn.error")
-    # error_logger.setLevel(logging.INFO)
-    # error_handler = logging.StreamHandler(sys.stdout)
-    # error_logger.addHandler(error_handler)

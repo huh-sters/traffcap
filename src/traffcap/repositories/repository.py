@@ -1,38 +1,49 @@
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
-    async_sessionmaker
+    async_sessionmaker,
+    AsyncEngine
 )
-from traffcap.model import Base
+from typing import Optional
+import asyncio
 
 
 class Repository:
-    engine = None
-
     class session:
+        engine: Optional[AsyncEngine] = None
+
         def __init__(self):
             pass
 
         async def __aenter__(self):
-            self.engine = create_async_engine("sqlite+aiosqlite:///test.db", echo=True)
-            async_session = async_sessionmaker(self.engine, expire_on_commit=False)
+            async_session = async_sessionmaker(
+                self.engine,
+                expire_on_commit=False
+            )
             return async_session()
 
         async def __aexit__(self, exc_type, exc, tb):
             pass
 
 
-    # @classmethod
-    # @contextmanager
-    # async def session(cls):
-    #     cls.engine = create_async_engine("sqlite+aiosqlite:///test.db", echo=True)
-    #     async_session = async_sessionmaker(cls.engine, expire_on_commit=False)
-    #     yield async_session()
+    @classmethod
+    def create_connection(cls) -> None:
+        # Create an async session for the main application
+        cls.session.engine = create_async_engine("sqlite+aiosqlite:///test.db", echo=True)
 
     @classmethod
-    async def upgrade(cls) -> None:
-        engine = create_async_engine("sqlite+aiosqlite:///test.db", echo=True)
-        # Base.metadata.create_all(engine)
+    async def _upgrade(cls) -> None:
+        # Perform any migrations
+        # async with cls.session.engine.begin() as connection:
+        #     await connection.run_sync(Base.metadata.drop_all)
+        #     await connection.run_sync(Base.metadata.create_all)
+        pass
 
-        async with engine.begin() as connection:
-            await connection.run_sync(Base.metadata.drop_all)
-            await connection.run_sync(Base.metadata.create_all)
+    @classmethod
+    def migrate_up(cls) -> None:
+        # Migrate up the database
+        asyncio.run(cls._upgrade())
+
+    @classmethod
+    def migrate_down(cls) -> None:
+        # Migrate down, nothing here yet
+        pass
