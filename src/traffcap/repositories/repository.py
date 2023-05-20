@@ -28,7 +28,10 @@ class Repository:
     @classmethod
     def create_connection(cls) -> None:
         # Create an async session for the main application
-        cls.session.engine = create_async_engine("sqlite+aiosqlite:///test.db", echo=True)
+        cls.session.engine = create_async_engine(
+            "sqlite+aiosqlite:///test.db",
+            echo=True
+        )
 
     @classmethod
     async def _upgrade(cls) -> None:
