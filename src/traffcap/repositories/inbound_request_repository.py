@@ -1,14 +1,23 @@
-from .repository import Repository
+from .repository import Repository, inject_session
 from fastapi import Request
 from traffcap.dto import InboundRequestCreate
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class InboundRequestRepository(Repository):
     @classmethod
-    async def store_request(cls, endpoint_code: str, request: Request) -> None:
+    @inject_session
+    async def store_request(
+        cls,
+        endpoint_code: str,
+        request: Request,
+        session: AsyncSession
+    ) -> None:
         """
         Store the components of the request
         """
-        async with cls.session() as session:
-            await session.add(await InboundRequestCreate.from_request(endpoint_code, request))
-            await session.commit()
+        async with session.begin():
+            session.add(await InboundRequestCreate.from_request(
+                endpoint_code,
+                request
+            ))

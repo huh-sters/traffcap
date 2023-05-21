@@ -1,27 +1,33 @@
-from typing import List
-from .repository import Repository
+from typing import Optional
+from .repository import Repository, inject_session
 from traffcap.model import User
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, ScalarResult
 
 
 class UserRepository(Repository):
     @classmethod
-    async def add_a_test_user(cls) -> User:
-        async with cls.session() as session:
+    @inject_session
+    async def add_a_test_user(cls, session: AsyncSession) -> User:
+        async with session.begin():
             user = User(
                 email="centurix@gmail.com",
                 fullname="Chris Read"
             )
             session.add(user)
-            session.commit()
 
             return user
 
     @classmethod
-    async def get_user_by_id(cls, user_id: int) -> User:
-        async with cls.session() as session:
-            return session.get(User, user_id)
+    @inject_session
+    async def get_user_by_id(
+        cls,
+        user_id: int,
+        session: AsyncSession
+    ) -> Optional[User]:
+        return await session.get(User, user_id)
 
     @classmethod
-    async def get_all_users(cls) -> List[User]:
-        async with cls.session() as session:
-            return session.query(User).all()
+    @inject_session
+    async def get_all_users(cls, session: AsyncSession) -> ScalarResult[User]:
+        return await session.scalars(select(User))

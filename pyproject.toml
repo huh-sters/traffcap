@@ -10,8 +10,8 @@ dev = [
     "pytest-cov>=4.0.0",
     "coverage[toml]>=7.2.5",
     "pytest-asyncio>=0.21.0",
-    "alchemy-mock>=0.4.3",
     "pytest-mock>=3.10.0",
+    "mock-alchemy>=0.2.6",
 ]
 [tool.pdm.scripts]
 lint = "ruff src"
@@ -62,6 +62,7 @@ package-dir = "src"
 [[tool.mypy.overrides]]
 module = [
     "gunicorn.app.base",
-    "pydantic_jsonapi"
+    "pydantic_jsonapi",
+    "mock_alchemy.mocking"
 ]
 ignore_missing_imports = true

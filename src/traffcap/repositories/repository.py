@@ -7,28 +7,33 @@ from typing import Optional
 import asyncio
 
 
+def inject_session(f):
+    """
+    Poor mans dependency injection. Inject a session into the repository call.
+    """
+    async def wrapper(*args, **kwargs):
+        if "session" in kwargs:
+            return await f(*args, **kwargs)
+
+        if not Repository.engine:
+            raise Exception("Database not connected")
+
+        async_session = async_sessionmaker(
+            Repository.engine,
+            expire_on_commit=False
+        )
+        return await f(*args, **kwargs, session=async_session())
+
+    return wrapper
+
+
 class Repository:
-    class session:
-        engine: Optional[AsyncEngine] = None
-
-        def __init__(self):
-            pass
-
-        async def __aenter__(self):
-            async_session = async_sessionmaker(
-                self.engine,
-                expire_on_commit=False
-            )
-            return async_session()
-
-        async def __aexit__(self, exc_type, exc, tb):
-            pass
-
+    engine: Optional[AsyncEngine] = None
 
     @classmethod
     def create_connection(cls) -> None:
         # Create an async session for the main application
-        cls.session.engine = create_async_engine(
+        cls.engine = create_async_engine(
             "sqlite+aiosqlite:///test.db",
             echo=True
         )

@@ -11,16 +11,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "alchemy-mock"
-version = "0.4.3"
-summary = "SQLAlchemy mock helpers."
-dependencies = [
-    "setuptools",
-    "six",
-    "sqlalchemy",
-]
-
-[[package]]
 name = "alembic"
 version = "1.10.4"
 requires_python = ">=3.7"
@@ -218,6 +208,15 @@ name = "markupsafe"
 version = "2.1.2"
 requires_python = ">=3.7"
 summary = "Safely add untrusted strings to HTML/XML markup."
+
+[[package]]
+name = "mock-alchemy"
+version = "0.2.6"
+requires_python = ">=3.7,<4.0"
+summary = "SQLAlchemy mock helpers."
+dependencies = [
+    "SQLAlchemy<3.0.0,>=2.0.6",
+]
 
 [[package]]
 name = "mypy"
@@ -531,16 +530,12 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 lock_version = "4.2"
 cross_platform = true
 groups = ["default", "dev"]
-content_hash = "sha256:bd052ddea6facee40eaf5cce463b0f3e7bd5278a21cb53bc611901ec9e7cc50b"
+content_hash = "sha256:5bad8d4353599e11615035f208b311d430282ca2910a88a4aef09fbb792f8d75"
 
 [metadata.files]
 "aiosqlite 0.19.0" = [
     {url = "https://files.pythonhosted.org/packages/ea/51/060efa10a814145acd4e42c6e5ed540b8714cad52ca026c5930e7c473049/aiosqlite-0.19.0.tar.gz", hash = "sha256:95ee77b91c8d2808bd08a59fbebf66270e9090c3d92ffbf260dc0db0b979577d"},
     {url = "https://files.pythonhosted.org/packages/ef/4f/22d2edd4cd2a84e179f8c43806cb29cf03a344d2f27a7c6d5afef43bbe7e/aiosqlite-0.19.0-py3-none-any.whl", hash = "sha256:edba222e03453e094a3ce605db1b970c4b3376264e56f32e2a4959f948d66a96"},
-]
-"alchemy-mock 0.4.3" = [
-    {url = "https://files.pythonhosted.org/packages/16/e4/65807a46797083ec0b9971c7ed0459bd5b3b006d2c15d0d1737fc4364d22/alchemy_mock-0.4.3-py2.py3-none-any.whl", hash = "sha256:e076b11cdef76638f4de70d50f0d8cb851d69c41346d984371f757c8fb4a0efa"},
-    {url = "https://files.pythonhosted.org/packages/b6/26/41bd026d187020e2a16dbc9875b3f56b98c4d9732c6942f44e210535158b/alchemy-mock-0.4.3.tar.gz", hash = "sha256:7914c3f56aa7dd793d31a5ea3816972ff57de6e3c82651febfaab135e8f39d7a"},
 ]
 "alembic 1.10.4" = [
     {url = "https://files.pythonhosted.org/packages/14/b3/e471678c278e5f9beb9cb9b6acc2cfbb5628545d9795a9e05627f87c7e7c/alembic-1.10.4.tar.gz", hash = "sha256:295b54bbb92c4008ab6a7dcd1e227e668416d6f84b98b3c4446a2bc6214a556b"},
@@ -907,6 +902,10 @@ content_hash = "sha256:bd052ddea6facee40eaf5cce463b0f3e7bd5278a21cb53bc611901ec9
     {url = "https://files.pythonhosted.org/packages/e9/c6/2da36728c1310f141395176556500aeedfdea8c2b02a3b72ba61b69280e8/MarkupSafe-2.1.2-cp37-cp37m-musllinux_1_1_i686.whl", hash = "sha256:a6f2fcca746e8d5910e18782f976489939d54a91f9411c32051b4aab2bd7c513"},
     {url = "https://files.pythonhosted.org/packages/ea/60/2400ba59cf2465fa136487ee7299f52121a9d04b2cf8539ad43ad10e70e8/MarkupSafe-2.1.2-cp311-cp311-win_amd64.whl", hash = "sha256:e55e40ff0cc8cc5c07996915ad367fa47da6b3fc091fdadca7f5403239c5fec3"},
     {url = "https://files.pythonhosted.org/packages/f9/aa/ebcd114deab08f892b1d70badda4436dbad1747f9e5b72cffb3de4c7129d/MarkupSafe-2.1.2-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:7313ce6a199651c4ed9d7e4cfb4aa56fe923b1adf9af3b420ee14e6d9a73df65"},
+]
+"mock-alchemy 0.2.6" = [
+    {url = "https://files.pythonhosted.org/packages/a7/80/5af6036ed9a97d927c36384b63ea2f270224726cda7f1402cb62781d7054/mock_alchemy-0.2.6.tar.gz", hash = "sha256:807cc2bd7f658fb98292900052eaa6eeb4a65b2d62364e639462480a275299ef"},
+    {url = "https://files.pythonhosted.org/packages/aa/93/8d1f7ee9fa858d1c13511de6e0bedf7f57d15e9c7aab0e9fdf4d66074417/mock_alchemy-0.2.6-py3-none-any.whl", hash = "sha256:d5e17f2c92d0299d70cd9a0d3c8f96f759a81c285c76b03f4192451583bf865f"},
 ]
 "mypy 1.3.0" = [
     {url = "https://files.pythonhosted.org/packages/09/7b/8eb0d648352c61b08cb364d278b5c12c3f1c5841724fdd2929d7172b7eaf/mypy-1.3.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:f9dca1e257d4cc129517779226753dbefb4f2266c4eaad610fc15c6a7e14283e"},

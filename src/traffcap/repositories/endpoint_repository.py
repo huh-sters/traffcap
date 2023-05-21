@@ -1,43 +1,59 @@
-from typing import List
-from .repository import Repository
+from typing import Optional
+from .repository import (
+    Repository,
+    inject_session
+)
 from traffcap.model import Endpoint
-from sqlalchemy import select
+from sqlalchemy import select, ScalarResult
 from uuid import uuid4
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class EndpointRepository(Repository):
     @classmethod
-    async def get_endpoint_by_id(cls, endpoint_id: int) -> Endpoint:
-        async with cls.session() as session:
-            return await session.get(Endpoint, endpoint_id)
+    @inject_session
+    async def get_endpoint_by_id(
+        cls,
+        endpoint_id: int,
+        session: AsyncSession
+    ) -> Optional[Endpoint]:
+        return await session.get(Endpoint, endpoint_id)
 
     @classmethod
-    async def get_all_endpoints(cls) -> List[Endpoint]:
-        async with cls.session() as session:
-            results = await session.scalars(select(Endpoint))
-            return results
+    @inject_session
+    async def get_all_endpoints(
+        cls,
+        session: AsyncSession
+    ) -> ScalarResult[Endpoint]:
+        return await session.scalars(select(Endpoint))
 
     @classmethod
-    async def get_endpoint_by_code(cls, endpoint_code:str) -> Endpoint:
-        async with cls.session() as session:
-            return await session.scalar(
-                select(Endpoint).filter_by(code=endpoint_code)
-            )
+    @inject_session
+    async def get_endpoint_by_code(
+        cls,
+        endpoint_code: str,
+        session: AsyncSession
+    ) -> Optional[Endpoint]:
+        return await session.scalar(select(Endpoint).filter_by(code=endpoint_code))
 
     @classmethod
-    async def create_endpoint(cls) -> Endpoint:
-        async with cls.session() as session:
-            async with session.begin():
-                new_code = uuid4().hex
-                session.add(Endpoint(code=new_code))
+    @inject_session
+    async def create_endpoint(cls, session: AsyncSession) -> Endpoint:
+        async with session.begin():
+            new_code = uuid4().hex
+            session.add(Endpoint(code=new_code))
 
         return await cls.get_endpoint_by_code(new_code)
 
     @classmethod
-    async def delete_by_code(cls, endpoint_code: str) -> None:
-        async with cls.session() as session:
-            async with session.begin():
-                endpoint = await session.scalar(
-                    select(Endpoint).filter_by(code=endpoint_code)
-                )
-                await session.delete(endpoint)
+    @inject_session
+    async def delete_by_code(
+        cls,
+        endpoint_code: str,
+        session: AsyncSession
+    ) -> None:
+        async with session.begin():
+            endpoint = await session.scalar(
+                select(Endpoint).filter_by(code=endpoint_code)
+            )
+            await session.delete(endpoint)
