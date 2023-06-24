@@ -195,3 +195,7 @@ For example, if you see an endpoint code that starts with `123...` you can respo
 These matches are performed using [Regular Expressions](https://www.regular-expressions.info/) in the endpoint matching section.
 
 You could match an endpoint code exactly, or just parts of the endpoint.
+
+### Open Choice in Database Storage
+
+This application should provide the ability to choose which database you want to use. This list of supported databases is controlled by SQLAlchemy and Alembic. Currently, the DBAPI setting is embedded in the alembic.ini file and also in the Repository class. This must be easily changable.

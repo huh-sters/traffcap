@@ -1,8 +1,8 @@
 GET {{host}}/endpoints
 ###
-GET {{host}}/endpoints/27869309b8fa4397a1f2bb34119778c2
+GET {{host}}/endpoints/d0d73851a77144738efe3fda551785da
 ###
 POST {{host}}/endpoints
 ###
-DELETE {{host}}/endpoints/27869309b8fa4397a1f2bb34119778c2
+DELETE {{host}}/endpoints/eff70afbed6c40358aaf53711a2a147e
 ###

@@ -12,9 +12,8 @@ requests_router = APIRouter(prefix=f"/{settings.requests_prefix}", tags=["Reques
 @requests_router.get("/{endpoint_code}")
 async def requests_get(endpoint_code: str, request: Request) -> JSONResponse:
     """
-    Is this request endpoint code in our database?
-    Setting to only accept endpoint codes previously registered (strict)
-    Otherwise record all endpoint codes
+    Do we have a regex match for the endpoint code?
+    Record all endpoint codes
     Responses will be customizable
 
     headers

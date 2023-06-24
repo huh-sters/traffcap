@@ -3,8 +3,9 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     AsyncEngine
 )
+from alembic import command
+from alembic.config import Config
 from typing import Optional
-import asyncio
 
 
 def inject_session(f):
@@ -39,17 +40,10 @@ class Repository:
         )
 
     @classmethod
-    async def _upgrade(cls) -> None:
-        # Perform any migrations
-        # async with cls.session.engine.begin() as connection:
-        #     await connection.run_sync(Base.metadata.drop_all)
-        #     await connection.run_sync(Base.metadata.create_all)
-        pass
-
-    @classmethod
     def migrate_up(cls) -> None:
         # Migrate up the database
-        asyncio.run(cls._upgrade())
+        config = Config("alembic.ini")  # TODO: Can we migrate without a file?
+        command.upgrade(config, "head")
 
     @classmethod
     def migrate_down(cls) -> None:

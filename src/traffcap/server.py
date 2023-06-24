@@ -46,7 +46,7 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> JSONRe
     )
 
 
-def main():
+def main() -> None:
     """
     Add our routes to the application
     """
@@ -111,9 +111,13 @@ def cli(workers: int, bind: str, port: str) -> None:
 
     # Attach our routes
     main()
+
     # Run the application
     StandaloneApplication(app, options).run()
 
 
 if __name__ in ["__main__", "server", "traffcap.server"]:
     main()
+
+    # Run the application
+    # StandaloneApplication(app).run()
