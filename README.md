@@ -200,10 +200,11 @@ You could match an endpoint code exactly, or just parts of the endpoint.
 
 This application should provide the ability to choose which database you want to use. This list of supported databases is controlled by SQLAlchemy and Alembic. Currently, the DBAPI setting is embedded in the alembic.ini file and also in the Repository class. This must be easily changable.
 
-TODO: Create installtion targets for specific database storage
-traffcap[mysql]
-traffcap[sqlite]
-traffcap[mssql]
+TODO: Create installation targets for specific database storage
+
+* traffcap[mysql]
+* traffcap[sqlite]
+* traffcap[mssql]
 
 etc.
 
@@ -229,6 +230,6 @@ During development, it is fine to create feature branch revisions using the IDs 
 
 `alembic revision --autogenerate --rev-id 0.0.1 -m 'Baseline schema'`
 
-*** ORM Usage and Being Database Agnostic
+### ORM Usage and Being Database Agnostic
 
 One of the aims of this project is to be as database agnostic as it could possibly be. Out of the box the project is using SQLAlchemy to bring a certain level of abstraction to Python. Adding specific dialects of SQL into this project would be a last resort.
