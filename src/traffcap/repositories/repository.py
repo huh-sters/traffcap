@@ -35,7 +35,8 @@ class Repository:
     def create_connection(cls) -> None:
         # Create an async session for the main application
         cls.engine = create_async_engine(
-            "sqlite+aiosqlite:///test.db",
+            "mysql+aiomysql://root:zappa@localhost/traffcap",
+            # "sqlite+aiosqlite:///test.db",
             echo=True
         )
 

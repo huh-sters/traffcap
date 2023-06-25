@@ -57,6 +57,8 @@ def main() -> None:
     banner()
 
     Repository.create_connection()
+
+    logging.info("Checking and migrating...")
     Repository.migrate_up()
 
     assets_dir = Path(str(Path(__file__).parent), "spa", "dist", "spa", "assets")
@@ -71,6 +73,8 @@ def main() -> None:
     # API Routes
     for router in api_routers:
         app.include_router(router)
+
+    logging.info("Listening for traffic...")
 
 
 """
@@ -107,7 +111,6 @@ def cli(workers: int, bind: str, port: str) -> None:
         "worker_class": "uvicorn.workers.UvicornWorker",
         "workers": workers,
     }
-    # Upgrade
 
     # Attach our routes
     main()
@@ -118,6 +121,3 @@ def cli(workers: int, bind: str, port: str) -> None:
 
 if __name__ in ["__main__", "server", "traffcap.server"]:
     main()
-
-    # Run the application
-    # StandaloneApplication(app).run()
