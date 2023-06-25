@@ -1,6 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from pydantic_jsonapi import JsonApiModel
-from traffcap.dto import Endpoint
+from traffcap.dto import (
+    Endpoint,
+    InboundRequest
+)
 from traffcap.repositories import EndpointRepository
 """
 Endpoint management
@@ -9,6 +12,7 @@ Endpoint management
 endpoint_router = APIRouter(prefix="/endpoints", tags=["Endpoints"])
 EndpointRequest, EndpointResponse = JsonApiModel("endpoint", Endpoint)
 _, EndpointResponseList = JsonApiModel("endpoint", Endpoint, list_response=True)
+_, InboundRequestList = JsonApiModel("inbound_request", InboundRequest, list_response=True)
 
 
 @endpoint_router.get("/")
@@ -23,7 +27,8 @@ async def endpoint_get() -> EndpointResponseList:  # type: ignore
             EndpointResponseList.resource_object(
                 id=endpoint.id,
                 attributes=endpoint
-            ) for endpoint in endpoints]
+            ) for endpoint in endpoints
+        ]
     )
 
 
@@ -41,6 +46,25 @@ async def endpoint_code_get(endpoint_code: str) -> EndpointResponse:  # type: ig
             id=endpoint.id,
             attributes=endpoint
         )
+    )
+
+
+@endpoint_router.get("/{endpoint_code}/traffic")
+async def get_endpoint_traffic(
+    endpoint_code: str
+) -> InboundRequestList:  # type: ignore
+    """
+    Return the traffic for this endpoint code
+    """
+    traffic = await EndpointRepository.get_endpoint_traffic(endpoint_code)
+
+    return InboundRequestList(
+        data=[
+            InboundRequestList.resource_object(
+                id=item.id,
+                attributes=item
+            ) for item in traffic
+        ]
     )
 
 

@@ -4,7 +4,10 @@ from .repository import (
     inject_session
 )
 from traffcap.dto import EndpointCreate
-from traffcap.model import Endpoint
+from traffcap.model import (
+    Endpoint,
+    InboundRequest
+)
 from sqlalchemy import select, ScalarResult
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -35,6 +38,17 @@ class EndpointRepository(Repository):
         session: AsyncSession
     ) -> Optional[Endpoint]:
         return await session.scalar(select(Endpoint).filter_by(code=endpoint_code))
+
+    @classmethod
+    @inject_session
+    async def get_endpoint_traffic(
+        cls,
+        endpoint_code: str,
+        session: AsyncSession
+    ) -> ScalarResult[InboundRequest]:
+        return await session.scalars(
+            select(InboundRequest).filter_by(endpoint_code=endpoint_code)
+        )
 
     @classmethod
     @inject_session
