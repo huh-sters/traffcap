@@ -20,3 +20,8 @@ def log_setup() -> None:
     access_logger.setLevel(logging.INFO)
     access_handler = logging.StreamHandler(sys.stdout)
     access_logger.addHandler(access_handler)
+
+    sqlalchemy_logger = logging.getLogger("sqlalchemy")
+    sqlalchemy_logger.setLevel(logging.ERROR)
+    sqlalchemy_handler = logging.StreamHandler(sys.stdout)
+    sqlalchemy_logger.addHandler(sqlalchemy_handler)

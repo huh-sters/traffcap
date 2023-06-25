@@ -50,7 +50,11 @@ async def requests_get(endpoint_code: str, request: Request) -> JSONResponse:
 
     # At this stage we have the raw aspects of the request as strings
     # Store them...
-    await InboundRequestRepository.store_request(endpoint_code, request)
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
 
     return JSONResponse({
         "status": f"GET OK for {endpoint_code}"
@@ -58,52 +62,94 @@ async def requests_get(endpoint_code: str, request: Request) -> JSONResponse:
 
 
 @requests_router.post("/{endpoint_code}")
-async def requests_post(endpoint_code: str) -> JSONResponse:
+async def requests_post(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"POST OK for {endpoint_code}"
     })
 
 
 @requests_router.put("/{endpoint_code}")
-async def requests_put(endpoint_code: str) -> JSONResponse:
+async def requests_put(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"PUT OK for {endpoint_code}"
     })
 
 
 @requests_router.patch("/{endpoint_code}")
-async def requests_patch(endpoint_code: str) -> JSONResponse:
+async def requests_patch(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"PATCH OK for {endpoint_code}"
     })
 
 
 @requests_router.delete("/{endpoint_code}")
-async def requests_delete(endpoint_code: str) -> JSONResponse:
+async def requests_delete(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"DELETE OK for {endpoint_code}"
     })
 
 
 @requests_router.options("/{endpoint_code}")
-async def requests_options(endpoint_code: str) -> JSONResponse:
+async def requests_options(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"OPTIONS OK for {endpoint_code}"
     })
 
 
 @requests_router.head("/{endpoint_code}")
-async def requests_head(endpoint_code: str) -> JSONResponse:
+async def requests_head(endpoint_code: str, request: Request) -> JSONResponse:
     """
     There will be no body returned by this
     """
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"HEAD OK for {endpoint_code}"
     })
 
 
 @requests_router.trace("/{endpoint_code}")
-async def requests_trace(endpoint_code: str) -> JSONResponse:
+async def requests_trace(endpoint_code: str, request: Request) -> JSONResponse:
+    await InboundRequestRepository.store_request(
+        endpoint_code,
+        request.method,
+        request
+    )
+
     return JSONResponse({
         "status": f"TRACE OK for {endpoint_code}"
     })

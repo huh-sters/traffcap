@@ -2,7 +2,7 @@
 
 Revision ID: 0.0.1
 Revises: 
-Create Date: 2023-06-25 11:24:42.256930
+Create Date: 2023-06-25 16:43:59.175832
 
 """
 from alembic import op
@@ -26,6 +26,7 @@ def upgrade() -> None:
     op.create_table('inbound_requests',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('endpoint_code', sa.String(length=255), nullable=False),
+    sa.Column('verb', sa.String(length=10), nullable=False),
     sa.Column('headers', sa.String(length=255), nullable=False),
     sa.Column('query_params', sa.String(length=255), nullable=False),
     sa.Column('body', sa.String(length=255), nullable=False),

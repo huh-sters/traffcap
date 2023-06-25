@@ -1,4 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from uuid import uuid4
+
+
+def new_uuid() -> str:
+    return uuid4().hex
 
 
 class EndpointBase(BaseModel):
@@ -6,7 +11,7 @@ class EndpointBase(BaseModel):
 
 
 class EndpointCreate(EndpointBase):
-    pass
+    code: str = Field(default_factory=new_uuid)
 
 
 class Endpoint(EndpointBase):

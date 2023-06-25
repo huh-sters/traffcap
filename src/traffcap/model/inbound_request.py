@@ -11,6 +11,7 @@ class InboundRequest(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     endpoint_code: Mapped[str] = mapped_column(String(255))
+    verb: Mapped[str] = mapped_column(String(10))
     headers: Mapped[str] = mapped_column(String(255))
     query_params: Mapped[str] = mapped_column(String(255))
     body: Mapped[str] = mapped_column(String(255))

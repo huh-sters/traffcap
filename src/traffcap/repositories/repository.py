@@ -37,7 +37,7 @@ class Repository:
         cls.engine = create_async_engine(
             "mysql+aiomysql://root:zappa@localhost/traffcap",
             # "sqlite+aiosqlite:///test.db",
-            echo=True
+            echo=False
         )
 
     @classmethod
