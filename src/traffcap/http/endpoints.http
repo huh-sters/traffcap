@@ -1,6 +1,6 @@
 GET {{host}}/endpoints
 ###
-GET {{host}}/endpoints/d0d73851a77144738efe3fda551785da
+GET {{host}}/endpoints/693cdcfd953c4d8b81759be1773df3f4
 ###
 POST {{host}}/endpoints
 ###

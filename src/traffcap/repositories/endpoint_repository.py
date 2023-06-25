@@ -3,6 +3,7 @@ from .repository import (
     Repository,
     inject_session
 )
+from traffcap.dto import EndpointCreate
 from traffcap.model import Endpoint
 from sqlalchemy import select, ScalarResult
 from uuid import uuid4
@@ -41,7 +42,9 @@ class EndpointRepository(Repository):
     async def create_endpoint(cls, session: AsyncSession) -> Endpoint:
         async with session.begin():
             new_code = uuid4().hex
-            session.add(Endpoint(code=new_code))
+            new_endpoint = EndpointCreate(code=new_code)
+            session.add(new_endpoint)
+            # session.add(Endpoint(code=new_code))
 
         return await cls.get_endpoint_by_code(new_code)
 

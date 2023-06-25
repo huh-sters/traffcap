@@ -1,4 +1,4 @@
-GET {{host}}/r/123abc?a=1&b=2&c=3
+GET {{host}}/r/693cdcfd953c4d8b81759be1773df3f4?a=1&b=2&c=3
 Set-Cookie: cookie1=1234
 Content-Type: application/json
 
@@ -7,17 +7,17 @@ Content-Type: application/json
 }
 
 ###
-POST {{host}}/r/123abc
+POST {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-PUT {{host}}/r/123abc
+PUT {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-PATCH {{host}}/r/123abc
+PATCH {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-DELETE {{host}}/r/123abc
+DELETE {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-OPTIONS {{host}}/r/123abc
+OPTIONS {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-HEAD {{host}}/r/123abc
+HEAD {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
-TRACE {{host}}/r/123abc
+TRACE {{host}}/r/693cdcfd953c4d8b81759be1773df3f4
 ###
