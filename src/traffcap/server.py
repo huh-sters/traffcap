@@ -35,6 +35,19 @@ app.add_middleware(
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
+    if isinstance(exc.detail, list):
+        # A list of error messages
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={
+                "errors": [{
+                    "status": str(exc.status_code),
+                    "title": detail
+                } for detail in exc.detail]
+            }
+        )
+
+    # A single string error message
     return JSONResponse(
         status_code=exc.status_code,
         content={

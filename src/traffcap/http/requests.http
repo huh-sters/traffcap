@@ -1,4 +1,4 @@
-GET {{host}}/r/f65d954963564a9c975c9bd52dc529e7?a=1&b=2&c=3
+GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3
 Set-Cookie: cookie1=1234
 Content-Type: application/json
 
@@ -7,17 +7,17 @@ Content-Type: application/json
 }
 
 ###
-POST {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+POST {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-PUT {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+PUT {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-PATCH {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+PATCH {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-DELETE {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+DELETE {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-OPTIONS {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+OPTIONS {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-HEAD {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+HEAD {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
-TRACE {{host}}/r/f65d954963564a9c975c9bd52dc529e7
+TRACE {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###

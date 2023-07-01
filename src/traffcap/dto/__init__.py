@@ -1,4 +1,4 @@
-from .endpoint import Endpoint, EndpointCreate
+from .rule import Rule, RuleCreate
 from .inbound_request import (
     InboundRequest,
     InboundRequestCreate,
@@ -8,8 +8,8 @@ from .user import User, UserCreate
 
 
 __all__ = [
-    "Endpoint",
-    "EndpointCreate",
+    "Rule",
+    "RuleCreate",
     "HTTPVerbs",
     "InboundRequest",
     "InboundRequestCreate",

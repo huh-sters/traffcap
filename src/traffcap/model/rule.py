@@ -6,8 +6,8 @@ from sqlalchemy.orm import (
 from .base import Base
 
 
-class Endpoint(Base):
-    __tablename__: str = "endpoints"
+class Rule(Base):
+    __tablename__: str = "rules"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    code: Mapped[str] = mapped_column(String(255))
+    rule: Mapped[str] = mapped_column(String(255))

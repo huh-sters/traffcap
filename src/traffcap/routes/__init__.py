@@ -1,4 +1,4 @@
-from .endpoints import endpoint_router
+from .rules import rule_router
 from .requests import requests_router
 from .root import root_router
 """
@@ -13,5 +13,5 @@ __all__ = [
 api_routers = [
     root_router,
     requests_router,
-    endpoint_router
+    rule_router
 ]

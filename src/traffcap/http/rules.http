@@ -1,0 +1,19 @@
+GET {{host}}/rules
+###
+GET {{host}}/rules/1
+###
+POST {{host}}/rules
+Content-Type: application/json
+
+{
+    "data": {
+        "type": "rule",
+        "attributes": {
+            "rule": "123"
+        }
+    }
+}
+
+###
+DELETE {{host}}/rules/8
+###
