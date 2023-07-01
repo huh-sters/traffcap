@@ -8,24 +8,23 @@ A RequestBin like application using FastAPI.
 
 The goal of this tools is for it to be used in end to end testing where webhooks need testing.
 
-* Provide endpoint management
+* Provide endpoint rule matching management
 * Endpoints are in the format `/r/<unique endpoint ID>`
-* Allow endpoint prefix to be configurable
-* All HTTP verbs are captured
-* All headers are recorded
+* Allow endpoint prefix to be configurable (done)
+* All HTTP verbs are captured (done)
+* All headers are recorded (done)
 * All content is captured
 * Web sockets are captured
-* Inbound requests are queued for processing
+* Inbound requests are queued for processing (maybe not possible)
 * A single page application can control the application
 * A full API can control all aspects of the application
 * A reporting API can be used to monitor the application
 * Allow the frontend UI to be disabled
 * All request responses are customisable
-* Read up on SQLAlchemy ORM with FastAPI: https://fastapi.tiangolo.com/tutorial/sql-databases/#create-the-database-models
 * Allow multiprocessing Managers to talk between Gunicorn managed processes
 * Allow Redis/RabbitMQ to talk between Gunicorn managed processes and clusters of servers behind load balancers
 * Allow CORS configuration
-* Allow multiple database types (SQLite, MySQL, Postres)
+* Allow multiple database types (SQLite (done), MySQL (done), Postres)
 
 
 # Running This Thing
