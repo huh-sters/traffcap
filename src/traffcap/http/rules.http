@@ -15,5 +15,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{host}}/rules/8
+DELETE {{host}}/rules/1
 ###

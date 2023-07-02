@@ -1,14 +1,13 @@
 from typing import Optional
-from .repository import Repository, inject_session
+from .repository import Repository
 from traffcap.model import User
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, ScalarResult
 
 
 class UserRepository(Repository):
     @classmethod
-    @inject_session
-    async def add_a_test_user(cls, session: AsyncSession) -> User:
+    async def add_a_test_user(cls) -> User:
+        session = await cls.new_session()
         async with session.begin():
             user = User(
                 email="centurix@gmail.com",
@@ -19,15 +18,11 @@ class UserRepository(Repository):
             return user
 
     @classmethod
-    @inject_session
-    async def get_user_by_id(
-        cls,
-        user_id: int,
-        session: AsyncSession
-    ) -> Optional[User]:
+    async def get_user_by_id(cls, user_id: int) -> Optional[User]:
+        session = await cls.new_session()
         return await session.get(User, user_id)
 
     @classmethod
-    @inject_session
-    async def get_all_users(cls, session: AsyncSession) -> ScalarResult[User]:
+    async def get_all_users(cls) -> ScalarResult[User]:
+        session = await cls.new_session()
         return await session.scalars(select(User))

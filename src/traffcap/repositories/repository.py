@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker,
+    AsyncSession,
     AsyncEngine
 )
 from alembic import command
@@ -8,28 +9,19 @@ from alembic.config import Config
 from typing import Optional
 
 
-def inject_session(f):
-    """
-    Poor mans dependency injection. Inject a session into the repository call.
-    """
-    async def wrapper(*args, **kwargs):
-        if "session" in kwargs:
-            return await f(*args, **kwargs)
+class Repository:
+    engine: Optional[AsyncEngine] = None
 
+    @classmethod
+    async def new_session(cls) -> AsyncSession:
         if not Repository.engine:
             raise Exception("Database not connected")
 
-        async_session = async_sessionmaker(
+        session = async_sessionmaker(
             Repository.engine,
             expire_on_commit=False
         )
-        return await f(*args, **kwargs, session=async_session())
-
-    return wrapper
-
-
-class Repository:
-    engine: Optional[AsyncEngine] = None
+        return session()
 
     @classmethod
     def create_connection(cls) -> None:
