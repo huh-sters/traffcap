@@ -5,6 +5,10 @@ from .inbound_request import (
     HTTPVerbs
 )
 from .user import User, UserCreate
+from .outbound_response import (
+    OutboundResponse,
+    OutboundResponseCreate
+)
 
 
 __all__ = [
@@ -13,6 +17,8 @@ __all__ = [
     "HTTPVerbs",
     "InboundRequest",
     "InboundRequestCreate",
+    "OutboundResponse",
+    "OutboundResponseCreate",
     "User",
     "UserCreate"
 ]

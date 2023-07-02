@@ -2,7 +2,7 @@
 
 Revision ID: 0.0.1
 Revises: 
-Create Date: 2023-07-02 21:50:28.514178
+Create Date: 2023-07-02 22:58:55.815381
 
 """
 from alembic import op
@@ -42,7 +42,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.Column('content_type', sa.String(length=32), nullable=False),
-    sa.Column('content', sa.String(length=1024), nullable=False),
+    sa.Column('template', sa.String(length=1024), nullable=False),
     sa.ForeignKeyConstraint(['rule_id'], ['rules.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
