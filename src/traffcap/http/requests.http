@@ -1,6 +1,7 @@
 GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3
 Set-Cookie: cookie1=1234
 Content-Type: application/json
+Accept: application/json, text/csv, application/xml
 
 {
     "test": "test"
@@ -20,4 +21,23 @@ OPTIONS {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 HEAD {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
 ###
 TRACE {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907
+###
+GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3
+Set-Cookie: cookie1=1234
+Content-Type: application/json
+Accept: application/json
+
+{
+    "test": "test"
+}
+
+###
+GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3
+Set-Cookie: cookie1=1234
+Content-Type: application/json
+
+{
+    "test": "test"
+}
+
 ###
