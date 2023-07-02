@@ -87,6 +87,12 @@ async def rule_create(request: Request) -> RuleResponse:  # type: ignore
             rule=payload.data.attributes.rule
         )
 
+        if not new_rule:
+            raise HTTPException(
+                400,
+                detail=f"Unable to create rule for {payload.data.attributes.rule}"
+            )
+
         return RuleResponse(
             data=RuleResponse.resource_object(
                 id=new_rule.id,

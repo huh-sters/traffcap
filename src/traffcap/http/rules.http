@@ -9,11 +9,11 @@ Content-Type: application/json
     "data": {
         "type": "rule",
         "attributes": {
-            "rule": "123"
+            "rule": "f67.*"
         }
     }
 }
 
 ###
-DELETE {{host}}/rules/1
+DELETE {{host}}/rules/2
 ###

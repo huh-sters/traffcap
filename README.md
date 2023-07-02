@@ -15,7 +15,6 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * All headers are recorded (done)
 * All content is captured
 * Web sockets are captured
-* Inbound requests are queued for processing (maybe not possible)
 * A single page application can control the application
 * A full API can control all aspects of the application
 * A reporting API can be used to monitor the application
@@ -25,7 +24,7 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * Allow Redis/RabbitMQ to talk between Gunicorn managed processes and clusters of servers behind load balancers
 * Allow CORS configuration
 * Allow multiple database types (SQLite (done), MySQL (done), Postres)
-
+* Provide a websocket connection
 
 # Running This Thing
 
@@ -173,7 +172,7 @@ The codebase aims to comply to PEP8, with the only exception on line lengths bei
 
 # Concepts
 
-## Endpoint Codes
+### Endpoint Codes
 
 These are codes used in the URL's that are used by your application to talk to Traffcap. They are in the format of a short prefix followed by a longer endpoint code, like this:
 
@@ -200,6 +199,17 @@ For example, if you see an endpoint code that starts with `123...` you can respo
 These matches are performed using [Regular Expressions](https://www.regular-expressions.info/) in the endpoint matching section.
 
 You could match an endpoint code exactly, or just parts of the endpoint.
+
+### Responses
+
+By default, Traffcap will send back JSON data as a response to an inbound request. However, it can respond in the following content types:
+
+* JSON (Default)
+* XML
+* HTML
+* CSV/TSV
+
+Need to chose a templating language that will work across all content types listed.
 
 ### Open Choice in Database Storage
 
