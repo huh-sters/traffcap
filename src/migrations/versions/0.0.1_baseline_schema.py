@@ -21,7 +21,7 @@ def upgrade() -> None:
     op.create_table('inbound_requests',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('endpoint_code', sa.String(length=255), nullable=False),
-    sa.Column('verb', sa.String(length=10), nullable=False),
+    sa.Column('method', sa.String(length=10), nullable=False),
     sa.Column('headers', sa.String(length=255), nullable=False),
     sa.Column('query_params', sa.String(length=255), nullable=False),
     sa.Column('body', sa.String(length=255), nullable=False),

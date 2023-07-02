@@ -11,7 +11,7 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * Provide endpoint rule matching management
 * Endpoints are in the format `/r/<unique endpoint ID>`
 * Allow endpoint prefix to be configurable (done)
-* All HTTP verbs are captured (done)
+* All HTTP methods are captured (done)
 * All headers are recorded (done)
 * All content is captured
 * Web sockets are captured

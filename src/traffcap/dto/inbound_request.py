@@ -15,10 +15,14 @@ class HTTPVerbs(str, Enum):
     HEAD = "HEAD"
     TRACE = "TRACE"
 
+    @classmethod
+    def to_list(cls):
+        return [el.value for el in cls]
+
 
 class InboundRequestBase(BaseModel):
     endpoint_code: str
-    verb: HTTPVerbs
+    method: HTTPVerbs
     headers: str
     query_params: str
     body: bytes
@@ -27,12 +31,11 @@ class InboundRequestBase(BaseModel):
     async def from_request(
         cls,
         endpoint_code: str,
-        verb: HTTPVerbs,
         request: Request
     ) -> "InboundRequestBase":
         return cls(
             endpoint_code=endpoint_code,
-            verb=verb,
+            method=request.method,
             headers=json.dumps(jsonable_encoder(request.headers)),
             query_params=json.dumps(jsonable_encoder(request.query_params)),
             body=await request.body()
