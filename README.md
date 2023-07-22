@@ -248,3 +248,39 @@ During development, it is fine to create feature branch revisions using the IDs 
 ### ORM Usage and Being Database Agnostic
 
 One of the aims of this project is to be as database agnostic as it could possibly be. Out of the box the project is using SQLAlchemy to bring a certain level of abstraction to Python. Adding specific dialects of SQL into this project would be a last resort.
+
+### Environment Variables
+
+Base configuration of Traffcap is achieved through environment variables:
+
+#### TRAFFCAP_REQUESTS_PREFIX
+
+This is the inbound request path prefix. Defaults to "r"
+
+#### TRAFFCAP_DB_DRIVER
+
+This is the database driver to use. Defaults to "sqlite".
+
+Acceptable values are:
+
+* sqlite
+* mysql
+* mssql
+* postrgresql
+* oracle
+
+#### TRAFFCAP_DB_USER
+
+The username used to connect to the database. Not used for SQLite.
+
+#### TRAFFCAP_DB_PASSWORD
+
+The password used to connect to the database. Not used for SQLite.
+
+#### TRAFFCAP_DB_HOST
+
+The hostname for the database server. Not used for SQLite.
+
+#### TRAFFCAP_DB_NAME
+
+The database name. For SQLite, this is the filename. Defaults to 'traffcap.db'.

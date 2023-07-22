@@ -3,17 +3,19 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 from traffcap import model
+from migrations.url import generate_db_url
 
 
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name, disable_existing_loggers=False)
 
+config.set_main_option("sqlalchemy.url", generate_db_url(migration=True))
+
 target_metadata = model.Base.metadata
 
 
 def run_migrations_offline() -> None:
-    # TODO: Fetch the database engine from a configuration generator
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
