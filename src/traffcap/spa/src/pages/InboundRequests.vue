@@ -1,5 +1,6 @@
 <template>
-  <div class="q-px-lg q-py-md">
+  <q-page class="row items-center justify-evenly">
+    <div class="q-px-lg q-py-md">
     <q-timeline color="secondary">
       <q-timeline-entry heading> Timeline heading </q-timeline-entry>
 
@@ -103,16 +104,16 @@
       </q-timeline-entry>
     </q-timeline>
   </div>
+  </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'RequestTimeline',
-  props: {},
-  setup() {
-    return {};
-  },
+  name: 'IndexPage',
+  setup () {
+    return { };
+  }
 });
 </script>

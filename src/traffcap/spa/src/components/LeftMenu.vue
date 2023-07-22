@@ -1,53 +1,29 @@
 <template>
   <div class="q-pa-md" style="max-width: 350px">
     <q-list bordered>
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-          <q-avatar square>
-            <img src="https://i.pravatar.cc/800" />
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>Incoming Requests</q-item-section>
-      </q-item>
-
-      <q-item clickable v-ripple>
-        <q-item-section avatar>
-          <q-avatar square>
-            <img src="https://i.pravatar.cc/800" />
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>Actions</q-item-section>
-      </q-item>
-
-      <q-item clickable v-ripple>
-        <q-item-section avatar>
-          <q-avatar square>
-            <img src="https://i.pravatar.cc/800" />
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>Registered Endpoints</q-item-section>
-      </q-item>
-
-      <q-item clickable v-ripple>
-        <q-item-section avatar>
-          <q-avatar square>
-            <img src="https://i.pravatar.cc/800" />
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>Settings</q-item-section>
+      <q-item v-for="item in menuItems" clickable v-ripple :key="item.title" :to="item.path">
+        <q-item-section><q-icon :name="item.icon" size="xl"></q-icon></q-item-section>
+        <q-item-section>{{ item.title }}</q-item-section>
       </q-item>
     </q-list>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import axios from 'axios';
 
 export default defineComponent({
   name: 'LeftMenu',
-  props: {},
-  setup() {
-    return {};
-  },
+  data() {
+    return {
+      menuItems: [
+        { title: 'Inbound Requests', icon: 'history', path: '/inbound_requests' },
+        { title: 'Actions', icon: 'bolt', path: '/actions' },
+        { title: 'Responses', icon: 'reply', path: '/responses' },
+        { title: 'Groups', icon: 'people', path: '/groups' },
+        { title: 'Users', icon: 'person', path: '/users' },
+        { title: 'Logout', icon: 'logout', path: '/logout' },
+      ]
+    }
+  }
 });
 </script>
