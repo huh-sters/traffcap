@@ -7,6 +7,7 @@ from traffcap.repositories import (
     OutboundResponseRepository,
     RuleRepository
 )
+from traffcap.core import new_traffic_notification
 from traffcap.dto import HTTPVerbs
 import json
 """
@@ -59,6 +60,9 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
             )
             for response in responses.all():
                 return Response(response.template)
+
+    # Notify all listening web sockets
+    new_traffic_notification()
 
     # TODO: Default response
     return Response(json.dumps({

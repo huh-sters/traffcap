@@ -5,7 +5,9 @@ from traffcap.repositories import (
     InboundRequestRepository
 )
 from traffcap.dto import InboundRequest
-from time import sleep
+from asyncio import sleep
+from traffcap.core import store
+import logging
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
@@ -32,6 +34,8 @@ async def traffic_get() -> Response:
 async def traffic_firehose(websocket: WebSocket):
     await websocket.accept()
     while True:
+        last_message = store.get("last_message", 0)
+
         inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
         # Send more data
@@ -44,5 +48,9 @@ async def traffic_firehose(websocket: WebSocket):
             ]
         )
         await websocket.send_text(response.json())
-        # Wait for 5 seconds
-        sleep(1)
+
+        # Wait for an event from the message broker
+        while last_message == store.get("last_message", 0):
+            await sleep(0.5)
+
+        logging.info("Received an event, refreshing...")

@@ -5,7 +5,8 @@ import logging
 from traffcap.core import (
     banner,
     log_setup,
-    StandaloneApplication
+    StandaloneApplication,
+    start_store
 )
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -19,6 +20,8 @@ from traffcap.repositories import Repository
 Application bootstrap
 """
 
+
+start_store()
 
 app = FastAPI()
 
