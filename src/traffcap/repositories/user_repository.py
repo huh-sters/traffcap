@@ -6,23 +6,27 @@ from sqlalchemy import select, ScalarResult
 
 class UserRepository(Repository):
     @classmethod
-    async def add_a_test_user(cls) -> User:
-        session = await cls.new_session()
-        async with session.begin():
-            user = User(
-                email="centurix@gmail.com",
-                fullname="Chris Read"
-            )
-            session.add(user)
+    async def add_a_test_user(cls) -> Optional[User]:
+        user = None
+        async with cls.session() as session:
+            async with session.begin():
+                user = User(
+                    email="centurix@gmail.com",
+                    fullname="Chris Read"
+                )
+                session.add(user)
 
-            return user
+        return user
 
     @classmethod
     async def get_user_by_id(cls, user_id: int) -> Optional[User]:
-        session = await cls.new_session()
-        return await session.get(User, user_id)
+        user = None
+        async with cls.session() as session:
+            user = await session.get(User, user_id)
+
+        return user
 
     @classmethod
     async def get_all_users(cls) -> ScalarResult[User]:
-        session = await cls.new_session()
-        return await session.scalars(select(User))
+        async with cls.session() as session:
+            return await session.scalars(select(User))

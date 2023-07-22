@@ -6,23 +6,40 @@ from sqlalchemy.ext.asyncio import (
 )
 from alembic import command
 from alembic.config import Config
-from typing import Optional
+from typing import Optional, Type
+from types import TracebackType
 from migrations.url import generate_db_url
 
 
 class Repository:
     engine: Optional[AsyncEngine] = None
 
-    @classmethod
-    async def new_session(cls) -> AsyncSession:
-        if not Repository.engine:
-            raise Exception("Database not connected")
+    # AsyncSession context manager
+    class session:
+        def __init__(self):
+            self.session: Optional[AsyncSession] = None
 
-        session = async_sessionmaker(
-            Repository.engine,
-            expire_on_commit=False
-        )
-        return session()
+        async def __aenter__(self) -> AsyncSession:
+            if not Repository.engine:
+                raise Exception("Database not connected")
+
+            self.session = async_sessionmaker(
+                Repository.engine,
+                expire_on_commit=False
+            )()
+
+            return self.session
+
+        async def __aexit__(
+            self,
+            exc_type: Optional[Type[BaseException]],
+            exc: Optional[BaseException],
+            tb: Optional[TracebackType]
+        ) -> bool:
+            if self.session:
+                await self.session.close()
+
+            return True
 
     @classmethod
     def create_connection(cls) -> None:

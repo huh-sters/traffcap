@@ -14,10 +14,10 @@ class OutboundResponseRepository(Repository):
         """
         Find all responses for this rule
         """
-        session = await cls.new_session()
-        stmnt = (
-            select(OutboundResponse)
-                .where(OutboundResponse.rule_id == rule.id)
-                .where(OutboundResponse.content_type == content_type)
-        )
-        return await session.scalars(stmnt)
+        async with cls.session() as session:
+            stmnt = (
+                select(OutboundResponse)
+                    .where(OutboundResponse.rule_id == rule.id)
+                    .where(OutboundResponse.content_type == content_type)
+            )
+            return await session.scalars(stmnt)

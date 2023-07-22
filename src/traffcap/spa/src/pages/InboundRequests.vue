@@ -16,29 +16,41 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import axios from 'axios';
 
+
+type Request = {
+  id: string,
+  type: string,
+  attributes: {
+    endpoint_code: string,
+    method: string,
+    headers: string,
+    query_params: string,
+    body: string,
+    id: number
+  }
+}
 
 export default defineComponent({
   name: 'InboundRequests',
   mounted () {
     // Load the inbound requests
-    // TODO: This needs to listen to a websocket
-    axios
-      .get(
-        `http://localhost:9669/traffic`
-      )
-      .then((response) => {
-        this.rows = response.data.data;
-      })
+    this.connection = new WebSocket('ws://localhost:9669/traffic/ws');
+    this.connection.onmessage = (event: MessageEvent) => {
+      this.rows = JSON.parse(event.data).data;
+    }
+    this.connection.onopen = () => {
+      console.log('Opened websocket...')
+    }
   },
   data () {
     return {
-      rows: [],
+      connection: null as WebSocket | null,
+      rows: [] as Request[],
       columns: [
-        { name: 'id', label: 'ID', align: 'left', field: (item) => {return item.id}, sortable: true },
-        { name: 'endpoint_code', label: 'Endpoint Code', align: 'left', field: (item) => {return item.attributes.endpoint_code}, sortable: true },
-        { name: 'method', label: 'Method', align: 'left', field: (item) => {return item.attributes.method}, sortable: true },
+        { name: 'id', label: 'ID', align: 'left', field: (item: Request) => {return item.id}, sortable: true },
+        { name: 'endpoint_code', label: 'Endpoint Code', align: 'left', field: (item: Request) => {return item.attributes.endpoint_code}, sortable: true },
+        { name: 'method', label: 'Method', align: 'left', field: (item: Request) => {return item.attributes.method}, sortable: true },
         { name: 'action', label: 'Action', align: 'left' }
       ]
     };
