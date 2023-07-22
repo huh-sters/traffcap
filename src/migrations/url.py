@@ -39,9 +39,10 @@ def generate_db_url(migration: bool = False) -> str:
         "oracle": "oracle+cx_oracle"  # TODO: Untested
     }
 
-    db_config["driver"] = aio_handlers[db_config["driver"]]
     if migration:
         db_config["driver"] = non_aio_handlers[db_config["driver"]]
+    else:
+        db_config["driver"] = aio_handlers[db_config["driver"]]
 
     if db_config["driver"].startswith("sqlite"):
         # Treat SQLite differently
