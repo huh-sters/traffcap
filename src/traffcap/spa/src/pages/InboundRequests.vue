@@ -9,7 +9,11 @@
         :columns="columns"
         row-key="name"
         :rows-per-page-options="[0]"
-      />
+      >
+        <template v-slot:body-cell-method="props">
+          <q-chip color="light-blue" text-color="white">{{ props.row.attributes.method }}</q-chip>
+        </template>
+      </q-table>
     </div>
   </q-page>
 </template>
