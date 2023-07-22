@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white">
+    <q-header bordered class="bg-primary text-white">
       <ToolBar @drawer-event="toggleDrawer" />
     </q-header>
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>

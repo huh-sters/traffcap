@@ -1,0 +1,2 @@
+GET {{host}}/traffic HTTP/1.1
+###

@@ -13,7 +13,10 @@ import json
 Files in the root directory
 """
 
-requests_router = APIRouter(prefix=f"/{settings.requests_prefix}", tags=["Requests"])
+inbound_requests_router = APIRouter(
+    prefix=f"/{settings.requests_prefix}",
+    tags=["Requests"]
+)
 
 
 response_template = """
@@ -23,7 +26,7 @@ response_template = """
 """
 
 
-@requests_router.api_route("/{endpoint_code}", methods=HTTPVerbs.to_list())
+@inbound_requests_router.api_route("/{endpoint_code}", methods=HTTPVerbs.to_list())
 async def requests_route(endpoint_code: str, request: Request) -> Response:
     await InboundRequestRepository.store_request(endpoint_code, request)
 

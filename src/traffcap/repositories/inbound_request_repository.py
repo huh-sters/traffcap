@@ -2,6 +2,7 @@ from .repository import Repository
 from fastapi import Request
 from traffcap.dto import InboundRequestCreate
 from traffcap.model import InboundRequest
+from sqlalchemy import select, ScalarResult
 
 
 class InboundRequestRepository(Repository):
@@ -27,3 +28,8 @@ class InboundRequestRepository(Repository):
                 query_params=new_inbound_request.query_params,
                 body=new_inbound_request.body
             ))
+
+    @classmethod
+    async def get_all_inbound_requests(cls) -> ScalarResult[InboundRequest]:
+        session = await cls.new_session()
+        return await session.scalars(select(InboundRequest).order_by(InboundRequest.id.desc()))

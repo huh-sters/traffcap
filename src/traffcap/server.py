@@ -24,12 +24,13 @@ app = FastAPI()
 
 # Enable CORS from anywhere with anything
 # TODO: Add UI to restrict these
+# TODO: Fix CORS for new Chrome addition where non-secure localhosts clash
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 
