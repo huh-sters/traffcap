@@ -1,7 +1,12 @@
 from .banner import banner
 from .standalone_application import StandaloneApplication
 from .logging_configuration import log_setup
-from .store import store, start_store, new_traffic_notification
+from .store import (
+    store,
+    start_store,
+    new_traffic_notification,
+    wait_for_notification
+)
 
 __all__ = [
     "banner",
@@ -9,5 +14,6 @@ __all__ = [
     "StandaloneApplication",
     "store",
     "start_store",
-    "new_traffic_notification"
+    "new_traffic_notification",
+    "wait_for_notification"
 ]
