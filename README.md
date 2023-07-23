@@ -25,21 +25,21 @@ A RequestBin like application using FastAPI.
 The goal of this tools is for it to be used in end to end testing where webhooks need testing.
 
 * Provide endpoint rule matching management
-* Endpoints are in the format `/r/<unique endpoint ID>`
+* Endpoints are in the format `/r/<unique endpoint ID>` (done)
 * Allow endpoint prefix to be configurable (done)
 * All HTTP methods are captured (done)
 * All headers are recorded (done)
-* All content is captured
+* All content is captured (done)
 * Web sockets are captured
 * A single page application can control the application
 * A full API can control all aspects of the application
 * A reporting API can be used to monitor the application
 * Allow the frontend UI to be disabled
 * All request responses are customisable
-* Allow multiprocessing Managers to talk between Gunicorn managed processes
+* Allow multiprocessing Managers to talk between Gunicorn managed processes (done)
 * Allow Redis/RabbitMQ to talk between Gunicorn managed processes and clusters of servers behind load balancers
 * Allow CORS configuration
-* Allow multiple database types (SQLite (done), MySQL (done), Postres)
+* Allow multiple database types (SQLite (done), MySQL (done), Postres, MSSQL, Oracle)
 * Provide a websocket connection
 
 # Running This Thing
