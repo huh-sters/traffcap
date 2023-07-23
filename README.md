@@ -2,6 +2,22 @@
 
 NOTE: Dall-E is terrible at making logos
 
+# What Is Currently Working?
+
+* Request capturing. It records all requests with any method to an endpoint
+* Supports SQLite and MySQL
+* Basic GUI which display the inbound requests in realtime using websockets
+* API to fetch all inbound requests in a big list
+* Settings for configuring server URLs and protocols
+* IPC between inbound requests and websockets on a single container works
+
+**As it stands, it performs enough to be able to integrate with a CI/CD stack with little work:**
+
+* An end-to-end test can send traffic to `/r/random-endpoint` and it will record the data
+* Calling `/traffic` will return all the traffic sent including headers and the body
+
+This can at least be used to verify the data sent to a webhook
+
 # traffcap
 
 A RequestBin like application using FastAPI.
