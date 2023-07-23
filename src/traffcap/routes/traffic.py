@@ -29,6 +29,7 @@ async def traffic_get() -> Response:
 
 @traffic_router.websocket("/ws")
 async def traffic_firehose(websocket: WebSocket):
+    # TODO: Only send the newer requests instead of everything
     try:
         await websocket.accept()
         while True:

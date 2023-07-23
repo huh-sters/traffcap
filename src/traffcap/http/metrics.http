@@ -1,0 +1,2 @@
+GET {{host}}/metrics HTTP/1.1
+###

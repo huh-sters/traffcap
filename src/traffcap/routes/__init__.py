@@ -1,5 +1,6 @@
 from .rules import rule_router
 from .inbound_requests import inbound_requests_router
+from .metrics import metrics_router
 from .root import root_router
 from .traffic import traffic_router
 """
@@ -15,5 +16,6 @@ api_routers = [
     root_router,
     inbound_requests_router,
     rule_router,
-    traffic_router
+    traffic_router,
+    metrics_router
 ]

@@ -2,10 +2,7 @@
 <q-toolbar>
     <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
     <q-toolbar-title>
-      <q-avatar>
-        <img src="~assets/images/traffcap_logo.png">
-      </q-avatar>
-      TRAFFCAP
+      <q-img src="~assets/images/traffcap_logo.png" width="200px" />
     </q-toolbar-title>
   </q-toolbar>
 </template>

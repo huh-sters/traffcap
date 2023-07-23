@@ -26,6 +26,7 @@ start_store()
 app = FastAPI()
 
 # Enable CORS from anywhere with anything
+# TODO: Upgrade to Python 3.8 for current EOL support
 # TODO: Add UI to restrict these
 # TODO: Fix CORS for new Chrome addition where non-secure localhosts clash
 app.add_middleware(

@@ -7,6 +7,8 @@ from .store import (
     new_traffic_notification,
     wait_for_notification
 )
+from .metrics import Metric
+
 
 __all__ = [
     "banner",
@@ -15,5 +17,6 @@ __all__ = [
     "store",
     "start_store",
     "new_traffic_notification",
-    "wait_for_notification"
+    "wait_for_notification",
+    "Metric"
 ]
