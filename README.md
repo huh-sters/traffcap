@@ -1,6 +1,4 @@
-![Dall-E Generated Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/images/traffcap_logo.png?raw=true)
-
-NOTE: Dall-E is terrible at making logos
+![Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/images/traffcap_logo.png?raw=true)
 
 # What Is Currently Working?
 
