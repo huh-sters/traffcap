@@ -6,7 +6,7 @@ from traffcap.dto import (
     InboundRequest
 )
 from traffcap.repositories import RuleRepository
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from typing import List
 """
 Endpoint management
