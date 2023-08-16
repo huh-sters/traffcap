@@ -4,7 +4,10 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship
 )
-from traffcap.model import Base, RuleModel
+from .base import Base
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .rule import RuleModel
 
 
 class OutboundResponseModel(Base):
@@ -14,4 +17,4 @@ class OutboundResponseModel(Base):
     rule_id: Mapped[str] = mapped_column(ForeignKey("rules.id"))
     content_type: Mapped[str] = mapped_column(String(32))
     template: Mapped[str] = mapped_column(String(1024))
-    rule: Mapped[RuleModel] = relationship(back_populates="outbound_responses")  # noqa: F821
+    rule: Mapped["RuleModel"] = relationship(back_populates="outbound_responses")  # noqa: F821
