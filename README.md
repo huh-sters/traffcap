@@ -1,4 +1,4 @@
-![build workflow](https://github.com/huh-sters/traffcap/actions/workflows/pylint.yml/badge.svg)
+![build workflow](https://github.com/huh-sters/traffcap/actions/workflows/build.yml/badge.svg)
 ![licence](https://img.shields.io/github/license/huh-sters/traffcap.svg)
 ![status](https://img.shields.io/pypi/status/traffcap)
 
