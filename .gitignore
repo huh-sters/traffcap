@@ -227,3 +227,5 @@ test-results/
 playwright-report/
 
 *.db
+
+.pdm.lock

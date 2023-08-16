@@ -35,7 +35,7 @@ class InboundRequestBase(BaseModel):
     ) -> "InboundRequestBase":
         return cls(
             endpoint_code=endpoint_code,
-            method=request.method,
+            method=HTTPVerbs[request.method],
             headers=json.dumps(jsonable_encoder(request.headers)),
             query_params=json.dumps(jsonable_encoder(request.query_params)),
             body=await request.body()
@@ -51,3 +51,5 @@ class InboundRequest(InboundRequestBase):
 
     class Config:
         from_attributes = True
+        resource_name: str = "inbound_request"
+        resource_id: str = "id"

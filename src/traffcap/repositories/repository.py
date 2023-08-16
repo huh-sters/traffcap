@@ -16,7 +16,7 @@ class Repository:
 
     # AsyncSession context manager
     class session:
-        def __init__(self):
+        def __init__(self) -> None:
             self.session: Optional[AsyncSession] = None
 
         async def __aenter__(self) -> AsyncSession:

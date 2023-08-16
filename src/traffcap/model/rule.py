@@ -5,14 +5,14 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship
 )
-from traffcap.model import Base
+from traffcap.model import Base, OutboundResponseModel
 
 
-class Rule(Base):
+class RuleModel(Base):
     __tablename__: str = "rules"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     rule: Mapped[str] = mapped_column(String(255))
-    outbound_responses: Mapped[List["OutboundResponse"]] = relationship(  # noqa: F821
+    outbound_responses: Mapped[List[OutboundResponseModel]] = relationship(  # noqa: F821
         back_populates="rule"
     )

@@ -1,14 +1,14 @@
 from .base import Base
-from .user import User
-from .rule import Rule
-from .inbound_request import InboundRequest
-from .outbound_response import OutboundResponse
+from .user import UserModel
+from .rule import RuleModel
+from .inbound_request import InboundRequestModel
+from .outbound_response import OutboundResponseModel
 
 
 __all__ = [
     "Base",
-    "User",
-    "Rule",
-    "InboundRequest",
-    "OutboundResponse"
+    "UserModel",
+    "RuleModel",
+    "InboundRequestModel",
+    "OutboundResponseModel"
 ]

@@ -58,8 +58,8 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
                 rule,
                 content_type
             )
-            for response in responses.all():
-                return Response(response.template)
+            for response in responses:
+                return Response("")
 
     # Notify all listening web sockets
     new_traffic_notification()

@@ -1,8 +1,9 @@
 from .repository import Repository
 from fastapi import Request
-from traffcap.dto import InboundRequestCreate
-from traffcap.model import InboundRequest
-from sqlalchemy import select, ScalarResult
+from traffcap.dto import InboundRequestCreate, InboundRequest
+from traffcap.model import InboundRequestModel
+from sqlalchemy import select
+from typing import List
 
 
 class InboundRequestRepository(Repository):
@@ -21,7 +22,7 @@ class InboundRequestRepository(Repository):
                     endpoint_code,
                     request
                 )
-                session.add(InboundRequest(
+                session.add(InboundRequestModel(
                     endpoint_code=endpoint_code,
                     method=new_inbound_request.method,
                     headers=new_inbound_request.headers,
@@ -30,6 +31,11 @@ class InboundRequestRepository(Repository):
                 ))
 
     @classmethod
-    async def get_all_inbound_requests(cls) -> ScalarResult[InboundRequest]:
+    async def get_all_inbound_requests(cls) -> List[InboundRequest]:
+        requests = []
         async with cls.session() as session:
-            return await session.scalars(select(InboundRequest).order_by(InboundRequest.id.desc()))
+            results = await session.scalars(select(InboundRequestModel).order_by(InboundRequestModel.id.desc()))
+            for request in results.all():
+                requests.append(InboundRequest.model_validate(request, from_attributes=True))
+
+        return requests

@@ -1,31 +1,25 @@
 from fastapi import APIRouter, WebSocket
-from fastapi.responses import Response
-from pydantic_jsonapi import JsonApiModel
 from traffcap.repositories import InboundRequestRepository
 from traffcap.dto import InboundRequest
 from traffcap.core import wait_for_notification
 from websockets.exceptions import ConnectionClosed
+from pydanja import DANJAResourceList
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
-_, InboundRequestList = JsonApiModel("inbound_request", InboundRequest, list_response=True)
 
 
-@traffic_router.get("/")
-async def traffic_get() -> Response:
+@traffic_router.get("/", response_model_exclude_none=True)
+async def traffic_get() -> DANJAResourceList[InboundRequest]:
     """
     List all traffic
     """
     inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
-    return InboundRequestList(
-        data=[
-            InboundRequestList.resource_object(
-                id=inbound_request.id,
-                attributes=inbound_request
-            ) for inbound_request in inbound_requests
-        ]
-    )
+    # Convert from SQLAlchemy model to pydantic BaseModel
+
+    return DANJAResourceList.from_basemodel_list(inbound_requests)
+
 
 @traffic_router.websocket("/ws")
 async def traffic_firehose(websocket: WebSocket):
@@ -36,15 +30,8 @@ async def traffic_firehose(websocket: WebSocket):
             inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
             # Send more data
-            response = InboundRequestList(
-                data=[
-                    InboundRequestList.resource_object(
-                        id=inbound_request.id,
-                        attributes=inbound_request
-                    ) for inbound_request in inbound_requests
-                ]
-            )
-            await websocket.send_text(response.json())
+            response = DANJAResourceList.from_basemodel_list(inbound_requests)
+            await websocket.send_text(response.model_dump_json())
 
             # Wait for an event from the message broker
             await wait_for_notification()

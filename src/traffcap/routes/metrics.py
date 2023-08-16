@@ -25,12 +25,12 @@ async def metrics_get() -> PlainTextResponse:
     """
     metrics = [
         Metric(
-            "traffcap_total_requests",
-            "Total number of requests received",
-            {
+            type="traffcap_total_requests",
+            help="Total number of requests received",
+            data={
                 "url": "http://localhost"
             },
-            100
+            value=100
         )
     ]
     return PlainTextResponse("".join([str(metric) for metric in metrics]))

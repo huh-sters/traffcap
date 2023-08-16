@@ -1,48 +1,39 @@
-from fastapi import APIRouter, HTTPException, Request
-from pydantic_jsonapi import JsonApiModel
+from fastapi import APIRouter, HTTPException
+from pydanja import DANJAResourceList, DANJAResource, DANJAErrorList
 from traffcap.dto import (
     Rule,
-    RuleCreate,
-    InboundRequest
+    RuleCreate
 )
 from traffcap.repositories import RuleRepository
 from pydantic import ValidationError
-from typing import List
+from typing import List, Union
 """
 Endpoint management
 """
 
 rule_router = APIRouter(prefix="/rules", tags=["Rules"])
-RuleRequest, RuleResponse = JsonApiModel("rule", Rule)
-RuleCreateRequest, _ = JsonApiModel("rule", RuleCreate)
-_, RuleResponseList = JsonApiModel("rule", Rule, list_response=True)
-_, InboundRequestList = JsonApiModel("inbound_request", InboundRequest, list_response=True)
 
 
 def friendly_validation_error(ve: ValidationError) -> List[str]:
-    return [f"{'/'.join(e['loc'])} - {e['msg']}" for e in ve.errors()]
+    return [
+        f"{'/'.join(str(element) for element in e['loc'])} - {e['msg']}"
+        for e in ve.errors()
+    ]
 
 
 @rule_router.get("/")
-async def rule_get() -> RuleResponseList:  # type: ignore
+async def rule_get() -> DANJAResourceList[Rule]:
     """
     Return a list of rules
     TODO: Support paging
     """
     rules = await RuleRepository.get_all_rules()
 
-    return RuleResponseList(
-        data=[
-            RuleResponseList.resource_object(
-                id=rule.id,
-                attributes=rule
-            ) for rule in rules
-        ]
-    )
+    return DANJAResourceList.from_basemodel_list(rules)
 
 
 @rule_router.get("/{rule_id}")
-async def rule_get_by_id(rule_id: int) -> RuleResponse:  # type: ignore
+async def rule_get_by_id(rule_id: int) -> Union[DANJAResource[Rule], DANJAErrorList]:
     """
     Return a single rule
     """
@@ -50,16 +41,11 @@ async def rule_get_by_id(rule_id: int) -> RuleResponse:  # type: ignore
     if not rule:
         raise HTTPException(404, detail="Rule not found")
 
-    return RuleResponse(
-        data=RuleResponse.resource_object(
-            id=rule.id,
-            attributes=rule
-        )
-    )
+    return DANJAResource.from_basemodel(rule)
 
 
 @rule_router.post("/")
-async def rule_create(request: Request) -> RuleResponse:  # type: ignore
+async def rule_create(payload: DANJAResource[RuleCreate]) -> Union[DANJAResource[Rule], DANJAErrorList]:
     """
     Create a new rule
     * Check that it doesn't clash with another rule
@@ -69,14 +55,11 @@ async def rule_create(request: Request) -> RuleResponse:  # type: ignore
     match across the rules table.
     """
     try:
-        # Validate the inbound payload
-        payload = RuleCreateRequest(**(await request.json()))
-
         # See if the rule is already there
         rules = await RuleRepository.find_matching_rules(
             rule=payload.data.attributes.rule
         )
-        if len(rules.all()) > 0:
+        if len(rules) > 0:
             raise HTTPException(
                 400,
                 detail=f"Rule {payload.data.attributes.rule!r} already exists"
@@ -93,12 +76,7 @@ async def rule_create(request: Request) -> RuleResponse:  # type: ignore
                 detail=f"Unable to create rule for {payload.data.attributes.rule}"
             )
 
-        return RuleResponse(
-            data=RuleResponse.resource_object(
-                id=new_rule.id,
-                attributes=new_rule
-            )
-        )
+        return DANJAResource.from_basemodel(new_rule)
     except ValidationError as ve:
         raise HTTPException(
             400,
@@ -107,7 +85,7 @@ async def rule_create(request: Request) -> RuleResponse:  # type: ignore
 
 
 @rule_router.delete("/{rule_id}")
-async def rule_delete_by_id(rule_id: int) -> RuleResponse:  # type: ignore
+async def rule_delete_by_id(rule_id: int) -> DANJAResource[Rule]:
     """
     Delete an existing rule
     """
@@ -117,9 +95,4 @@ async def rule_delete_by_id(rule_id: int) -> RuleResponse:  # type: ignore
 
     await RuleRepository.delete_rule_by_id(rule_id)
 
-    return RuleResponse(
-        data=RuleResponse.resource_object(
-            id=rule.id,
-            attributes=rule
-        )
-    )
+    return DANJAResource.from_basemodel(rule)

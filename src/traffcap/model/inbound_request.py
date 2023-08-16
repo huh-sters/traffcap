@@ -6,7 +6,7 @@ from sqlalchemy.orm import (
 from .base import Base
 
 
-class InboundRequest(Base):
+class InboundRequestModel(Base):
     __tablename__: str = "inbound_requests"
 
     id: Mapped[int] = mapped_column(primary_key=True)

@@ -16,3 +16,5 @@ class OutboundResponse(OutboundResponseBase):
 
     class Config:
         from_attributes = True
+        resource_name: str = "outbound_response"
+        resource_id: str = "id"

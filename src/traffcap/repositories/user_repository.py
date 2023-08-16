@@ -1,7 +1,9 @@
 from typing import Optional
 from .repository import Repository
-from traffcap.model import User
-from sqlalchemy import select, ScalarResult
+from traffcap.dto import User
+from traffcap.model import UserModel
+from sqlalchemy import select
+from typing import List
 
 
 class UserRepository(Repository):
@@ -10,23 +12,27 @@ class UserRepository(Repository):
         user = None
         async with cls.session() as session:
             async with session.begin():
-                user = User(
+                user = UserModel(
                     email="centurix@gmail.com",
                     fullname="Chris Read"
                 )
                 session.add(user)
 
-        return user
+        return User.model_validate(user)
 
     @classmethod
     async def get_user_by_id(cls, user_id: int) -> Optional[User]:
         user = None
         async with cls.session() as session:
-            user = await session.get(User, user_id)
+            user = await session.get(UserModel, user_id)
 
-        return user
+        return User.model_validate(user)
 
     @classmethod
-    async def get_all_users(cls) -> ScalarResult[User]:
+    async def get_all_users(cls) -> List[User]:
+        users = []
         async with cls.session() as session:
-            return await session.scalars(select(User))
+            results = await session.scalars(select(UserModel))
+            for user in results.all():
+                users.append(User.model_validate(user))
+        return users

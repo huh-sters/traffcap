@@ -14,3 +14,5 @@ class Rule(RuleBase):
 
     class Config:
         from_attributes = True
+        resource_name: str = "rule"
+        resource_id: str = "id"
