@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class RuleBase(BaseModel):
@@ -10,7 +10,9 @@ class RuleCreate(RuleBase):
 
 
 class Rule(RuleBase):
-    id: int
+    id: int = Field(json_schema_extra={
+        "resource_id": True
+    })
 
     class Config:
         from_attributes = True

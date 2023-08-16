@@ -517,15 +517,15 @@ files = [
 
 [[package]]
 name = "pydanja"
-version = "0.1.12"
+version = "0.1.13"
 requires_python = ">=3.8"
 summary = "JSON:API Support for Pydantic"
 dependencies = [
     "pydantic>=2.1.1",
 ]
 files = [
-    {file = "pydanja-0.1.12-py3-none-any.whl", hash = "sha256:efd30a722ced417094c7ab08a9a03f5f623e67ae904d166de8320a1e2941edea"},
-    {file = "pydanja-0.1.12.tar.gz", hash = "sha256:6b6175f45550676f65d394705cf0f6cc2d7c34c0b9b50233fee6254195bf47dd"},
+    {file = "pydanja-0.1.13-py3-none-any.whl", hash = "sha256:d461717226c3e1f1c2a05fea44b606b611dc645aec838b6d5524de000436ebad"},
+    {file = "pydanja-0.1.13.tar.gz", hash = "sha256:9430d0d4b00f1e29c257de96d5a9c595d57d79e808f9390bf3a7af01e1e523f3"},
 ]
 
 [[package]]

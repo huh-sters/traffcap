@@ -11,12 +11,13 @@ class UserRepository(Repository):
     async def add_a_test_user(cls) -> Optional[User]:
         user = None
         async with cls.session() as session:
-            async with session.begin():
-                user = UserModel(
+            await session.add(
+                UserModel(
                     email="centurix@gmail.com",
                     fullname="Chris Read"
                 )
-                session.add(user)
+            )
+            await session.commit()
 
         return User.model_validate(user)
 
@@ -32,7 +33,10 @@ class UserRepository(Repository):
     async def get_all_users(cls) -> List[User]:
         users = []
         async with cls.session() as session:
-            results = await session.scalars(select(UserModel))
+            results = await session.scalars(
+                select(UserModel)
+            )
             for user in results.all():
                 users.append(User.model_validate(user))
+
         return users

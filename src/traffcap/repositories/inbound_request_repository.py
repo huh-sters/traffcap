@@ -17,25 +17,23 @@ class InboundRequestRepository(Repository):
         Store the components of the request
         """
         async with cls.session() as session:
-            async with session.begin():
-                new_inbound_request = await InboundRequestCreate.from_request(
-                    endpoint_code,
-                    request
-                )
-                session.add(InboundRequestModel(
-                    endpoint_code=endpoint_code,
-                    method=new_inbound_request.method,
-                    headers=new_inbound_request.headers,
-                    query_params=new_inbound_request.query_params,
-                    body=new_inbound_request.body
-                ))
+            new_inbound_request = await InboundRequestCreate.from_request(
+                endpoint_code,
+                request
+            )
+            await session.add(InboundRequestModel(**new_inbound_request.model_dump()))
+            await session.commit()
 
     @classmethod
     async def get_all_inbound_requests(cls) -> List[InboundRequest]:
         requests = []
         async with cls.session() as session:
-            results = await session.scalars(select(InboundRequestModel).order_by(InboundRequestModel.id.desc()))
+            results = await session.scalars(
+                select(InboundRequestModel).order_by(InboundRequestModel.id.desc())
+            )
             for request in results.all():
-                requests.append(InboundRequest.model_validate(request, from_attributes=True))
+                requests.append(
+                    InboundRequest.model_validate(request, from_attributes=True)
+                )
 
         return requests

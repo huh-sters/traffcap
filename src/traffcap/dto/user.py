@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class UserBase(BaseModel):
@@ -11,7 +11,9 @@ class UserCreate(UserBase):
 
 
 class User(UserBase):
-    id: int
+    id: int = Field(json_schema_extra={
+        "resource_id": True
+    })
 
     class Config:
         from_attributes = True

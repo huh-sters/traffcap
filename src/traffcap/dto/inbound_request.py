@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi import Request
 import json
 from fastapi.encoders import jsonable_encoder
@@ -47,7 +47,9 @@ class InboundRequestCreate(InboundRequestBase):
 
 
 class InboundRequest(InboundRequestBase):
-    id: int
+    id: int = Field(json_schema_extra={
+        "resource_id": True
+    })
 
     class Config:
         from_attributes = True

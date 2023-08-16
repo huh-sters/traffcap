@@ -10,8 +10,9 @@ class RuleRepository(Repository):
     @classmethod
     async def get_rule_by_id(cls, rule_id: int) -> Optional[Rule]:
         async with cls.session() as session:
-            rule = await session.get(RuleModel, rule_id)
-            return Rule.model_validate(rule)
+            return Rule.model_validate(
+                await session.get(RuleModel, rule_id)
+            )
         
         return None
 
@@ -19,7 +20,9 @@ class RuleRepository(Repository):
     async def get_all_rules(cls) -> List[Rule]:
         rules = []
         async with cls.session() as session:
-            results = await session.scalars(select(RuleModel))
+            results = await session.scalars(
+                select(RuleModel)
+            )
             for rule in results.all():
                 rules.append(Rule.model_validate(rule))
 
@@ -28,21 +31,23 @@ class RuleRepository(Repository):
     @classmethod
     async def create_rule(cls, rule: str = ".*") -> Optional[Rule]:
         async with cls.session() as session:
-            async with session.begin():
-                new_rule = RuleModel(rule=rule)
-                session.add(new_rule)
+            new_rule = RuleModel(rule=rule)
+            await session.add(new_rule)
+            await session.commit()
 
-            return_rule = await cls.get_rule_by_id(new_rule.id)
-            return Rule.model_validate(return_rule)
+            return Rule.model_validate(
+                await cls.get_rule_by_id(new_rule.id)
+            )
 
         return None
 
     @classmethod
     async def delete_rule_by_id(cls, rule_id: int) -> None:
         async with cls.session() as session:
-            async with session.begin():
-                rule = await session.get(RuleModel, rule_id)
-                await session.delete(rule)
+            await session.delete(
+                await session.get(RuleModel, rule_id)
+            )
+            await session.commit()
 
     @classmethod
     async def find_matching_rules(cls, rule: str) -> List[Rule]:
@@ -51,8 +56,10 @@ class RuleRepository(Repository):
         """
         rules = []
         async with cls.session() as session:
-            stmnt = select(RuleModel).where(RuleModel.rule == rule)
-            results = await session.scalars(stmnt)
+            results = await session.scalars(
+                select(RuleModel)
+                    .where(RuleModel.rule == rule)
+            )
             for rule_item in results.all():
                 rules.append(Rule.model_validate(rule_item))
 

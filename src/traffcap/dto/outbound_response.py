@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class OutboundResponseBase(BaseModel):
@@ -12,7 +12,9 @@ class OutboundResponseCreate(OutboundResponseBase):
 
 
 class OutboundResponse(OutboundResponseBase):
-    id: int
+    id: int = Field(json_schema_extra={
+        "resource_id": True
+    })
 
     class Config:
         from_attributes = True

@@ -17,12 +17,11 @@ class OutboundResponseRepository(Repository):
         """
         responses = []
         async with cls.session() as session:
-            stmnt = (
+            results = await session.scalars(
                 select(OutboundResponseModel)
                     .where(OutboundResponseModel.rule_id == rule.id)
                     .where(OutboundResponseModel.content_type == content_type)
             )
-            results = await session.scalars(stmnt)
             for response in results.all():
                 responses.append(Rule.model_validate(response))
 
