@@ -2,6 +2,9 @@ import logging
 
 
 def banner():
+    """
+    This is ANSI Shadow from the figlet font collection
+    """
     logging.info("""
 
 ████████╗██████╗  █████╗ ███████╗███████╗ ██████╗ █████╗ ██████╗ 
