@@ -1,3 +1,8 @@
+![build workflow](https://github.com/huh-sters/traffcap/actions/workflows/pylint.yml/badge.svg)
+![licence](https://img.shields.io/github/license/huh-sters/traffcap.svg)
+![status](https://img.shields.io/pypi/status/traffcap)
+
+
 ![Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/images/traffcap_logo.png?raw=true)
 
 # What Is Currently Working?
