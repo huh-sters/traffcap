@@ -4,7 +4,7 @@ from fastapi import FastAPI
 
 # Class for running FastAPI from within Python itself
 class StandaloneApplication(BaseApplication):
-    def __init__(self, app: FastAPI, options=None):
+    def __init__(self, app: FastAPI, options=None) -> None:
         self.options = options or {}
         self.application = app
         super().__init__()

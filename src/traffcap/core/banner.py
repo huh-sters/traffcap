@@ -1,7 +1,7 @@
 import logging
 
 
-def banner():
+def banner() -> None:
     """
     This is ANSI Shadow from the figlet font collection
     """

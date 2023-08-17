@@ -6,14 +6,14 @@ from asyncio import sleep
 manager = Manager()
 store = manager.dict()
 
-def start_store():
+def start_store() -> None:
     """
     Start the store
     """
     global store
     store["last_message"] = 0
 
-def new_traffic_notification():
+def new_traffic_notification() -> None:
     """
     Trigger a message to any listening web sockets
     """
