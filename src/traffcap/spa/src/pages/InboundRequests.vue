@@ -7,19 +7,23 @@
           <q-btn flat color="white" label="Retry" @click="openWebsocket()"/>
         </template>
       </q-banner>
-      <q-table
-        flat bordered
-        title="Inbound Requests"
-        dense
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        :rows-per-page-options="[0]"
-      >
-        <template v-slot:body-cell-method="props">
-          <q-chip square :color="method_colors[props.row.attributes.method]" text-color="white">{{ props.row.attributes.method }}</q-chip>
-        </template>
-      </q-table>
+      <q-list padding bordered class="rounded-borders">
+        <q-item v-for="row in rows" :key="row.id">
+          <q-item-section>
+            <q-item-label>
+              <q-chip square :color="method_colors[row.attributes.method]" text-color="white">{{ row.attributes.method }} @ {{ row.attributes.endpoint_code }}</q-chip>
+            </q-item-label>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Query Params</q-item-label>
+            <JsonViewer :value="JSON.parse(row.attributes.query_params)" copyable boxed sort/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Headers</q-item-label>
+            <JsonViewer :value="JSON.parse(row.attributes.headers)" copyable boxed sort/>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
   </q-page>
 </template>
@@ -28,9 +32,14 @@
 import { defineComponent } from 'vue';
 import { Request } from 'components/models';
 import { serverWebSocketURL } from 'components/server';
+import { JsonViewer } from 'vue3-json-viewer';
+
 
 export default defineComponent({
   name: 'InboundRequests',
+  components: {
+    JsonViewer
+  },
   mounted () {
     // Load the inbound requests
     this.openWebsocket();
