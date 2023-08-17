@@ -31,6 +31,11 @@ async def favicon_get() -> FileResponse:
     return FileResponse(dist / "favicon.ico")
 
 
+@root_router.get("/icons/{icon_filename}")
+async def custom_favicon_get(icon_filename: str) -> FileResponse:
+    return FileResponse(dist / "icons" / icon_filename)
+
+
 @root_router.get("/env.js")
 async def environment_get(request: Request) -> Response:
     """
