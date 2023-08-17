@@ -32,7 +32,7 @@ class RuleRepository(Repository):
     async def create_rule(cls, rule: str = ".*") -> Optional[Rule]:
         async with cls.session() as session:
             new_rule = RuleModel(rule=rule)
-            await session.add(new_rule)
+            session.add(new_rule)
             await session.commit()
 
             return Rule.model_validate(
@@ -44,7 +44,7 @@ class RuleRepository(Repository):
     @classmethod
     async def delete_rule_by_id(cls, rule_id: int) -> None:
         async with cls.session() as session:
-            await session.delete(
+            session.delete(
                 await session.get(RuleModel, rule_id)
             )
             await session.commit()

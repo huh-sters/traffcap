@@ -11,7 +11,7 @@ class UserRepository(Repository):
     async def add_a_test_user(cls) -> Optional[User]:
         user = None
         async with cls.session() as session:
-            await session.add(
+            session.add(
                 UserModel(
                     email="centurix@gmail.com",
                     fullname="Chris Read"

@@ -21,7 +21,7 @@ class InboundRequestRepository(Repository):
                 endpoint_code,
                 request
             )
-            await session.add(InboundRequestModel(**new_inbound_request.model_dump()))
+            session.add(InboundRequestModel(**new_inbound_request.model_dump()))
             await session.commit()
 
     @classmethod
