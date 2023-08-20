@@ -1,7 +1,8 @@
 from .repository import Repository
-from traffcap.dto import Rule
+from traffcap.dto import Rule, OutboundResponse
 from traffcap.model import OutboundResponseModel
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from typing import List
 
 
@@ -11,7 +12,7 @@ class OutboundResponseRepository(Repository):
         cls,
         rule: Rule,
         content_type: str
-    ) -> List[Rule]:
+    ) -> List[OutboundResponse]:
         """
         Find all responses for this rule
         """
@@ -21,8 +22,9 @@ class OutboundResponseRepository(Repository):
                 select(OutboundResponseModel)
                     .where(OutboundResponseModel.rule_id == rule.id)
                     .where(OutboundResponseModel.content_type == content_type)
+                    .options(selectinload(OutboundResponseModel.rule))
             )
             for response in results.all():
-                responses.append(Rule.model_validate(response))
+                responses.append(OutboundResponse.model_validate(response))
 
         return responses

@@ -1,8 +1,8 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class OutboundResponseBase(BaseModel):
-    rule_id: str
+    rule_id: int
     content_type: str
     template: str
 
@@ -12,11 +12,7 @@ class OutboundResponseCreate(OutboundResponseBase):
 
 
 class OutboundResponse(OutboundResponseBase):
+    model_config = ConfigDict(from_attributes=True)
     id: int = Field(json_schema_extra={
         "resource_id": True
     })
-
-    class Config:
-        from_attributes = True
-        resource_name: str = "outbound_response"
-        resource_id: str = "id"

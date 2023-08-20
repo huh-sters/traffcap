@@ -59,7 +59,7 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
                 content_type
             )
             for response in responses:
-                return Response("")
+                return Response(response.template)
 
     # Notify all listening web sockets
     new_traffic_notification()
