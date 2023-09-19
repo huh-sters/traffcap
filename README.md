@@ -62,7 +62,7 @@ And a basic server will start. Typing `traffcap --help` will list the available 
 
 At the moment, you'll need the following to run it:
 
-* Python 3.7 or greater ([pyenv](https://github.com/pyenv/pyenv#automatic-installer) is a good way to manage versions)
+* Python 3.8 or greater ([pyenv](https://github.com/pyenv/pyenv#automatic-installer) is a good way to manage versions)
 * [PDM installed](https://pdm.fming.dev/latest/#installation)
 * Node v12 or greater ([nvm](https://github.com/nvm-sh/nvm#installing-and-updating) is a good way to manage versions)
 * NPM (If you installed Node, you should have a version of NPM already)
@@ -162,27 +162,27 @@ You'll get a list of environments and the Python versions that they are for. The
 ~/python_projects/traffcap> pdm venv list
 Virtualenvs created with this project:
 
-*  3.7: /home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.7
+*  3.8: /home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.8
 ```
 
-Then the interpreter for that version of Python 3.7 is:
+Then the interpreter for that version of Python 3.8 is:
 
-`/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.7/bin/python`
+`/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.8/bin/python`
 
 If you wanted to, you can add the default Python interpreter in VSCode by adding the following to your projects `settings.json`:
 
 ```
 {
-    "python.defaultInterpreterPath": "/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.7/bin/python",
+    "python.defaultInterpreterPath": "/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.8/bin/python",
     ...
 }
 ```
 
 This will make all terminal sessions in VSCode start in that virtual environment and the debugger will use this version as well.
 
-### Why Python 3.7?
+### Why Python 3.8?
 
-As of the writing of this document, 3.7 will be the minimum supported version with the End of Life scheduled to be in June 2023. At which point, this repository will be upgrade to support the next in line for EOL, Python 3.8
+As of the writing of this document, 3.8 will be the minimum supported version with the End of Life scheduled to be in June 2023. At which point, this repository will be upgrade to support the next in line for EOL, Python 3.8
 
 ### Contributing
 
