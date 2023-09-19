@@ -1,6 +1,6 @@
 ![build workflow](https://github.com/huh-sters/traffcap/actions/workflows/build.yml/badge.svg)
 ![licence](https://img.shields.io/github/license/huh-sters/traffcap.svg)
-
+![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)
 
 ![Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/images/traffcap_logo.png?raw=true)
 
