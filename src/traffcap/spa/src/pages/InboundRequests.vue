@@ -7,23 +7,26 @@
           <q-btn flat color="white" label="Retry" @click="openWebsocket()"/>
         </template>
       </q-banner>
-      <q-list padding bordered class="rounded-borders">
-        <q-item v-for="row in rows" :key="row.id">
-          <q-item-section>
-            <q-item-label>
-              <q-chip square :color="method_colors[row.attributes.method]" text-color="white">{{ row.attributes.method }} @ {{ row.attributes.endpoint_code }}</q-chip>
-            </q-item-label>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Query Params</q-item-label>
-            <JsonViewer :value="JSON.parse(row.attributes.query_params)" copyable boxed sort/>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Headers</q-item-label>
-            <JsonViewer :value="JSON.parse(row.attributes.headers)" copyable boxed sort/>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <q-card class="col-12" v-for="row in rows" :key="row.id">
+        <q-card-section class="col-12">
+          <q-chip square :color="method_colors[row.attributes.method]" text-color="white">{{ row.attributes.method }}</q-chip>
+          Endpoint Code: {{ row.attributes.endpoint_code }}
+          <q-btn>Copy</q-btn>
+          <q-btn>Copy curl Request</q-btn>
+        </q-card-section>
+        <q-card-section class="col-6">
+          <q-item-label>Query Params</q-item-label>
+          <q-list dense>
+            <q-item v-for="value, key in JSON.parse(row.attributes.query_params)" :key="key">{{ key }}: {{ value }}</q-item>
+          </q-list>
+        </q-card-section>
+        <q-card-section class="col-6">
+          <q-item-label>Headers</q-item-label>
+          <q-list dense>
+            <q-item v-for="value, key in JSON.parse(row.attributes.headers)" :key="key">{{ key }}: {{ value }}</q-item>
+          </q-list>
+        </q-card-section>
+      </q-card>
     </div>
   </q-page>
 </template>
@@ -32,13 +35,13 @@
 import { defineComponent } from 'vue';
 import { Request } from 'components/models';
 import { serverWebSocketURL } from 'components/server';
-import { JsonViewer } from 'vue3-json-viewer';
+// import { JsonViewer } from 'vue3-json-viewer';
 
 
 export default defineComponent({
   name: 'InboundRequests',
   components: {
-    JsonViewer
+    // JsonViewer
   },
   mounted () {
     // Load the inbound requests

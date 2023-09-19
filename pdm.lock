@@ -6,7 +6,7 @@ groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:95bd78900290f71d84faf0cd39cb59a7b9a90d65f668ca3a9b18a031c5d9cc53"
+content_hash = "sha256:8131c6d3b1244957fccfc268074b26683dd2bc195bc86f12757e7bfb8b0f1bc0"
 
 [[package]]
 name = "aiomysql"
@@ -196,6 +196,16 @@ summary = "Distribution utilities"
 files = [
     {file = "distlib-0.3.7-py2.py3-none-any.whl", hash = "sha256:2e24928bc811348f0feb63014e97aaae3037f2cf48712d51ae61df7fd6075057"},
     {file = "distlib-0.3.7.tar.gz", hash = "sha256:9dafe54b34a028eafd95039d5e5d4851a13734540f1331060d31c9916e7147a8"},
+]
+
+[[package]]
+name = "dpath"
+version = "2.1.6"
+requires_python = ">=3.7"
+summary = "Filesystem-like pathing and searching for dictionaries"
+files = [
+    {file = "dpath-2.1.6-py3-none-any.whl", hash = "sha256:31407395b177ab63ef72e2f6ae268c15e938f2990a8ecf6510f5686c02b6db73"},
+    {file = "dpath-2.1.6.tar.gz", hash = "sha256:f1e07c72e8605c6a9e80b64bc8f42714de08a789c7de417e49c3f87a19692e47"},
 ]
 
 [[package]]

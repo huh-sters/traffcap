@@ -26,10 +26,16 @@ class InboundRequestRepository(Repository):
 
     @classmethod
     async def get_all_inbound_requests(cls) -> List[InboundRequest]:
+        """
+        TODO: Can we reduce the double handling of models between sqlalchemy and
+        pydantic? It would be nice to pass the select statement to the scalars()
+        method along with some kind of builder that generates pydantic models directly
+        """
         requests = []
         async with cls.session() as session:
             results = await session.scalars(
-                select(InboundRequestModel).order_by(InboundRequestModel.id.desc())
+                select(InboundRequestModel)
+                    .order_by(InboundRequestModel.id.desc())
             )
             for request in results.all():
                 requests.append(
