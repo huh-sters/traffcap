@@ -49,7 +49,7 @@ class Repository:
     @classmethod
     def migrate_up(cls) -> None:
         # Migrate up the database
-        config = Config("alembic.ini")
+        config = Config("src/alembic.ini")
         command.upgrade(config, "head")
 
     @classmethod

@@ -1,0 +1,31 @@
+# Exclude everything
+**
+
+# Project file
+!pyproject.toml
+!LICENSE
+
+# Migrations
+!src/migrations/*.py
+!src/migrations/versions
+!src/alembic.ini
+
+# Python application
+!src/traffcap/config
+!src/traffcap/core
+!src/traffcap/dto
+!src/traffcap/model
+!src/traffcap/repositories
+!src/traffcap/routes
+!src/traffcap/templates
+!src/traffcap/*.py
+
+# SPA
+!src/traffcap/spa/public
+!src/traffcap/spa
+!src/traffcap/spa/.npmrc
+!src/traffcap/spa/index.html
+!src/traffcap/spa/package.json
+!src/traffcap/spa/postcss.config.cjs
+!src/traffcap/spa/quasar.config.js
+!src/traffcap/spa/tsconfig.json

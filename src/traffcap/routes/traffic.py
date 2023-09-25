@@ -30,8 +30,9 @@ async def traffic_firehose(websocket: WebSocket):
             inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
             # Send more data
-            response = DANJAResourceList.from_basemodel_list(inbound_requests)
-            await websocket.send_text(response.model_dump_json())
+            if len(inbound_requests) > 0:
+                response = DANJAResourceList.from_basemodel_list(inbound_requests)
+                await websocket.send_text(response.model_dump_json())
 
             # Wait for an event from the message broker
             await wait_for_notification()

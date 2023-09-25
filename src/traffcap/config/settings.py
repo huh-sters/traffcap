@@ -9,6 +9,11 @@ class Settings(BaseSettings):
     server_url: str = ""
     websocket_protocol: str = "ws"
     http_protocol: str = "http"
+    db_user: str = ""
+    db_password: str = ""
+    db_host: str = ""
+    db_name: str = ""
+    db_driver: str = ""
 
     class Config:
         env_prefix: str = "traffcap_"
