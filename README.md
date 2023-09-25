@@ -46,6 +46,24 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 
 # Running This Thing
 
+## Docker
+
+This application is available as an image [here](https://hub.docker.com/r/centurix/traffcap)
+
+To use with `docker-compose.yaml`
+
+```
+---
+version: "2.1"
+services:
+  radarr:
+    image: centurix/traffcap:latest
+    container_name: traffcap
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+```
+
 ## From PyPi
 
 This is available from PyPi as a package. You can install the package with:
