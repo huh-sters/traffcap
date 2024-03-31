@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+from typing import Dict, Any
 import click
 import logging
 from traffcap.core import (
@@ -28,7 +29,7 @@ start_store()
 app = FastAPI()
 
 
-def custom_openapi():
+def custom_openapi() -> Dict[str, Any]:
     if app.openapi_schema:
         return app.openapi_schema
 
@@ -44,7 +45,7 @@ def custom_openapi():
 
     return app.openapi_schema
 
-app.openapi = custom_openapi
+setattr(app, 'openapi', custom_openapi)
 
 
 # Enable CORS from anywhere with anything

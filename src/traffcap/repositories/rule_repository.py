@@ -44,7 +44,7 @@ class RuleRepository(Repository):
     @classmethod
     async def delete_rule_by_id(cls, rule_id: int) -> None:
         async with cls.session() as session:
-            session.delete(
+            await session.delete(
                 await session.get(RuleModel, rule_id)
             )
             await session.commit()
