@@ -33,7 +33,7 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * All headers are recorded (done)
 * All content is captured (done)
 * Web sockets are captured
-* A single page application can control the application
+* A single page application can control the application (working)
 * A full API can control all aspects of the application
 * A reporting API can be used to monitor the application
 * Allow the frontend UI to be disabled
@@ -44,7 +44,7 @@ The goal of this tools is for it to be used in end to end testing where webhooks
 * Allow multiple database types (SQLite (done), MySQL (done), Postres, MSSQL, Oracle)
 * Provide a websocket connection
 
-# Running This Thing
+# Running
 
 ## Docker
 
