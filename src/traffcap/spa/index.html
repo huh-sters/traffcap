@@ -1,33 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= productName %></title>
-
-    <meta charset="utf-8">
-    <meta name="description" content="<%= productDescription %>">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
-
-    <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="icon" type="image/ico" href="favicon.ico">
-    <script type="text/javascript">
-/*
-Pre-set the environment for talking to the server. Later overwritten with the env.js below.
-When the server is running, it will be serving the env.js file as a static template. This
-ensures that the configuration from the container gets to the SPA. During development, you
-can serve the SPA directory which is hot-reloaded on changes. The two addresses below are
-the server address for the hot-loaded sessions, and then the env.js file will contain the
-configuration later when this is distributed.
-*/
-window._env_ = { url: "http://localhost:9669", websocket_url: "ws://localhost:9669" }
-    </script>
-    <script src="/env.js"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
   </head>
   <body>
-    <!-- quasar:entry-point -->
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

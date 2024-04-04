@@ -4,6 +4,7 @@ from traffcap.dto import InboundRequest
 from traffcap.core import wait_for_notification
 from websockets.exceptions import ConnectionClosed
 from pydanja import DANJAResourceList
+from asyncio import sleep
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
@@ -17,7 +18,6 @@ async def traffic_get() -> DANJAResourceList[InboundRequest]:
     inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
     # Convert from SQLAlchemy model to pydantic BaseModel
-
     return DANJAResourceList.from_basemodel_list(inbound_requests)
 
 
@@ -35,7 +35,11 @@ async def traffic_firehose(websocket: WebSocket):
                 await websocket.send_text(response.model_dump_json())
 
             # Wait for an event from the message broker
-            await wait_for_notification()
+            async for _ in wait_for_notification(websocket):
+                # Check the connection
+                await sleep(0.5)
+                # TODO: Figure out how to check websocket connections without the ping
+                await websocket.send_text("ping")
 
     except ConnectionClosed:
         pass

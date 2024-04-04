@@ -102,7 +102,7 @@ def main() -> None:
     logging.info("Checking and migrating...")
     Repository.migrate_up()
 
-    assets_dir = Path(str(Path(__file__).parent), "spa", "dist", "spa", "assets")
+    assets_dir = Path(str(Path(__file__).parent), "spa", "dist", "assets")
 
     # Static mount for SPA assets, with root files exposed elsewhere
     app.mount(

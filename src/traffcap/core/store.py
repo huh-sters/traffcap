@@ -1,6 +1,5 @@
+from typing import AsyncGenerator, Any
 from multiprocessing import Manager
-from asyncio import sleep
-
 
 # The default message broker
 manager = Manager()
@@ -20,7 +19,7 @@ def new_traffic_notification() -> None:
     global store
     store["last_message"] += 1
 
-async def wait_for_notification(seconds: float = 0.5) -> None:
+async def wait_for_notification(seconds: float = 0.5) -> AsyncGenerator[Any, Any]:
     """
     Wait for a change in the last_message. By default this uses
     the stdlib multiprocessing Manager. Which is good for ASGI/WSGI
@@ -29,6 +28,9 @@ async def wait_for_notification(seconds: float = 0.5) -> None:
     broker will be necessary. The preferred solution is RabbitMQ, but
     this should also support Redis.
     """
-    last_message = store.get("last_message", 0)
-    while last_message == store.get("last_message", 0):
-        await sleep(seconds)
+    try:
+        last_message = store.get("last_message", 0)
+        while last_message == store.get("last_message", 0):
+            yield
+    except EOFError:
+        pass

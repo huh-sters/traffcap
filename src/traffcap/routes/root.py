@@ -9,7 +9,7 @@ If a frontend path is set in environment variables, use it here
 """
 
 root_router = APIRouter(include_in_schema=False)
-dist = Path(str(Path(__file__).parent.parent), "spa", "dist", "spa")
+dist = Path(str(Path(__file__).parent.parent), "spa", "dist")
 if settings.frontend_path:
     dist = settings.frontend_path
 
