@@ -11,7 +11,11 @@ from traffcap.core import new_traffic_notification
 from traffcap.dto import HTTPVerbs
 import json
 """
-Files in the root directory
+Inbound Requests
+================
+
+Deal with all inbound traffic from webhooks. This has a single route which works with all HTTP verbs.
+
 """
 
 inbound_requests_router = APIRouter(
@@ -48,8 +52,8 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
             Found a match
             * run the actions
             * send the response
-            TODO: Actions go here
-            TODO: Response goes here. It should reflect the requested content type
+            TODO: Create Actions
+            TODO: Make the content type match the requested type
             1. If there's an accept header, use that
             2. If there's a content-type, use that to match what was sent
             3. Default to application/json
@@ -64,7 +68,6 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
     # Notify all listening web sockets
     new_traffic_notification()
 
-    # TODO: Default response
     return Response(json.dumps({
         "status": f"{request.method} OK for {endpoint_code}"
     }))

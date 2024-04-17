@@ -3,6 +3,9 @@ from fastapi.responses import PlainTextResponse
 from traffcap.core import Metric
 """
 Prometheus exporter endpoint
+============================
+
+TODO: Make the Prometheus exporter work
 """
 
 

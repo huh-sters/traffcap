@@ -23,7 +23,7 @@ async def traffic_get() -> DANJAResourceList[InboundRequest]:
 
 @traffic_router.websocket("/ws")
 async def traffic_firehose(websocket: WebSocket):
-    # TODO: Only send the newer requests instead of everything
+    # TODO: Only send the newer requests instead of everything in the WebSocket
     try:
         await websocket.accept()
         while True:

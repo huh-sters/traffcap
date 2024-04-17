@@ -26,17 +26,17 @@ def generate_db_url(migration: bool = False) -> str:
     aio_handlers = {
         "sqlite": "sqlite+aiosqlite",  # Tested
         "mysql": "mysql+aiomysql",  # Tested
-        "mssql": "mssql+pyodbc",  # TODO: Untested (might not work!)
-        "postgresql": "postgresql+asyncpg",  # TODO: Untested, alt is aiopg
-        "oracle": "oracle+cx_oracle_async"  # TODO: Untested
+        "mssql": "mssql+pyodbc",  # TODO: AIO Test MS SQL+pyodbc
+        "postgresql": "postgresql+asyncpg",  # TODO: AIO Test PostgreSQL + asyncpg
+        "oracle": "oracle+cx_oracle_async"  # TODO: AIO Test Oracle + CX Oracle async
     }
 
     non_aio_handlers = {
         "sqlite": "sqlite",  # Tested
         "mysql": "mysql+pymysql",  # Tested
-        "mssql": "mssql+pyodbc",  # TODO: Untested
-        "postgresql": "postgresql+psycopg2",  # TODO: Untested
-        "oracle": "oracle+cx_oracle"  # TODO: Untested
+        "mssql": "mssql+pyodbc",  # TODO: Non-AIO Test MS SQL + pyodbc
+        "postgresql": "postgresql+psycopg2",  # TODO: Non-AIO Test PostgreSQL + psycopg2
+        "oracle": "oracle+cx_oracle"  # TODO: Non-AIO Test Oracle + CX Oracle
     }
 
     if migration:

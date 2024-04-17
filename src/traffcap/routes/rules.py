@@ -25,7 +25,7 @@ def friendly_validation_error(ve: ValidationError) -> List[str]:
 async def rule_get() -> DANJAResourceList[Rule]:
     """
     Return a list of rules
-    TODO: Support paging
+    TODO: Support rule list paging
     """
     rules = await RuleRepository.get_all_rules()
 
