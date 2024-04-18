@@ -187,9 +187,6 @@ cython_debug/
 .pdm-python
 .python-version
 
-# VSCode
-.vscode
-
 # SPA files
 spa/dist
 spa/node_modules

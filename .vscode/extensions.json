@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "ms-playwright.playwright",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "Vue.volar",
+    "wayou.vscode-todo-highlight",
+    "humao.rest-client",
+    "miragon-gmbh.vs-code-bpmn-modeler"
+  ],
+  "unwantedRecommendations": [
+    "octref.vetur",
+    "hookyqr.beautify",
+    "dbaeumer.jshint",
+    "ms-vscode.vscode-typescript-tslint-plugin"
+  ]
+}
