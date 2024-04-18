@@ -281,6 +281,10 @@ During development, it is fine to create feature branch revisions using the IDs 
 
 `alembic revision --autogenerate --rev-id 0.0.1 -m 'Baseline schema'`
 
+OR
+
+`pdm run baseline_schema`
+
 ### ORM Usage and Being Database Agnostic
 
 One of the aims of this project is to be as database agnostic as it could possibly be. Out of the box the project is using SQLAlchemy to bring a certain level of abstraction to Python. Adding specific dialects of SQL into this project would be a last resort.

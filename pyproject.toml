@@ -23,6 +23,8 @@ server.cmd = "gunicorn traffcap.server:app --workers 4 --worker-class uvicorn.wo
 server.env = { "PYTHONPATH" = "src" }
 docker_build = "docker build --no-cache --tag traffcap --progress plain ."
 docker_shell = "docker run --entrypoint /bin/sh -p 9669:9669 -it traffcap"
+# Generate the baseline schema from models
+baseline_schema = "alembic --config=src/alembic.ini revision --autogenerate --rev-id 0.0.1 -m baseline"
 
 [tool.ruff]
 line-length=119
