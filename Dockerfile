@@ -8,7 +8,10 @@ ENV PATH=/root/.local/bin:$PATH \
     TRAFFCAP_DB_NAME="/data/traffcap.db" \
     TRAFFCAP_DB_DRIVER="sqlite" \
     TRAFFCAP_SERVER_URL="localhost:9669" \
-    PYTHONPATH="src/traffcap"
+    PYTHONPATH="src/traffcap" \
+    VITE_WS_API_URL="http://localhost:9669" \
+    VITE_API_URL="http://localhost:9669" \
+    BASE_URL="http://localhost:9669"
 
 EXPOSE 9669
 
