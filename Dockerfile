@@ -1,4 +1,4 @@
-FROM python:3.8.18-alpine AS base_image
+FROM python:3.9.21-alpine AS base_image
 
 ENV PATH=/root/.local/bin:$PATH \
     TRAFFCAP_REQUESTS_PREFIX="r" \
