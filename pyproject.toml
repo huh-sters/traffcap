@@ -14,7 +14,7 @@ dev = [
     "mock-alchemy>=0.2.6",
 ]
 [tool.pdm.scripts]
-lint = "ruff src"
+lint = "ruff check src"
 test = "pytest src"
 cover = "pytest --cov=src --cov-report term"
 cover_html = "pytest --cov=src --cov-report html"
