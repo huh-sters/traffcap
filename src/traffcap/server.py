@@ -49,8 +49,6 @@ setattr(app, 'openapi', custom_openapi)
 
 
 # Enable CORS from anywhere with anything
-# TODO: Upgrade to Python 3.8 for current EOL support
-# TODO: Upgrade to Python 3.9 for October 2024
 # TODO: Add UI to restrict CORS
 # TODO: Fix CORS for new Chrome addition where non-secure localhosts clash
 app.add_middleware(
@@ -161,5 +159,5 @@ def cli(workers: int, bind: str, port: str) -> None:
     StandaloneApplication(app, options).run()
 
 
-if __name__ in ["__main__", "server", "traffcap.server"]:
+if __name__ in ["__main__"] or "server" in __name__:
     main()

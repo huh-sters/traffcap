@@ -38,8 +38,6 @@ export class TrafficRepository extends Repository {
             // const { data } = useFetch<IJSONAPIListRoot<IRequest>>(`${url}/traffic`).get().json();
             const { data } = useFetch(`${url}/traffic`).get();
 
-            console.log(data.value);
-
             traffic([{
                 id: 1,
                 body: "",

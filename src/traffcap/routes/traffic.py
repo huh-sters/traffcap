@@ -1,8 +1,10 @@
+import logging
 from fastapi import APIRouter, WebSocket
 from traffcap.repositories import InboundRequestRepository
 from traffcap.dto import InboundRequest
 from traffcap.core import wait_for_notification
 from websockets.exceptions import ConnectionClosed
+from starlette.websockets import WebSocketDisconnect
 from pydanja import DANJAResourceList
 from asyncio import sleep
 
@@ -27,6 +29,7 @@ async def traffic_firehose(websocket: WebSocket):
     try:
         await websocket.accept()
         while True:
+            # TODO: Convert this to a context class
             inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
             # Send more data
@@ -41,5 +44,6 @@ async def traffic_firehose(websocket: WebSocket):
                 # TODO: Figure out how to check websocket connections without the ping
                 await websocket.send_text("ping")
 
-    except ConnectionClosed:
-        pass
+    except (ConnectionClosed, WebSocketDisconnect):
+        # Keep on truckin'
+        logging.debug("Websocket disconnected")

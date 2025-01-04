@@ -24,7 +24,7 @@ onMounted(() => {
   };
   TrafficRepository.getAllTraffic()
     .then(response => {
-      console.log(response)
+      
     })
 })
 
