@@ -52,8 +52,7 @@ dependencies = [
     "pydanja>=0.1.0",
     "dpath>=2.1.6",
 ]
-# TODO: Open this to >=3.8 once released
-requires-python = ">=3.8,<3.9"
+requires-python = ">=3.9"
 # readme = "README.md"
 license = {file = "LICENSE"}
 
