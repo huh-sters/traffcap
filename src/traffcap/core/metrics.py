@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any
 from pydantic import BaseModel
 import json
 
@@ -6,7 +6,7 @@ import json
 class Metric(BaseModel):
     type: str = ""
     help: str = ""
-    data: Dict[str, Any] = {}
+    data: dict[str, Any] = {}
     value: float = 0
 
     def __str__(self) -> str:

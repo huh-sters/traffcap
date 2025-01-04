@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from alembic import command
 from alembic.config import Config
-from typing import Optional, Type
+from typing import Optional
 from types import TracebackType
 from migrations.url import generate_db_url
 
@@ -32,7 +32,7 @@ class Repository:
 
         async def __aexit__(
             self,
-            exc_type: Optional[Type[BaseException]],
+            exc_type: Optional[type[BaseException]],
             exc: Optional[BaseException],
             tb: Optional[TracebackType]
         ) -> bool:

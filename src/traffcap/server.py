@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any
 import click
 import logging
 from traffcap.core import (
@@ -29,7 +29,7 @@ start_store()
 app = FastAPI()
 
 
-def custom_openapi() -> Dict[str, Any]:
+def custom_openapi() -> dict[str, Any]:
     if app.openapi_schema:
         return app.openapi_schema
 

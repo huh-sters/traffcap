@@ -3,7 +3,6 @@ from traffcap.dto import Rule, OutboundResponse
 from traffcap.model import OutboundResponseModel
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
-from typing import List
 
 
 class OutboundResponseRepository(Repository):
@@ -12,7 +11,7 @@ class OutboundResponseRepository(Repository):
         cls,
         rule: Rule,
         content_type: str
-    ) -> List[OutboundResponse]:
+    ) -> list[OutboundResponse]:
         """
         Find all responses for this rule
         """

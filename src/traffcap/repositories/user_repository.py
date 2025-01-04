@@ -3,7 +3,6 @@ from .repository import Repository
 from traffcap.dto import User
 from traffcap.model import UserModel
 from sqlalchemy import select
-from typing import List
 
 
 class UserRepository(Repository):
@@ -30,7 +29,7 @@ class UserRepository(Repository):
         return User.model_validate(user)
 
     @classmethod
-    async def get_all_users(cls) -> List[User]:
+    async def get_all_users(cls) -> list[User]:
         users = []
         async with cls.session() as session:
             results = await session.scalars(

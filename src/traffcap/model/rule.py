@@ -1,4 +1,3 @@
-from typing import List
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -81,9 +80,9 @@ class RuleModel(Base):
     __tablename__: str = "rules"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    matches: Mapped[List["RuleMatchModel"]] = relationship(
+    matches: Mapped[list["RuleMatchModel"]] = relationship(
         back_populates="rules"
     )
-    outbound_responses: Mapped[List["OutboundResponseModel"]] = relationship(  # noqa: F821
+    outbound_responses: Mapped[list["OutboundResponseModel"]] = relationship(  # noqa: F821
         back_populates="rules"
     )

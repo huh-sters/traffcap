@@ -3,7 +3,6 @@ from .repository import Repository
 from traffcap.dto import Rule
 from traffcap.model import RuleModel
 from sqlalchemy import select
-from typing import List
 
 
 class RuleRepository(Repository):
@@ -17,7 +16,7 @@ class RuleRepository(Repository):
         return None
 
     @classmethod
-    async def get_all_rules(cls) -> List[Rule]:
+    async def get_all_rules(cls) -> list[Rule]:
         rules = []
         async with cls.session() as session:
             results = await session.scalars(
@@ -50,7 +49,7 @@ class RuleRepository(Repository):
             await session.commit()
 
     @classmethod
-    async def find_matching_rules(cls, rule: str) -> List[Rule]:
+    async def find_matching_rules(cls, rule: str) -> list[Rule]:
         """
         Find all rules that match this current rule
         """

@@ -6,7 +6,7 @@ from traffcap.dto import (
 )
 from traffcap.repositories import RuleRepository
 from pydantic import ValidationError
-from typing import List, Union
+from typing import Union
 """
 Endpoint management
 """
@@ -14,7 +14,7 @@ Endpoint management
 rule_router = APIRouter(prefix="/rules", tags=["Rules"])
 
 
-def friendly_validation_error(ve: ValidationError) -> List[str]:
+def friendly_validation_error(ve: ValidationError) -> list[str]:
     return [
         f"{'/'.join(str(element) for element in e['loc'])} - {e['msg']}"
         for e in ve.errors()

@@ -3,7 +3,6 @@ from fastapi import Request
 from traffcap.dto import InboundRequestCreate, InboundRequest
 from traffcap.model import InboundRequestModel
 from sqlalchemy import select
-from typing import List
 
 
 class InboundRequestRepository(Repository):
@@ -25,7 +24,7 @@ class InboundRequestRepository(Repository):
             await session.commit()
 
     @classmethod
-    async def get_all_inbound_requests(cls) -> List[InboundRequest]:
+    async def get_all_inbound_requests(cls) -> list[InboundRequest]:
         """
         TODO: Reduce the double handling of models
         Can we reduce the double handling of models between sqlalchemy and
