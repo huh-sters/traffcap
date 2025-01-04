@@ -19,7 +19,7 @@ def new_traffic_notification() -> None:
     global store
     store["last_message"] += 1
 
-async def wait_for_notification(seconds: float = 0.5) -> AsyncGenerator[Any, Any]:
+async def wait_for_notification() -> AsyncGenerator[Any, Any]:
     """
     Wait for a change in the last_message. By default this uses
     the stdlib multiprocessing Manager. Which is good for ASGI/WSGI

@@ -38,7 +38,7 @@ async def traffic_firehose(websocket: WebSocket):
                 await websocket.send_text(response.model_dump_json())
 
             # Wait for an event from the message broker
-            async for _ in wait_for_notification(websocket):
+            async for _ in wait_for_notification():
                 # Check the connection
                 await sleep(0.5)
                 # TODO: Figure out how to check websocket connections without the ping

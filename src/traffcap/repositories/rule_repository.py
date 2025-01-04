@@ -54,13 +54,13 @@ class RuleRepository(Repository):
         """
         Find all rules that match this current rule
         """
-        rules = []
-        async with cls.session() as session:
-            results = await session.scalars(
-                select(RuleModel)
-                    .where(RuleModel.rule == rule)
-            )
-            for rule_item in results.all():
-                rules.append(Rule.model_validate(rule_item))
+        rules: list[Rule] = []
+        # async with cls.session() as session:
+        #     results = await session.scalars(
+        #         select(RuleModel)
+        #             .where(RuleModel.rule == rule)
+        #     )
+        #     for rule_item in results.all():
+        #         rules.append(Rule.model_validate(rule_item))
 
         return rules
