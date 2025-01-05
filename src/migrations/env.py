@@ -1,8 +1,8 @@
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+from sqlalchemy.orm import DeclarativeBase
 from alembic import context
-from traffcap import model
 from migrations.url import generate_db_url
 
 
@@ -12,7 +12,7 @@ if config.config_file_name is not None:
 
 config.set_main_option("sqlalchemy.url", generate_db_url(migration=True))
 
-target_metadata = model.Base.metadata
+target_metadata = DeclarativeBase.metadata
 
 
 def run_migrations_offline() -> None:
