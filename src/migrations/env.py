@@ -4,6 +4,7 @@ from sqlalchemy import pool
 from sqlmodel import SQLModel
 from alembic import context
 from migrations.url import generate_db_url
+from traffcap.model import *
 
 
 config = context.config
