@@ -1,16 +1,15 @@
-from .base import Base
-from .user import UserModel
-from .rule import RuleModel
-from .rule_match import RuleMatchModel
-from .inbound_request import InboundRequestModel
-from .outbound_response import OutboundResponseModel
+from .inbound_request import InboundRequest, HTTPVerbs
+from .user import User
+from .rule import Rule
+from .rule_match import RuleMatch
+from .outbound_response import OutboundResponse
 
 
 __all__ = [
-    "Base",
-    "UserModel",
-    "RuleModel",
-    "RuleMatchModel",
-    "InboundRequestModel",
-    "OutboundResponseModel"
+    "HTTPVerbs",
+    "InboundRequest",
+    "User",
+    "Rule",
+    "RuleMatch",
+    "OutboundResponse"
 ]

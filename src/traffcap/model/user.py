@@ -1,14 +1,10 @@
-from sqlalchemy import String
-from sqlalchemy.orm import (
-    Mapped,
-    mapped_column
-)
-from .base import Base
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 
-class UserModel(Base):
-    __tablename__: str = "users"
+class User(SQLModel, table=True):
+    __tablename__: str = "users"  # type: ignore
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String(255))
-    fullname: Mapped[str] = mapped_column(String(32))
+    id: Optional[int] = Field(default=None, primary_key=True)
+    email: str = Field(max_length=255)
+    fullname: str = Field(max_length=32)

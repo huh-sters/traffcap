@@ -1,13 +1,8 @@
-from sqlalchemy.orm import (
-    Mapped,
-    mapped_column,
-    relationship
-)
-from .base import Base
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from .outbound_response import OutboundResponseModel
-    from .rule_match import RuleMatchModel
+from typing import Optional
+from sqlmodel import Field, SQLModel, Relationship
+
+from .outbound_response import OutboundResponse
+from .rule_match import RuleMatch
 
 """
 Rules are used by Traffcap to decide how to respond to an inbound request.
@@ -76,13 +71,10 @@ The header matches are a collection of key and value Regexs
 
 """
 
-class RuleModel(Base):
-    __tablename__: str = "rules"
+class Rule(SQLModel, table=True):
+    __tablename__: str = "rules"  # type: ignore
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    matches: Mapped[list["RuleMatchModel"]] = relationship(
-        back_populates="rules"
-    )
-    outbound_responses: Mapped[list["OutboundResponseModel"]] = relationship(  # noqa: F821
-        back_populates="rules"
-    )
+    id: Optional[int] = Field(default=None, primary_key=True)
+    rule: str = Field(max_length=255)
+    matches: list[RuleMatch] = Relationship(back_populates="rules")
+    outbound_responses: list[OutboundResponse] = Relationship(back_populates="rules")

@@ -1,20 +1,14 @@
-from sqlalchemy import String, ForeignKey
-from sqlalchemy.orm import (
-    Mapped,
-    mapped_column,
-    relationship
-)
-from .base import Base
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from .rule import RuleModel
+from typing import Optional
+from sqlmodel import Field, SQLModel, Relationship
+
+from .rule import Rule
 
 
-class OutboundResponseModel(Base):
-    __tablename__: str = "outbound_responses"
+class OutboundResponse(SQLModel, table=True):
+    __tablename__: str = "outbound_responses"  # type: ignore
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    rule_id: Mapped[str] = mapped_column(ForeignKey("rules.id"))
-    content_type: Mapped[str] = mapped_column(String(32))
-    template: Mapped[str] = mapped_column(String(1024))
-    rule: Mapped["RuleModel"] = relationship(back_populates="outbound_responses")  # noqa: F821
+    id: Optional[int] = Field(default=None, primary_key=True)
+    rule_id: int = Field(default=None, foreign_key="rules.id")
+    content_type: str = Field(max_length=32)
+    template: str = Field(max_length=1024)
+    rule: Rule = Relationship(back_populates="outbound_responses")
