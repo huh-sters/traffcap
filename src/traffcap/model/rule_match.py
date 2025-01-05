@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from sqlmodel import Field, SQLModel, Relationship
-from .rule import Rule
+if TYPE_CHECKING:
+    from traffcap.model import Rule
 
 
 class RuleMatch(SQLModel, table=True):
@@ -10,4 +11,4 @@ class RuleMatch(SQLModel, table=True):
     rule_id: int = Field(default=None, foreign_key="rules.id")
     match_type: int
     match: str = Field(max_length=255)
-    rule: Rule = Relationship(back_populates="rule_matches")
+    rule: "Rule" = Relationship(back_populates="rule_matches")

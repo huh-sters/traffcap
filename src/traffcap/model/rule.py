@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from sqlmodel import Field, SQLModel, Relationship
+if TYPE_CHECKING:
+    from traffcap.model import OutboundResponse, RuleMatch
 
-from .outbound_response import OutboundResponse
-from .rule_match import RuleMatch
 
 """
 Rules are used by Traffcap to decide how to respond to an inbound request.
@@ -76,5 +76,5 @@ class Rule(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     rule: str = Field(max_length=255)
-    matches: list[RuleMatch] = Relationship(back_populates="rules")
-    outbound_responses: list[OutboundResponse] = Relationship(back_populates="rules")
+    matches: list["RuleMatch"] = Relationship(back_populates="rules")
+    outbound_responses: list["OutboundResponse"] = Relationship(back_populates="rules")

@@ -1,7 +1,6 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
-
-from .rule import Rule
+from traffcap.model import Rule
 
 
 class OutboundResponse(SQLModel, table=True):
