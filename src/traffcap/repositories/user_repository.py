@@ -1,41 +1,36 @@
-from typing import Optional
+from typing import Optional, Sequence
 from .repository import Repository
-from traffcap.dto import User
-from traffcap.model import UserModel
+from traffcap.model import User
 from sqlalchemy import select
 
 
 class UserRepository(Repository):
     @classmethod
     async def add_a_test_user(cls) -> Optional[User]:
-        user = None
+        user = User(
+            email="centurix@gmail.com",
+            fullname="Chris Read"
+        )
         async with cls.session() as session:
-            session.add(
-                UserModel(
-                    email="centurix@gmail.com",
-                    fullname="Chris Read"
-                )
-            )
+            session.add(user)
             await session.commit()
 
-        return User.model_validate(user)
+        return user
 
     @classmethod
     async def get_user_by_id(cls, user_id: int) -> Optional[User]:
         user = None
         async with cls.session() as session:
-            user = await session.get(UserModel, user_id)
+            user = await session.get(User, user_id)
 
-        return User.model_validate(user)
+        return user
 
     @classmethod
-    async def get_all_users(cls) -> list[User]:
-        users = []
+    async def get_all_users(cls) -> Sequence[User]:
         async with cls.session() as session:
             results = await session.scalars(
-                select(UserModel)
+                select(User)
             )
-            for user in results.all():
-                users.append(User.model_validate(user))
+            return results.all()
 
-        return users
+        return []

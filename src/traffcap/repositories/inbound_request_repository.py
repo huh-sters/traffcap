@@ -1,8 +1,8 @@
+from typing import Sequence
 from .repository import Repository
 from fastapi import Request
-from traffcap.dto import InboundRequestCreate, InboundRequest
-from traffcap.model import InboundRequestModel
-from sqlalchemy import select
+from traffcap.model import InboundRequest
+from sqlmodel import select
 
 
 class InboundRequestRepository(Repository):
@@ -12,34 +12,16 @@ class InboundRequestRepository(Repository):
         endpoint_code: str,
         request: Request
     ) -> None:
-        """
-        Store the components of the request
-        """
         async with cls.session() as session:
-            new_inbound_request = await InboundRequestCreate.from_request(
-                endpoint_code,
-                request
-            )
-            session.add(InboundRequestModel(**new_inbound_request.model_dump()))
+            session.add(await InboundRequest.from_request(endpoint_code, request))
             await session.commit()
 
     @classmethod
-    async def get_all_inbound_requests(cls) -> list[InboundRequest]:
-        """
-        TODO: Reduce the double handling of models
-        Can we reduce the double handling of models between sqlalchemy and
-        pydantic? It would be nice to pass the select statement to the scalars()
-        method along with some kind of builder that generates pydantic models directly
-        """
-        requests = []
+    async def get_all_inbound_requests(cls) -> Sequence[InboundRequest]:
         async with cls.session() as session:
             results = await session.scalars(
-                select(InboundRequestModel)
-                    .order_by(InboundRequestModel.id.desc())
+                select(InboundRequest)
             )
-            for request in results.all():
-                requests.append(
-                    InboundRequest.model_validate(request, from_attributes=True)
-                )
+            return results.all()
 
-        return requests
+        return []

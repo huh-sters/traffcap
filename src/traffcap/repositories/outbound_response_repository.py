@@ -1,8 +1,7 @@
+from typing import Sequence
 from .repository import Repository
-from traffcap.dto import Rule, OutboundResponse
-from traffcap.model import OutboundResponseModel
-from sqlalchemy import select
-from sqlalchemy.orm import selectinload
+from traffcap.model import Rule, OutboundResponse
+from sqlmodel import select
 
 
 class OutboundResponseRepository(Repository):
@@ -11,19 +10,13 @@ class OutboundResponseRepository(Repository):
         cls,
         rule: Rule,
         content_type: str
-    ) -> list[OutboundResponse]:
-        """
-        Find all responses for this rule
-        """
-        responses = []
+    ) -> Sequence[OutboundResponse]:
         async with cls.session() as session:
             results = await session.scalars(
-                select(OutboundResponseModel)
-                    .where(OutboundResponseModel.rule_id == rule.id)
-                    .where(OutboundResponseModel.content_type == content_type)
-                    .options(selectinload(OutboundResponseModel.rule))
+                select(OutboundResponse)
+                    .where(OutboundResponse.rule_id == rule.id)
+                    .where(OutboundResponse.content_type == content_type)
             )
-            for response in results.all():
-                responses.append(OutboundResponse.model_validate(response))
+            return results.all()
 
-        return responses
+        return []

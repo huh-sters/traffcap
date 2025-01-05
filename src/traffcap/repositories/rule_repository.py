@@ -1,7 +1,6 @@
-from typing import Optional
+from typing import Optional, Sequence
 from .repository import Repository
-from traffcap.dto import Rule
-from traffcap.model import RuleModel
+from traffcap.model import Rule
 from sqlalchemy import select
 
 
@@ -9,34 +8,28 @@ class RuleRepository(Repository):
     @classmethod
     async def get_rule_by_id(cls, rule_id: int) -> Optional[Rule]:
         async with cls.session() as session:
-            return Rule.model_validate(
-                await session.get(RuleModel, rule_id)
-            )
+            return await session.get(Rule, rule_id)
         
         return None
 
     @classmethod
-    async def get_all_rules(cls) -> list[Rule]:
-        rules = []
+    async def get_all_rules(cls) -> Sequence[Rule]:
         async with cls.session() as session:
             results = await session.scalars(
-                select(RuleModel)
+                select(Rule)
             )
-            for rule in results.all():
-                rules.append(Rule.model_validate(rule))
+            return results.all()
 
-        return rules
+        return []
 
     @classmethod
     async def create_rule(cls, rule: str = ".*") -> Optional[Rule]:
         async with cls.session() as session:
-            new_rule = RuleModel(rule=rule)
+            new_rule = Rule(rule=rule)
             session.add(new_rule)
             await session.commit()
 
-            return Rule.model_validate(
-                await cls.get_rule_by_id(new_rule.id)
-            )
+            return new_rule
 
         return None
 
@@ -44,22 +37,20 @@ class RuleRepository(Repository):
     async def delete_rule_by_id(cls, rule_id: int) -> None:
         async with cls.session() as session:
             await session.delete(
-                await session.get(RuleModel, rule_id)
+                await session.get(Rule, rule_id)
             )
             await session.commit()
 
     @classmethod
-    async def find_matching_rules(cls, rule: str) -> list[Rule]:
+    async def find_matching_rules(cls, rule: str) -> Sequence[Rule]:
         """
         Find all rules that match this current rule
         """
-        rules: list[Rule] = []
         # async with cls.session() as session:
         #     results = await session.scalars(
-        #         select(RuleModel)
-        #             .where(RuleModel.rule == rule)
+        #         select(Rule)
+        #             .where(Rule.rule == rule)
         #     )
-        #     for rule_item in results.all():
-        #         rules.append(Rule.model_validate(rule_item))
+        #     return results.all()
 
-        return rules
+        return []
