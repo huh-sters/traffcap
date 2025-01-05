@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter, WebSocket
 from traffcap.repositories import InboundRequestRepository
-from traffcap.dto import InboundRequest
+from traffcap.model import InboundRequest
 from traffcap.core import wait_for_notification
 from websockets.exceptions import ConnectionClosed
 from starlette.websockets import WebSocketDisconnect
@@ -20,7 +20,7 @@ async def traffic_get() -> DANJAResourceList[InboundRequest]:
     inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
 
     # Convert from SQLAlchemy model to pydantic BaseModel
-    return DANJAResourceList.from_basemodel_list(inbound_requests)
+    return DANJAResourceList.from_basemodel_list(list(inbound_requests))
 
 
 @traffic_router.websocket("/ws")
@@ -34,7 +34,7 @@ async def traffic_firehose(websocket: WebSocket):
 
             # Send more data
             if len(inbound_requests) > 0:
-                response = DANJAResourceList.from_basemodel_list(inbound_requests)
+                response = DANJAResourceList.from_basemodel_list(list(inbound_requests))
                 await websocket.send_text(response.model_dump_json())
 
             # Wait for an event from the message broker

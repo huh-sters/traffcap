@@ -8,7 +8,7 @@ from traffcap.repositories import (
     RuleRepository
 )
 from traffcap.core import new_traffic_notification
-from traffcap.dto import HTTPVerbs
+from traffcap.model import HTTPVerbs
 import json
 """
 Inbound Requests
