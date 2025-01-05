@@ -3,7 +3,7 @@ from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 from alembic import context
 from migrations.url import generate_db_url
-from traffcap.model import *
+from traffcap.model import *  # noqa: F403
 
 
 config = context.config
