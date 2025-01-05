@@ -2,7 +2,7 @@
 
 Revision ID: 0.0.1
 Revises: 
-Create Date: 2025-01-05 18:21:41.084585
+Create Date: 2025-01-05 21:17:11.932272
 
 """
 from alembic import op
@@ -41,17 +41,17 @@ def upgrade() -> None:
     )
     op.create_table('outbound_responses',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.Column('content_type', sqlmodel.sql.sqltypes.AutoString(length=32), nullable=False),
     sa.Column('template', sqlmodel.sql.sqltypes.AutoString(length=1024), nullable=False),
+    sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['rule_id'], ['rules.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('rule_matches',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.Column('match_type', sa.Integer(), nullable=False),
     sa.Column('match', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
+    sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['rule_id'], ['rules.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

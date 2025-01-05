@@ -1,7 +1,7 @@
 from typing import Optional, Sequence
 from .repository import Repository
 from traffcap.model import Rule
-from sqlalchemy import select
+from sqlmodel import select
 
 
 class RuleRepository(Repository):

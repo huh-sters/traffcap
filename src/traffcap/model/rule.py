@@ -75,6 +75,8 @@ class Rule(SQLModel, table=True):
     __tablename__: str = "rules"  # type: ignore
 
     id: Optional[int] = Field(default=None, primary_key=True)
+
     rule: str = Field(max_length=255)
-    matches: list["RuleMatch"] = Relationship(back_populates="rules")
-    outbound_responses: list["OutboundResponse"] = Relationship(back_populates="rules")
+
+    rule_matches: list["RuleMatch"] = Relationship(back_populates="rule")
+    outbound_responses: list["OutboundResponse"] = Relationship(back_populates="rule")

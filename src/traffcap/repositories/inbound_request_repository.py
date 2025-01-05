@@ -1,3 +1,4 @@
+import logging
 from typing import Sequence
 from .repository import Repository
 from fastapi import Request
@@ -13,8 +14,11 @@ class InboundRequestRepository(Repository):
         request: Request
     ) -> None:
         async with cls.session() as session:
-            session.add(await InboundRequest.from_request(endpoint_code, request))
-            await session.commit()
+            try:
+                session.add(await InboundRequest.from_request(endpoint_code, request))
+                await session.commit()
+            except Exception as ex:
+                logging.info(ex)
 
     @classmethod
     async def get_all_inbound_requests(cls) -> Sequence[InboundRequest]:
