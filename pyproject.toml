@@ -16,9 +16,10 @@ dev = [
 [tool.pdm.scripts]
 lint = "ruff check src"
 test = "pytest src"
+type_check = "mypy src"
+all = {composite = ["lint", "test", "type_check"]}
 cover = "pytest --cov=src --cov-report term"
 cover_html = "pytest --cov=src --cov-report html"
-type_check = "mypy src"
 server.cmd = "gunicorn traffcap.server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --preload --bind 0.0.0.0:9669"
 server.env = { "PYTHONPATH" = "src" }
 docker_build = "docker build --no-cache --tag traffcap --progress plain ."
@@ -51,6 +52,7 @@ dependencies = [
     "pydantic-settings>=2.0.2",
     "pydanja>=0.1.0",
     "dpath>=2.1.6",
+    "sqlmodel>=0.0.22",
 ]
 requires-python = ">=3.9"
 # readme = "README.md"
@@ -75,3 +77,6 @@ module = [
     "mock_alchemy.mocking"
 ]
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope="function"
