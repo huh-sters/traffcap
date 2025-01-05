@@ -41,44 +41,44 @@ async def rule_get_by_id(rule_id: int) -> Union[DANJAResource[Rule], DANJAErrorL
     return DANJAResource.from_basemodel(rule)
 
 
-# @rule_router.post("/")
-# async def rule_create(payload: DANJAResource[Rule]) -> Union[DANJAResource[Rule], DANJAErrorList]:
-#     """
-#     Create a new rule
-#     * Check that it doesn't clash with another rule
+@rule_router.post("/")
+async def rule_create(payload: DANJAResource[Rule]) -> Union[DANJAResource[Rule], DANJAErrorList]:
+    """
+    Create a new rule
+    * Check that it doesn't clash with another rule
 
-#     While it is possible to find an empty intersect between two regex patterns, it
-#     would be costly to perform it here. Instead, we just perform an exact string
-#     match across the rules table.
-#     """
-#     try:
-#         # See if the rule is already there
-#         rules = await RuleRepository.find_matching_rules(
-#             rule=payload.data.attributes.rule
-#         )
-#         if len(rules) > 0:
-#             raise HTTPException(
-#                 400,
-#                 detail=f"Rule {payload.data.attributes.rule!r} already exists"
-#             )
+    While it is possible to find an empty intersect between two regex patterns, it
+    would be costly to perform it here. Instead, we just perform an exact string
+    match across the rules table.
+    """
+    try:
+        # See if the rule is already there
+        rules = await RuleRepository.find_matching_rules(
+            rule=payload.data.attributes.rule
+        )
+        if len(rules) > 0:
+            raise HTTPException(
+                400,
+                detail=f"Rule {payload.data.attributes.rule!r} already exists"
+            )
 
-#         # Create the new rule
-#         new_rule = await RuleRepository.create_rule(
-#             rule=payload.data.attributes.rule
-#         )
+        # Create the new rule
+        new_rule = await RuleRepository.create_rule(
+            rule=payload.data.attributes.rule
+        )
 
-#         if not new_rule:
-#             raise HTTPException(
-#                 400,
-#                 detail=f"Unable to create rule for {payload.data.attributes.rule}"
-#             )
+        if not new_rule:
+            raise HTTPException(
+                400,
+                detail=f"Unable to create rule for {payload.data.attributes.rule}"
+            )
 
-#         return DANJAResource.from_basemodel(new_rule)
-#     except ValidationError as ve:
-#         raise HTTPException(
-#             400,
-#             detail=friendly_validation_error(ve)
-#         )
+        return DANJAResource.from_basemodel(new_rule)
+    except ValidationError as ve:
+        raise HTTPException(
+            400,
+            detail=friendly_validation_error(ve)
+        )
 
 
 @rule_router.delete("/{rule_id}")
