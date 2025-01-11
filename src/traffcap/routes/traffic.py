@@ -7,20 +7,20 @@ from websockets.exceptions import ConnectionClosed
 from starlette.websockets import WebSocketDisconnect
 from pydanja import DANJAResourceList
 from asyncio import sleep
+from typing import Any
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
 
 
 @traffic_router.get("/", response_model_exclude_none=True)
-async def traffic_get() -> DANJAResourceList[InboundRequest]:
+async def traffic_get() -> dict[str, Any]:
+# async def traffic_get() -> DANJAResourceList[InboundRequest]:
     """
     List all traffic
     """
     inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
-
-    # Convert from SQLAlchemy model to pydantic BaseModel
-    return DANJAResourceList.from_basemodel_list(list(inbound_requests))
+    return DANJAResourceList.from_basemodel_list(inbound_requests)
 
 
 @traffic_router.websocket("/ws")

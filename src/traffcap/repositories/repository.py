@@ -1,7 +1,5 @@
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
-    async_sessionmaker,
-    AsyncSession,
     AsyncEngine
 )
 from alembic import command
@@ -9,6 +7,9 @@ from alembic.config import Config
 from typing import Optional
 from types import TracebackType
 from migrations.url import generate_db_url
+
+from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy.orm import sessionmaker
 
 
 class Repository:
@@ -23,8 +24,9 @@ class Repository:
             if not Repository.engine:
                 raise Exception("Database not connected")
 
-            self.session = async_sessionmaker(
-                Repository.engine,
+            self.session = sessionmaker(
+                bind=Repository.engine,
+                class_=AsyncSession,
                 expire_on_commit=False
             )()
 

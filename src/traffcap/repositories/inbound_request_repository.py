@@ -2,7 +2,11 @@ import logging
 from typing import Sequence
 from .repository import Repository
 from fastapi import Request
-from traffcap.model import InboundRequest
+from traffcap.model import (
+    InboundRequest,
+    InboundRequestHeader,
+    InboundRequestQueryParam
+)
 from sqlmodel import select
 
 
@@ -15,17 +19,28 @@ class InboundRequestRepository(Repository):
     ) -> None:
         async with cls.session() as session:
             try:
-                session.add(await InboundRequest.from_request(endpoint_code, request))
+                new_request = await InboundRequest.from_request(endpoint_code, request)
+                for key in request.headers:
+                    new_request.inbound_request_headers.append(
+                        InboundRequestHeader(
+                            key=key,
+                            value=request.headers[key]
+                        )
+                    )
+                for key in request.query_params:
+                    new_request.inbound_request_query_params.append(
+                        InboundRequestQueryParam(
+                            key=key,
+                            value=request.query_params[key]
+                        )
+                    )
+                session.add(new_request)
                 await session.commit()
+
             except Exception as ex:
                 logging.info(ex)
 
     @classmethod
     async def get_all_inbound_requests(cls) -> Sequence[InboundRequest]:
         async with cls.session() as session:
-            results = await session.scalars(
-                select(InboundRequest)
-            )
-            return results.all()
-
-        return []
+            return (await session.exec(select(InboundRequest))).unique().all()

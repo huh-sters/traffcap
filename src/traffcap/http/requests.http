@@ -1,4 +1,4 @@
-GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3
+GET {{host}}/r/f67c66f43a9648d0ba83df7bf1e36907?a=1&b=2&c=3&test
 Set-Cookie: cookie1=1234
 Content-Type: application/json
 Accept: application/json, text/csv, application/xml

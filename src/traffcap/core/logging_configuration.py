@@ -25,3 +25,8 @@ def log_setup() -> None:
     sqlalchemy_logger.setLevel(logging.ERROR)
     sqlalchemy_handler = logging.StreamHandler(sys.stdout)
     sqlalchemy_logger.addHandler(sqlalchemy_handler)
+
+    sqlalchemy_engine_logger = logging.getLogger("sqlalchemy.engine")
+    sqlalchemy_engine_logger.setLevel(logging.ERROR)
+    sqlalchemy_engine_handler = logging.StreamHandler(sys.stdout)
+    sqlalchemy_engine_logger.addHandler(sqlalchemy_engine_handler)
