@@ -4,7 +4,12 @@ if TYPE_CHECKING:
     from traffcap.model import InboundRequest
 
 
-class InboundRequestHeader(SQLModel, table=True):
+class InboundRequestHeaderBase(SQLModel):
+    key: str = Field(max_length=255)
+    value: str = Field(max_length=255)
+
+
+class InboundRequestHeader(InboundRequestHeaderBase, table=True):
     """
     The InboundRequestHeader model represents all request headers intercepted
     through the main `/r` endpoint.
@@ -12,7 +17,18 @@ class InboundRequestHeader(SQLModel, table=True):
     __tablename__: str = "inbound_request_headers"  # type: ignore
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    key: str = Field(max_length=255)
-    value: str = Field(max_length=255)
     inbound_request_id: int = Field(default=None, foreign_key="inbound_requests.id")
-    inbound_request: "InboundRequest" = Relationship(back_populates="inbound_request_headers")
+    inbound_request: "InboundRequest" = Relationship(back_populates="headers")
+
+
+class InboundRequestHeaderCreate(InboundRequestHeaderBase):
+    pass
+
+
+class InboundRequestHeaderPublic(InboundRequestHeaderBase):
+    id: int
+
+
+class InboundRequestHeaderUpdate(SQLModel):
+    key: str
+    value: str

@@ -21,14 +21,14 @@ class InboundRequestRepository(Repository):
             try:
                 new_request = await InboundRequest.from_request(endpoint_code, request)
                 for key in request.headers:
-                    new_request.inbound_request_headers.append(
+                    new_request.headers.append(
                         InboundRequestHeader(
                             key=key,
                             value=request.headers[key]
                         )
                     )
                 for key in request.query_params:
-                    new_request.inbound_request_query_params.append(
+                    new_request.query_params.append(
                         InboundRequestQueryParam(
                             key=key,
                             value=request.query_params[key]
@@ -43,4 +43,7 @@ class InboundRequestRepository(Repository):
     @classmethod
     async def get_all_inbound_requests(cls) -> Sequence[InboundRequest]:
         async with cls.session() as session:
-            return (await session.exec(select(InboundRequest))).unique().all()
+            try:
+                return (await session.exec(select(InboundRequest))).unique().all()
+            except Exception as ex:
+                logging.info(ex)

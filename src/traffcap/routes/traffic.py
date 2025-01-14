@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter, WebSocket
 from traffcap.repositories import InboundRequestRepository
-from traffcap.model import InboundRequest
+from traffcap.model.response import InboundRequestHeadersQueryParams
 from traffcap.core import wait_for_notification
 from websockets.exceptions import ConnectionClosed
 from starlette.websockets import WebSocketDisconnect
@@ -13,9 +13,8 @@ from typing import Any
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
 
 
-@traffic_router.get("/", response_model_exclude_none=True)
-async def traffic_get() -> dict[str, Any]:
-# async def traffic_get() -> DANJAResourceList[InboundRequest]:
+@traffic_router.get("/", response_model_exclude_none=True, response_model=DANJAResourceList[InboundRequestHeadersQueryParams])
+async def traffic_get() -> DANJAResourceList[InboundRequestHeadersQueryParams]:
     """
     List all traffic
     """
