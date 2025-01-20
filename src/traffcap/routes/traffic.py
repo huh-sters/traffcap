@@ -1,7 +1,6 @@
 import logging
 import json
 from fastapi import APIRouter, WebSocket
-from fastapi.encoders import jsonable_encoder
 from fastapi.routing import serialize_response
 from fastapi.utils import create_model_field
 from traffcap.repositories import InboundRequestRepository
@@ -11,7 +10,6 @@ from websockets.exceptions import ConnectionClosed
 from starlette.websockets import WebSocketDisconnect
 from pydanja import DANJAResourceList
 from asyncio import sleep
-from typing import Any
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
