@@ -21,14 +21,5 @@ class InboundRequestQueryParam(InboundRequestQueryParamBase, table=True):
     inbound_request: "InboundRequest" = Relationship(back_populates="query_params")
 
 
-class InboundRequestQueryParamCreate(InboundRequestQueryParamBase):
-    pass
-
-
 class InboundRequestQueryParamPublic(InboundRequestQueryParamBase):
     id: int
-
-
-class InboundRequestQueryParamUpdate(SQLModel):
-    key: str
-    value: str

@@ -2,7 +2,7 @@
 
 Revision ID: 0.0.1
 Revises: 
-Create Date: 2025-01-14 22:28:52.809261
+Create Date: 2025-01-18 13:13:03.705518
 
 """
 from alembic import op
@@ -23,6 +23,10 @@ def upgrade() -> None:
     sa.Column('endpoint_code', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('method', sqlmodel.sql.sqltypes.AutoString(length=10), nullable=False),
     sa.Column('body', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
+    sa.Column('source_host', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
+    sa.Column('source_port', sa.Integer(), nullable=False),
+    sa.Column('request_line', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )

@@ -1,7 +1,7 @@
+from .http_verbs import HTTPVerbs
 from .inbound_request import (
     InboundRequest,
-    InboundRequestPublic,
-    HTTPVerbs
+    InboundRequestPublic
 )
 from .inbound_request_header import (
     InboundRequestHeader,
