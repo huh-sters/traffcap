@@ -6,14 +6,14 @@ import { methodIcons, methodColors } from '@/maps';
 import { ws_url } from '@/repositories/repository';
 import { TrafficRepository } from '@/repositories/traffic';
 
-const requests: Ref<IJSONAPIResource<IRequest>[] | undefined> = ref([]);
+const requests: Ref<IJSONAPIResource<IRequest>[]> = ref([]);
 const columns = [
   { name: 'method', label: 'Method', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.method },
   { name: 'request', label: 'Request', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.request_line },
   { name: 'created_at', label: 'Created At', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.created_at },
   { name: 'endpoint_code', label: 'Endpoint Code', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.endpoint_code },
   { name: 'source_host', label: 'Source Host', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.source_host },
-  { name: 'source_port', lable: 'Source Port', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.source_port }
+  { name: 'source_port', label: 'Source Port', field: (row: IJSONAPIResource<IRequest>) => row.attributes?.source_port }
 ];
 const pagination = {
   rowsPerPage: 20,
