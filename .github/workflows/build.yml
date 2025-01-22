@@ -81,4 +81,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: centurix/traffcap:latest
+          tags: huh-sters/traffcap:latest
