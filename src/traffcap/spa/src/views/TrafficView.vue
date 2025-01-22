@@ -5,6 +5,8 @@ import type { IRequest, IJSONAPIResource } from '@/types';
 import { methodIcons, methodColors } from '@/maps';
 import { ws_url } from '@/repositories/repository';
 import { TrafficRepository } from '@/repositories/traffic';
+import { Notify } from 'quasar';
+import moment from 'moment';
 
 const requests: Ref<IJSONAPIResource<IRequest>[]> = ref([]);
 const columns = [
@@ -30,11 +32,20 @@ onMounted(async () => {
   };
 })
 
+async function copyData(data: string) {
+  try {
+    await navigator.clipboard.writeText(data);
+    Notify.create('Request line copied to clipboard');
+  } catch ($e) {
+    console.info('Cannot copy to clipboard');
+  }
+}
+// 2025-01-18T03:13:45.067691
 </script>
 
 <template>
   <div class="q-px-lg q-py-md">
-    <q-table flat bordered dense title="Requests" :rows="requests" :columns="columns" row-key="id">
+    <q-table flat bordered dense title="Requests" :rows="requests" :columns="columns" row-key="id" v-model:pagination="pagination">
 
       <template v-slot:header="props">
         <q-tr :props="props">
@@ -52,12 +63,16 @@ onMounted(async () => {
               :icon="props.expand ? 'remove' : 'add'"></q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.value }}
+            <span v-if="col.name == 'method'"><q-chip square text-color="white" :color="methodColors.get(col.value)">{{ col.value }}</q-chip></span>
+            <span v-else-if="col.name === 'created_at'">{{ moment(col.value).format("MMM D, YYYY @ h:mm:ss a") }}</span>
+            <span v-else>{{ col.value }}</span>
           </q-td>
         </q-tr>
         <q-tr v-show="props.expand" :props="props">
           <q-td colspan="100%">
-            <div class="text-left"><q-chip square outline color="primary">{{ props.row.attributes.method }} {{ props.row.attributes.request_line }} HTTP/1.1</q-chip></div>
+            <div class="text-left">
+              <q-btn outline color="primary" @click="copyData(`${props.row.attributes.method} ${props.row.attributes.request_line} HTTP/1.1`)">{{ props.row.attributes.method }} {{ props.row.attributes.request_line }} HTTP/1.1</q-btn>
+            </div>
           </q-td>
         </q-tr>
       </template>
