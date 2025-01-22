@@ -68,7 +68,8 @@ jobs:
         id: meta_docker
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.IMAGE_NAME }}
+          images: |
+            centurix/traffcap
           tags: |
             # minimal (short sha)
             type=sha
