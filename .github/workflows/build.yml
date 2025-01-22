@@ -32,7 +32,7 @@ jobs:
         run: pdm run test
 
   build_docker_image:
-    name: Push Docker image to Docker Hub
+    name: Build & Push Docker image
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ${{ github.repository }}
