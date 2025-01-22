@@ -3,7 +3,7 @@ name: Build traffcap
 on:
   push:
     branches: ["master"]
-    tags: ['*']
+    tags: ["*"]
   pull_request:
     branches: ["master"]
 
@@ -72,4 +72,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: centurix/traffcap:latest
+          tags: ${{ github.actor }}/traffcap:latest
