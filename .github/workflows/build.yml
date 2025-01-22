@@ -7,23 +7,9 @@ on:
   pull_request:
     branches: ["master"]
 
-permissions:
-  actions: write
-  attestations: write
-  checks: write
-  contents: write
-  deployments: write
-  discussions: write
-  issues: write
-  packages: write
-  pages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
-
 jobs:
   build:
+    name: Build, lint and test...
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +27,8 @@ jobs:
         run: pdm run test
 
   push_to_docker_hub:
-    name: Push Docker image to Docker Hub
+    name: Push Docker image to Docker Hub...
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -61,24 +48,25 @@ jobs:
           push: true
           tags: centurix/traffcap:latest
 
-  push_to_ghcr:
-    name: Push Docker image to GHCR
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+  # push_to_ghcr:
+  #   name: Push Docker image to GHCR
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v4
 
-      - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Log in to GHCR
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: huh-sters/traffcap:latest
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: .
+  #         file: ./Dockerfile
+  #         push: true
+  #         tags: huh-sters/traffcap:latest
