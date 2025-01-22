@@ -94,10 +94,3 @@ jobs:
           subject-name: ghcr.io/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
-
-      - name: Generate docker artifact attestation
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: centurix/${{ env.IMAGE_NAME}}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
