@@ -30,7 +30,8 @@ RUN curl -sSL https://pdm.fming.dev/install-pdm.py | python3 - && \
 # Build frontend
 RUN cd src/traffcap/spa && \
     npm install && \
-    npm run build
+    npm run build && \
+    rm -rf node_modules
 
 WORKDIR /traffcap/src
 
