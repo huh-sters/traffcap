@@ -8,19 +8,10 @@ on:
     branches: ["master"]
 
 permissions:
-  actions: write
-  attestations: write
-  checks: write
-  contents: write
-  deployments: write
-  discussions: write
-  issues: write
+  contents: read
   packages: write
-  pages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
+  attestations: write
+  id-token: write
 
 jobs:
   build:
