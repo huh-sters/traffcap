@@ -33,6 +33,7 @@ jobs:
 
   build_docker_image:
     name: Build & Push Docker image
+    needs: build
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ${{ github.repository }}
