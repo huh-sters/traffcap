@@ -25,7 +25,8 @@ WORKDIR /traffcap
 
 # Install Python dependencies
 RUN curl -sSL https://pdm.fming.dev/install-pdm.py | python3 - && \
-    pdm install --production
+    pdm install --production && \
+    pdm cache clear
 
 # Build frontend
 RUN cd src/traffcap/spa && \
