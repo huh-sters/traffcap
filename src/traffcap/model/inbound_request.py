@@ -27,7 +27,7 @@ class InboundRequest(InboundRequestBase, table=True):
     through the main `/r` endpoint. This records the endpoint, HTTP verb
     headers, query parameters and the request body.
     """
-    __tablename__: str = "inbound_requests"  # type: ignore
+    __tablename__: str = "inbound_request"  # type: ignore
 
     id: Optional[int] = Field(default=None, primary_key=True)
     query_params: list["InboundRequestQueryParam"] = Relationship(back_populates="inbound_request", sa_relationship_kwargs={"lazy": "joined"})

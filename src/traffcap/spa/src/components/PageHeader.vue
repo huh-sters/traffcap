@@ -6,6 +6,7 @@
       </q-toolbar-title>
       <q-tabs>
         <q-route-tab :to="{ name: 'traffic' }" name="traffic">Inbound Traffic</q-route-tab>
+        <q-route-tab :to="{ name: 'rules' }" name="rules">Rules</q-route-tab>
         <q-route-tab :to="{ name: 'about' }" name="about">About</q-route-tab>
       </q-tabs>
     </q-toolbar>

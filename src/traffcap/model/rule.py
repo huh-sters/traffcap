@@ -1,7 +1,7 @@
 from typing import Optional, TYPE_CHECKING
 from sqlmodel import Field, SQLModel, Relationship
 if TYPE_CHECKING:
-    from traffcap.model import OutboundResponse, RuleMatch
+    from traffcap.model import OutboundResponse, Match
 
 
 """
@@ -72,11 +72,12 @@ The header matches are a collection of key and value Regexs
 """
 
 class Rule(SQLModel, table=True):
-    __tablename__: str = "rules"  # type: ignore
+    __tablename__: str = "rule"  # type: ignore
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    rule: str = Field(max_length=255)
+    name: str = Field(max_length=255)
+    priority: int = Field(default=0)
 
-    rule_matches: list["RuleMatch"] = Relationship(back_populates="rule")
-    outbound_responses: list["OutboundResponse"] = Relationship(back_populates="rule")
+    matches: list["Match"] = Relationship(back_populates="rule", sa_relationship_kwargs={"lazy": "joined"})
+    outbound_responses: list["OutboundResponse"] = Relationship(back_populates="rule", sa_relationship_kwargs={"lazy": "joined"})

@@ -1,7 +1,8 @@
+import logging
 from typing import Optional, Sequence
 from .repository import Repository
-from traffcap.model import Rule
-from sqlmodel import select
+from traffcap.model import Rule, Match
+from sqlmodel import select, func
 
 
 class RuleRepository(Repository):
@@ -15,21 +16,45 @@ class RuleRepository(Repository):
     @classmethod
     async def get_all_rules(cls) -> Sequence[Rule]:
         async with cls.session() as session:
-            results = await session.scalars(
-                select(Rule)
-            )
-            return results.all()
+            return (await session.exec(select(Rule))).unique().all()
 
         return []
 
     @classmethod
-    async def create_rule(cls, rule: str = ".*") -> Optional[Rule]:
+    async def get_all_rules_by_priority(cls) -> Sequence[Rule]:
         async with cls.session() as session:
-            new_rule = Rule(rule=rule)
+            return (await session.exec(select(Rule).order_by(Rule.priority))).unique().all()
+
+        return []
+
+    @classmethod
+    async def get_lowest_priority(cls) -> int:
+        async with cls.session() as session:
+            result = (await session.exec(select(func.max(Rule.priority)))).first()
+            if result:
+                return result
+            else:
+                return 0
+
+
+    @classmethod
+    async def create_rule(cls, name: str = ".*", priority: int = 0) -> Optional[Rule]:
+        async with cls.session() as session:
+            new_rule = Rule(name=name, priority=priority)
             session.add(new_rule)
             await session.commit()
 
             return new_rule
+
+        return None
+
+    @classmethod
+    async def add_match(cls, match: Match) -> Optional[Match]:
+        async with cls.session() as session:
+            session.add(match)
+            await session.commit()
+
+            return match
 
         return None
 
@@ -54,3 +79,13 @@ class RuleRepository(Repository):
         #     return results.all()
 
         return []
+
+    @classmethod
+    async def clear_all_rules(cls) -> None:
+        """
+        Remove all rules and matches from the database
+        """
+        async with cls.session() as session:
+            await session.delete(Match)
+            await session.delete(Rule)
+            await session.commit()
