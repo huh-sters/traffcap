@@ -38,9 +38,9 @@ class RuleRepository(Repository):
 
 
     @classmethod
-    async def create_rule(cls, name: str = ".*", priority: int = 0) -> Optional[Rule]:
+    async def create_rule(cls, name: str = ".*", priority: int = 0, content_type: str = "", template: str = "") -> Optional[Rule]:
         async with cls.session() as session:
-            new_rule = Rule(name=name, priority=priority)
+            new_rule = Rule(name=name, priority=priority, content_type=content_type, template=template)
             session.add(new_rule)
             await session.commit()
 

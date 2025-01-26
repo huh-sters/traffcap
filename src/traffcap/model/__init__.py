@@ -14,7 +14,6 @@ from .inbound_request_query_param import (
 from .user import User
 from .rule import Rule
 from .match import Match
-from .outbound_response import OutboundResponse
 
 
 __all__ = [
@@ -27,6 +26,5 @@ __all__ = [
     "InboundRequestQueryParamPublic",
     "User",
     "Rule",
-    "Match",
-    "OutboundResponse"
+    "Match"
 ]

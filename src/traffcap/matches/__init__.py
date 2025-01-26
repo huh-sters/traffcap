@@ -61,12 +61,11 @@ async def add_rules() -> None:
     Add our test rules to the database
     """
     lowest = await RuleRepository.get_lowest_priority()
-    rule = await RuleRepository.create_rule(name="Test rule", priority=lowest + 1)
+    rule = await RuleRepository.create_rule(name="Test rule", priority=lowest + 1, content_type="application/json", template="<h1>Hello</h1>")
     root_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=None, match_type="RootRule", key=None, pattern="", invert=False))
     method_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=root_match.id, match_type="MethodRule", key=None, pattern="GET", invert=False))
     endpoint_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=method_match.id, match_type="EndpointRule", key=None, pattern="f67c66f43a9648d0ba83df7bf1e36907", invert=False))
     header_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=endpoint_match.id, match_type="HeaderKeyValueRule", key="accept", pattern="application/json", invert=False))
-
 
 async def rule_match(request: Request) -> str:
     """
@@ -99,6 +98,6 @@ async def rule_match(request: Request) -> str:
 
         result = await calculate_node_value(root_rule)
         if result:  # Found a match, send the response
-            return {"match": True}
+            return rule.template
 
     return {"match": False}

@@ -4,7 +4,6 @@ from fastapi.responses import Response
 from traffcap.config import settings
 from traffcap.repositories import (
     InboundRequestRepository,
-    OutboundResponseRepository,
     RuleRepository
 )
 from traffcap.core import new_traffic_notification
@@ -48,42 +47,7 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
     # Rule match usage
     rule_response = await rule_match(request)
 
-    """
-    Four types of search:
-    1. Simple string search
-    2. String search within a dictionaries keys
-    3. String search within a dictionaries values
-    4. Search a single dictionary key value
-    """
-
-    # Pass the Request object into the rule tree
-    # These ifs can be replaced with factories
-
-    # Calculate the response to give
-    # rules = await RuleRepository.get_all_rules()
-    # for rule in rules:
-    #     if re.fullmatch(rule.rule, endpoint_code):
-    #         """
-    #         Found a match
-    #         * run the actions
-    #         * send the response
-    #         TODO: Create Actions
-    #         TODO: Make the content type match the requested type
-    #         1. If there's an accept header, use that
-    #         2. If there's a content-type, use that to match what was sent
-    #         3. Default to application/json
-    #         """
-    #         responses = await OutboundResponseRepository.get_by_rule_and_content_type(
-    #             rule,
-    #             content_type
-    #         )
-    #         for response in responses:
-    #             return Response(response.template)
-
     # Notify all listening web sockets
     new_traffic_notification()
 
     return rule_response
-    # return Response(json.dumps({
-    #     "status": f"{request.method} OK for {endpoint_code}"
-    # }))
