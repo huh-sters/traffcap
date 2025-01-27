@@ -21,14 +21,5 @@ class InboundRequestHeader(InboundRequestHeaderBase, table=True):
     inbound_request: "InboundRequest" = Relationship(back_populates="headers")
 
 
-class InboundRequestHeaderCreate(InboundRequestHeaderBase):
-    pass
-
-
 class InboundRequestHeaderPublic(InboundRequestHeaderBase):
     id: int
-
-
-class InboundRequestHeaderUpdate(SQLModel):
-    key: str
-    value: str

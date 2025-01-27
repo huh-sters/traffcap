@@ -15,7 +15,7 @@ from asyncio import sleep
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
 
 
-@traffic_router.get("/", response_model_exclude_none=True, response_model=DANJAResourceList[InboundRequestHeadersQueryParams])
+@traffic_router.get("/", response_model_exclude_none=True)
 async def traffic_get() -> DANJAResourceList[InboundRequestHeadersQueryParams]:
     """
     List all traffic

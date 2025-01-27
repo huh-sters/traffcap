@@ -47,3 +47,5 @@ class InboundRequestRepository(Repository):
                 return (await session.exec(select(InboundRequest))).unique().all()
             except Exception as ex:
                 logging.info(ex)
+
+        return []

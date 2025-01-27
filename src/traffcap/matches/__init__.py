@@ -1,5 +1,6 @@
+from typing import Optional
 from fastapi import Request
-from traffcap.matches.rules import *
+from traffcap.matches.rules import *  # noqa: F403
 from traffcap.repositories import RuleRepository
 from traffcap.model import Match
 """
@@ -28,7 +29,14 @@ class RuleMatchException(Exception):
     pass
 
 
-async def rule_factory(rule_type: str, request: Request, key: str, pattern: str, parent_id: int, invert: bool) -> RuleMatch:
+async def rule_factory(
+    rule_type: str,
+    request: Request,
+    key: Optional[str],
+    pattern: str,
+    parent_id: Optional[int],
+    invert: bool
+) -> RuleMatch:  # noqa: F405
     g = globals()
     if rule_type not in g:
         raise RuleMatchException(f"Rule {rule_type} not found")
@@ -36,7 +44,7 @@ async def rule_factory(rule_type: str, request: Request, key: str, pattern: str,
     return g[rule_type](request=request, key=key, pattern=pattern, parent_id=parent_id, invert=invert)
 
 
-async def calculate_node_value(rule: RuleMatch) -> bool:
+async def calculate_node_value(rule: RuleMatch) -> bool:  # noqa: F405
     """
     DFS to calculate the total tree value. If there are no
     children, then return the value of the node. Otherwise, or the results
@@ -61,11 +69,52 @@ async def add_rules() -> None:
     Add our test rules to the database
     """
     lowest = await RuleRepository.get_lowest_priority()
-    rule = await RuleRepository.create_rule(name="Test rule", priority=lowest + 1, content_type="application/json", template="<h1>Hello</h1>")
-    root_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=None, match_type="RootRule", key=None, pattern="", invert=False))
-    method_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=root_match.id, match_type="MethodRule", key=None, pattern="GET", invert=False))
-    endpoint_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=method_match.id, match_type="EndpointRule", key=None, pattern="f67c66f43a9648d0ba83df7bf1e36907", invert=False))
-    header_match = await RuleRepository.add_match(Match(rule_id=rule.id, parent_id=endpoint_match.id, match_type="HeaderKeyValueRule", key="accept", pattern="application/json", invert=False))
+    rule = await RuleRepository.create_rule(
+        name="Test rule",
+        priority=lowest + 1,
+        content_type="application/json",
+        template="<h1>Hello</h1>"
+    )
+    if not rule:
+        return
+    root_match = await RuleRepository.add_match(Match(
+        rule_id=rule.id,
+        parent_id=None,
+        match_type="RootRule",
+        key=None,
+        pattern="",
+        invert=False
+    ))
+    if not root_match:
+        return
+    method_match = await RuleRepository.add_match(Match(
+        rule_id=rule.id,
+        parent_id=root_match.id,
+        match_type="MethodRule",
+        key=None,
+        pattern="GET",
+        invert=False
+    ))
+    if not method_match:
+        return
+    endpoint_match = await RuleRepository.add_match(Match(
+        rule_id=rule.id,
+        parent_id=method_match.id,
+        match_type="EndpointRule",
+        key=None,
+        pattern="f67c66f43a9648d0ba83df7bf1e36907",
+        invert=False
+    ))
+    if not endpoint_match:
+        return
+    _ = await RuleRepository.add_match(Match(
+        rule_id=rule.id,
+        parent_id=endpoint_match.id,
+        match_type="HeaderKeyValueRule",
+        key="accept",
+        pattern="application/json",
+        invert=False
+    ))
 
 async def rule_match(request: Request) -> str:
     """
@@ -96,8 +145,11 @@ async def rule_match(request: Request) -> str:
             else:
                 root_rule = keyed_matches[key]
 
+        if not root_rule:
+            continue
+
         result = await calculate_node_value(root_rule)
         if result:  # Found a match, send the response
             return rule.template
 
-    return {"match": False}
+    return "No match"

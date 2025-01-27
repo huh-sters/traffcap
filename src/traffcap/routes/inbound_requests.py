@@ -1,15 +1,10 @@
-import re
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from traffcap.config import settings
-from traffcap.repositories import (
-    InboundRequestRepository,
-    RuleRepository
-)
+from traffcap.repositories import InboundRequestRepository
 from traffcap.core import new_traffic_notification
 from traffcap.model import HTTPVerbs
 from traffcap.matches import rule_match
-import json
 """
 Inbound Requests
 ================
@@ -40,9 +35,9 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
     accept_types = list(filter(None, accept_types))
 
     if accept_types:
-        content_type = accept_types[0]
+        _ = accept_types[0]
     else:
-        content_type = request.headers.get("content-type", "application/json")
+        _ = request.headers.get("content-type", "application/json")
 
     # Rule match usage
     rule_response = await rule_match(request)
@@ -50,4 +45,4 @@ async def requests_route(endpoint_code: str, request: Request) -> Response:
     # Notify all listening web sockets
     new_traffic_notification()
 
-    return rule_response
+    return Response(rule_response)

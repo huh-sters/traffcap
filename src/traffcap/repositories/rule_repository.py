@@ -1,4 +1,3 @@
-import logging
 from typing import Optional, Sequence
 from .repository import Repository
 from traffcap.model import Rule, Match
@@ -33,8 +32,7 @@ class RuleRepository(Repository):
             result = (await session.exec(select(func.max(Rule.priority)))).first()
             if result:
                 return result
-            else:
-                return 0
+        return 0
 
 
     @classmethod

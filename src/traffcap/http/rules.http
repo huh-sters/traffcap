@@ -1,19 +1,2 @@
 GET {{host}}/rules
 ###
-GET {{host}}/rules/1
-###
-POST {{host}}/rules
-Content-Type: application/json
-
-{
-    "data": {
-        "type": "rule",
-        "attributes": {
-            "rule": "f67.*"
-        }
-    }
-}
-
-###
-DELETE {{host}}/rules/2
-###

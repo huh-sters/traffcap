@@ -43,8 +43,8 @@ class InboundRequest(InboundRequestBase, table=True):
             endpoint_code=endpoint_code,
             method=HTTPVerbs[request.method],
             body=(await request.body()).decode(),
-            source_host=request.client.host,
-            source_port=request.client.port,
+            source_host=request.client.host if request.client else "0.0.0.0",
+            source_port=request.client.port if request.client else 0,
             request_line=str(request.url)
         )
 

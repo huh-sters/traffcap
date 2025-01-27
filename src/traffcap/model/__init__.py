@@ -11,9 +11,9 @@ from .inbound_request_query_param import (
     InboundRequestQueryParam,
     InboundRequestQueryParamPublic
 )
-from .user import User
-from .rule import Rule
-from .match import Match
+from .user import User, UserPublic
+from .rule import Rule, RulePublic
+from .match import Match, MatchPublic
 
 
 __all__ = [
@@ -25,6 +25,9 @@ __all__ = [
     "InboundRequestQueryParam",
     "InboundRequestQueryParamPublic",
     "User",
+    "UserPublic",
     "Rule",
-    "Match"
+    "RulePublic",
+    "Match",
+    "MatchPublic"
 ]
