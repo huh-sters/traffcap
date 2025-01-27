@@ -2,9 +2,8 @@
 import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
 import type { IRequest, IJSONAPIResource } from '@/types';
-import { methodIcons, methodColors } from '@/maps';
+import { methodColors } from '@/maps';
 import { ws_url } from '@/repositories/repository';
-import { TrafficRepository } from '@/repositories/traffic';
 import { Notify } from 'quasar';
 import moment from 'moment';
 
@@ -40,7 +39,6 @@ async function copyData(data: string) {
     console.info('Cannot copy to clipboard');
   }
 }
-// 2025-01-18T03:13:45.067691
 </script>
 
 <template>
