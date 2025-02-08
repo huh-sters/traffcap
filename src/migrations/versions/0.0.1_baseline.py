@@ -2,7 +2,7 @@
 
 Revision ID: 0.0.1
 Revises: 
-Create Date: 2025-01-26 20:49:17.040814
+Create Date: 2025-01-27 13:39:32.831900
 
 """
 from alembic import op
@@ -31,17 +31,19 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('rule',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('priority', sa.Integer(), nullable=False),
     sa.Column('content_type', sqlmodel.sql.sqltypes.AutoString(length=32), nullable=False),
     sa.Column('template', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('fullname', sqlmodel.sql.sqltypes.AutoString(length=32), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('inbound_request_header',
@@ -61,13 +63,13 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('match',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('parent_id', sa.Integer(), nullable=True),
     sa.Column('rule_id', sa.Integer(), nullable=False),
     sa.Column('match_type', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('key', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=True),
     sa.Column('pattern', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('invert', sa.Boolean(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['rule_id'], ['rule.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

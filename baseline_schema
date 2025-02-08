@@ -1,0 +1,2 @@
+#!/bin/bash
+alembic --config=src/alembic.ini revision --autogenerate --rev-id 0.0.1 -m baseline

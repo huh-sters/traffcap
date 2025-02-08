@@ -1,2 +1,2 @@
-GET {{host}}/rules
+GET {{host}}/rule
 ###

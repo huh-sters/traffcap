@@ -7,7 +7,7 @@ from typing import Union
 Endpoint management
 """
 
-rule_router = APIRouter(prefix="/rules", tags=["Rules"])
+rule_router = APIRouter(prefix="/rule", tags=["Rules"])
 
 
 @rule_router.get("/", response_model_exclude_none=True)

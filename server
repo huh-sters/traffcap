@@ -1,0 +1,3 @@
+#!/bin/bash
+export PYTHONPATH=src
+gunicorn traffcap.server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --preload --bind 0.0.0.0:9669

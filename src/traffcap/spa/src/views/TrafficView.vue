@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type { Ref } from 'vue';
 import type { IRequest, IJSONAPIResource } from '@/types';
 import { methodColors } from '@/maps';
@@ -29,6 +29,10 @@ onMounted(async () => {
       requests.value = await JSON.parse(event.data).data;
     }
   };
+})
+
+onUnmounted(async () => {
+  connection?.close();
 })
 
 async function copyData(data: string) {

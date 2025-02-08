@@ -1,6 +1,6 @@
 ![build workflow](https://github.com/huh-sters/traffcap/actions/workflows/build.yml/badge.svg)
 ![licence](https://img.shields.io/github/license/huh-sters/traffcap.svg)
-![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)
+![uv-managed](https://img.shields.io/badge/uv-managed-blueviolet)
 
 ![Logo](https://github.com/huh-sters/traffcap/blob/master/src/traffcap/spa/src/assets/traffcap_logo.png?raw=true)
 
@@ -81,7 +81,7 @@ And a basic server will start. Typing `traffcap --help` will list the available 
 At the moment, you'll need the following to run it:
 
 * Python 3.9 or greater ([pyenv](https://github.com/pyenv/pyenv#automatic-installer) is a good way to manage versions)
-* [PDM installed](https://pdm.fming.dev/latest/#installation)
+* [uv installed](https://github.com/astral-sh/uv)
 * Node v12 or greater ([nvm](https://github.com/nvm-sh/nvm#installing-and-updating) is a good way to manage versions)
 * NPM (If you installed Node, you should have a version of NPM already)
 
@@ -89,7 +89,7 @@ At the moment, you'll need the following to run it:
 
 After cloning the repository to a directory somewhere, change to the repository directory and run the following to install dependencies in a virtual environment:
 
-`pdm install`
+`uv sync`
 
 Then, once the dependencies are done the server part is ready to rock. But out of the box, there's no UI to configure anything, so you'll need the next step.
 
@@ -105,7 +105,7 @@ It should display messages about Quasar building and if all is good you'll see l
 
 From the repository root, issue the following command to start the server:
 
-`pdm run server`
+`uv run ./server`
 
 You'll get a bunch of messages and the server will be up and running. Now, you can visit:
 
@@ -115,7 +115,7 @@ That's it!
 
 ## What Does It Run?
 
-When you invoke `pdm run server`, it starts [Gunicorn](https://gunicorn.org/) with 4 [Uvicorn](https://www.uvicorn.org/) workers.
+When you invoke `uv run ./server`, it starts [Gunicorn](https://gunicorn.org/) with 4 [Uvicorn](https://www.uvicorn.org/) workers.
 
 It then binds everything to `0.0.0.0` on port `9669`
 
@@ -170,28 +170,28 @@ Now you can set breakpoints and run this directly from VSCode.
 
 ## How Do I Get The Python Interpreter Path For The Virtual Environment?
 
-This project uses PDM for managing dependencies and virtual environments. You can issue this command to list the virtual environment path for the project:
+This project uses [uv] for managing dependencies and virtual environments. You can create virtual environments with the following command:
 
-`pdm venv list`
+`uv venv .venv`
 
-You'll get a list of environments and the Python versions that they are for. The Python interpreter is in the `bin` directory in each environment. So for example, if you see the following:
+You'll get details of the environment just created. The Python interpreter is in the `bin` directory in the environment. You see the following:
 
 ```
-~/python_projects/traffcap> pdm venv list
-Virtualenvs created with this project:
-
-*  3.9: /home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.9
+~/python_projects/traffcap> uv venv .venv
+Using CPython 3.13.2
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
 ```
 
 Then the interpreter for that version of Python 3.9 is:
 
-`/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.9/bin/python`
+`.venv/bin/python`
 
 If you wanted to, you can add the default Python interpreter in VSCode by adding the following to your projects `settings.json`:
 
 ```
 {
-    "python.defaultInterpreterPath": "/home/chris/.pdm_venv/traffcap-kO3U-3Zd-3.9/bin/python",
+    "python.defaultInterpreterPath": ".venv/bin/python",
     ...
 }
 ```
@@ -287,7 +287,7 @@ During development, it is fine to create feature branch revisions using the IDs 
 
 OR
 
-`pdm run baseline_schema`
+`uv run ./baseline_schema`
 
 ### ORM Usage and Being Database Agnostic
 

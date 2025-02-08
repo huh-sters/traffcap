@@ -1,35 +1,3 @@
-[tool]
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = [
-    "pytest>=7.3.1",
-    "ruff>=0.0.265",
-    "mypy>=1.3.0",
-    "pre-commit>=2.21.0",
-    "xenon>=0.9.0",
-    "pytest-cov>=4.0.0",
-    "coverage[toml]>=7.2.5",
-    "pytest-asyncio>=0.21.0",
-    "pytest-mock>=3.10.0",
-    "mock-alchemy>=0.2.6",
-]
-[tool.pdm.scripts]
-lint = "ruff check src"
-test = "pytest src"
-type_check = "mypy src"
-all = {composite = ["lint", "test", "type_check"]}
-cover = "pytest --cov=src --cov-report term"
-cover_html = "pytest --cov=src --cov-report html"
-server.cmd = "gunicorn traffcap.server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --preload --bind 0.0.0.0:9669"
-server.env = { "PYTHONPATH" = "src" }
-docker_build = "docker build --no-cache --tag traffcap --progress plain ."
-docker_shell = "docker run --entrypoint /bin/sh -p 9669:9669 -it traffcap"
-# Generate the baseline schema from models
-baseline_schema = "alembic --config=src/alembic.ini revision --autogenerate --rev-id 0.0.1 -m baseline"
-
-[tool.ruff]
-line-length=119
-
 [project]
 name = "traffcap"
 version = "0.1.0"
@@ -37,6 +5,8 @@ description = "A RequestBin like application using FastAPI"
 authors = [
     {name = "Chris Read", email = "centurix@gmail.com"},
 ]
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
 dependencies = [
     "fastapi>=0.95.1",
     "uvicorn[standard]>=0.22.0",
@@ -54,21 +24,26 @@ dependencies = [
     "dpath>=2.1.6",
     "sqlmodel>=0.0.22",
 ]
-requires-python = ">=3.9"
-# readme = "README.md"
-license = {file = "LICENSE"}
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.1",
+    "ruff>=0.0.265",
+    "mypy>=1.3.0",
+    "pre-commit>=2.21.0",
+    "xenon>=0.9.0",
+    "pytest-cov>=4.0.0",
+    "coverage[toml]>=7.2.5",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.10.0",
+    "mock-alchemy>=0.2.6",
+]
 
 [project.scripts]
 traffcap = "traffcap.server:cli"
 
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-[tool.pdm.build]
-package-dir = "src"
-
-[tool.mypy]
+[tool.ruff]
+line-length=119
 
 [[tool.mypy.overrides]]
 module = [

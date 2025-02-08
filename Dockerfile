@@ -24,9 +24,9 @@ COPY . /traffcap
 WORKDIR /traffcap
 
 # Install Python dependencies
-RUN curl -sSL https://pdm.fming.dev/install-pdm.py | python3 - && \
-    pdm install --production && \
-    pdm cache clear
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    uv sync --no-dev && \
+    uv cache clean
 
 # Build frontend
 RUN cd src/traffcap/spa && \
@@ -39,4 +39,4 @@ WORKDIR /traffcap/src
 
 VOLUME /data
 
-CMD pdm run server
+CMD uv run ./server
