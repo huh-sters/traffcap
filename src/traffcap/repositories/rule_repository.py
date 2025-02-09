@@ -1,7 +1,7 @@
 from typing import Optional, Sequence
 from .repository import Repository
 from traffcap.model import Rule, Match
-from sqlmodel import select, func
+from sqlmodel import select, func, col
 
 
 class RuleRepository(Repository):
@@ -22,7 +22,7 @@ class RuleRepository(Repository):
     @classmethod
     async def get_all_rules_by_priority(cls) -> Sequence[Rule]:
         async with cls.session() as session:
-            return (await session.exec(select(Rule).order_by(Rule.priority))).unique().all()
+            return (await session.exec(select(Rule).order_by(col(Rule.priority)))).unique().all()
 
         return []
 

@@ -9,7 +9,7 @@ from types import TracebackType
 from migrations.url import generate_db_url
 
 from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 
 class Repository:
@@ -24,7 +24,7 @@ class Repository:
             if not Repository.engine:
                 raise Exception("Database not connected")
 
-            self.session = sessionmaker(
+            self.session = async_sessionmaker(
                 bind=Repository.engine,
                 class_=AsyncSession,
                 expire_on_commit=False

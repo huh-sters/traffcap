@@ -21,7 +21,7 @@ async def traffic_get() -> DANJAResourceList[InboundRequestHeadersQueryParams]:
     List all traffic
     """
     inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
-    return DANJAResourceList.from_basemodel_list(inbound_requests)
+    return DANJAResourceList.from_basemodel_list(list(inbound_requests))
 
 
 @traffic_router.websocket("/ws")
@@ -39,7 +39,7 @@ async def traffic_firehose(websocket: WebSocket):
             inbound_requests = await InboundRequestRepository.get_all_inbound_requests()
             # Send more data
             if len(inbound_requests) > 0:
-                response = DANJAResourceList.from_basemodel_list(inbound_requests)
+                response = DANJAResourceList.from_basemodel_list(list(inbound_requests))
                 # Serialise to the target response model
                 await websocket.send_text(json.dumps(
                     await serialize_response(
