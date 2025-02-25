@@ -118,7 +118,8 @@ async function showMatches(rule: IJSONAPIResource<IRule>) {
   /*
    * Need to build the AND/OR tree here so that they are shown in the correct order
    */
-  matches.value = await buildAndOrTreeOrder(rule.attributes?.matches);
+  console.log(rule.attributes?.name);
+  // matches.value = await buildAndOrTreeOrder(rule.attributes?.matches);
   dialog.value = true;
 }
 
@@ -126,7 +127,14 @@ async function showMatches(rule: IJSONAPIResource<IRule>) {
 
 <template>
   <div class="q-px-lg q-py-md">
-    <q-table flat bordered dense title="Rules" :rows="rules" :columns="rule_columns" row-key="id"
+    <q-table
+      flat
+      bordered
+      dense
+      title="Rules"
+      :rows="rules"
+      :columns="rule_columns"
+      row-key="id"
       v-model:pagination="rule_pagination">
 
       <template v-slot:header="props">

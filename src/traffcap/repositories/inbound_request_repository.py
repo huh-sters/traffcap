@@ -7,7 +7,7 @@ from traffcap.model import (
     InboundRequestHeader,
     InboundRequestQueryParam
 )
-from sqlmodel import select
+from sqlmodel import select, func, col
 
 
 class InboundRequestRepository(Repository):
@@ -43,9 +43,21 @@ class InboundRequestRepository(Repository):
     @classmethod
     async def get_all_inbound_requests(cls) -> Sequence[InboundRequest]:
         async with cls.session() as session:
-            try:
-                return (await session.exec(select(InboundRequest))).unique().all()
-            except Exception as ex:
-                logging.info(ex)
+            return (await session.exec(select(InboundRequest))).unique().all()
 
         return []
+
+    @classmethod
+    async def get_inbound_requests_by_page(cls, page_size: int = 20, page: int = 0) -> Sequence[InboundRequest]:
+        async with cls.session() as session:
+            return (await session.exec(select(InboundRequest).limit(page_size).offset(page))).unique().all()
+
+        return []
+
+    @classmethod
+    async def get_inbound_request_count(cls) -> int:
+        try:
+            async with cls.session() as session:
+                return (await session.exec(select(func.count(col(InboundRequest.id))))).one()
+        except Exception as ex:
+            logging.error(ex)
