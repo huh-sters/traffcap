@@ -10,7 +10,6 @@ from websockets.exceptions import ConnectionClosed
 from starlette.websockets import WebSocketDisconnect
 from pydanja import DANJAResourceList, DANJASingleResource
 from asyncio import sleep
-from typing import Optional
 
 
 traffic_router = APIRouter(prefix="/traffic", tags=["Traffic"])
@@ -27,7 +26,7 @@ async def traffic_get() -> DANJAResourceList[InboundRequestHeadersQueryParams]:
 
 @traffic_router.websocket("/ws")
 @traffic_router.websocket("/ws/{page}/{page_size}")
-async def traffic_firehose(websocket: WebSocket, page: Optional[int] = 0, page_size: Optional[int] = 10):
+async def traffic_firehose(websocket: WebSocket, page: int = 0, page_size: int = 10):
     # TODO: Only send the newer requests instead of everything in the WebSocket
     field_model = create_model_field(
         name="response_model",

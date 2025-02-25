@@ -61,3 +61,4 @@ class InboundRequestRepository(Repository):
                 return (await session.exec(select(func.count(col(InboundRequest.id))))).one()
         except Exception as ex:
             logging.error(ex)
+        return 0
